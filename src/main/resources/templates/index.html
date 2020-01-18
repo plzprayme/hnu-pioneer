@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>컴퓨터공학과 동아리 - PIONEER</title>
+
+  <!-- Bootstrap core CSS -->
+  <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
+
+  <!-- Custom styles for this template -->
+  <link rel="stylesheet" th:href="@{/css/mystyle.css}" />
+
+</head>
+
+<body id="page-top">
+<div th:replace="layout/header::header"></div>
+
+
+<header class="bg-primary text-white">
+    <div class="container text-center">
+      <h1>환영합니다! PIONEER 입니다!</h1>
+      <p class="lead">우리는 함께 공부하고 함꼐 성장합니다!</p>
+    </div>
+  </header>
+
+  <section id="about">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 mx-auto">
+          <h2>동아리 소개</h2>
+          <p class="lead">우리는 스터디와 대외활동을 목표로 열심히 달려갑니다.</p>
+          <ul>
+            <li>안드로이드, 웹, 알고리즘, 자바, 파이썬, 인공지능 등 다양한 주제를 스터디합니다.</li>
+            <li>스터디한 내용을 토대로 공모전에 참여해 각 분야에서 수상한 이력이 있습니다.</li>
+            <li>개강파티, 종강파티 같은 술자리 문화가 없습니다.</li>
+            <li>2019학년도 1학기 개설되었습니다.</li>
+            <li>가입비, 회비가 없습니다.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="services" class="bg-light">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 mx-auto">
+          <h2>주요 활동</h2>
+          <p class="lead">
+          <table class="table table-bordered table-dark">
+            <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">대회명</th>
+              <th scope="col">성적</th>
+              <th scope="col">참가자</th>
+              <th scope="col">소속 스터디</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+              <th scope="row">1</th>
+              <td>Mark</td>
+              <td>Otto</td>
+              <td>@mdo</td>
+              <td>@mdo</td>
+            </tr>
+            <tr>
+              <th scope="row">2</th>
+              <td>Jacob</td>
+              <td>Thornton</td>
+              <td>@fat</td>
+              <td>@fat</td>
+            </tr>
+            <tr>
+              <th scope="row">3</th>
+              <td>Jacob</td>
+              <td>Thornton</td>
+              <td>@fat</td>
+              <td>@fat</td>
+            </tr>
+            <tr>
+              <th scope="row">4</th>
+              <td>Jacob</td>
+              <td>Thornton</td>
+              <td>@fat</td>
+              <td>@fat</td>
+            </tr>
+            <tr>
+              <th scope="row">5</th>
+              <td>Jacob</td>
+              <td>Thornton</td>
+              <td>@fat</td>
+              <td>@fat</td>
+            </tr>
+
+            </tbody>
+          </table>
+
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 mx-auto">
+          <h2>가입 문의</h2>
+          <p class="lead">
+            가입문의는 컴퓨터공학과 18학번 황성찬에게 부탁드립니다.<br/>
+            email: dbfpzk142@gmail.com<br/>
+            openkakao: https://open.kakao.com/o/sjpHJPkb
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div th:replace="layout/footer::footer"></div>
+
+  <!-- Bootstrap core JavaScript -->
+  <script th:src="@{/js/jquery.min.js}"></script>
+  <script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+
+  <!-- Plugin JavaScript -->
+  <script th:src="@{/js/jquery.easing.min.js}"></script>
+
+  <!-- Custom JavaScript for this theme -->
+  <script th:src="@{/js/scrolling-nav.js}"></script>
+
+</body>
+
+</html>
