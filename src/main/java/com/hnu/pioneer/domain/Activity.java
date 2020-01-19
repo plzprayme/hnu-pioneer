@@ -6,14 +6,16 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.List;
+import java.io.Serializable;
 
 @NoArgsConstructor
 @Getter
 @Entity
 @Table
-public class Activity {
+public class Activity implements Serializable {
     @Id
-    @GeneratedValue
+    @Column
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idx;
 
     @Column
