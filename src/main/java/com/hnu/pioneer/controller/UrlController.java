@@ -1,6 +1,8 @@
 package com.hnu.pioneer.controller;
 
+import com.hnu.pioneer.domain.StudyStatus;
 import com.hnu.pioneer.service.ActivityService;
+import com.hnu.pioneer.service.StudyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
@@ -16,6 +18,9 @@ public class UrlController {
     @Autowired
     ActivityService activityService;
 
+    @Autowired
+    StudyService studyService;
+
     @GetMapping("/")
     public String index(@PageableDefault Pageable pageable, Model model) {
         model.addAttribute("activityList", activityService.findActivityList(pageable));
@@ -23,7 +28,9 @@ public class UrlController {
     }
 
     @GetMapping("/study")
-    public String study() {
+    public String study(@PageableDefault Pageable pageable, Model model) {
+//        model.addAttribute("studyList", studyService.findStudyByStatus(StudyStatus.INCRUIT));
+        model.addAttribute("studyList", studyService.findStudyList(pageable));
         return "study";
     }
 }
