@@ -1,13 +1,14 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="ko">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <title>컴퓨터공학과 동아리 - PIONEER</title>
-    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
-    <link rel="stylesheet" th:href="@{/css/mystyle.css}" />
+    <link rel="stylesheet" href="/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="/css/mystyle.css" />
 </head>
 <body>
-<div th:replace="layout/study_header::header"></div>
+
+{{> layout/study_header}}
 
 <!--body-->
 <div class="container">
@@ -18,25 +19,6 @@
     <div class="card-columns">
         <div class="tab-content" id="nav-tabContent">
             <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
-
-                <div th:each="study : ${studyList}">
-<!--                    <div class="card text-white bg-primary mb-3" style="max-width: 18rem;">-->
-                    <div th:class="'card text-white bg-'+${colorList.get(0)}+' mb-3'" style="max-width: 18rem;">
-                        <div class="card-header bg-transparenty">
-                            <div th:text="${study.studyName} + ' 스터디 - 리더 ' +${study.leader}"></div>
-                        </div>
-                        <div class="card-body card-text">
-                            <p th:text="${study.goal}"></p>
-                            <p th:text="'기간: '+ ${study.date}"></p>
-                            <p th:text="'시간: '+ ${study.time}"></p>
-                            <p th:text="'위치: '+ ${study.place}"></p>
-                            <p th:text="'인원: ' + ${study.currentStudyMate} + '/' + ${study.maxStudyMate}"></p>
-                        </div>
-                        <div class="card-footer bg-transparent">
-                            <a href="#" class="btn btn-outline-light btn-block">신청하기</a>
-                        </div>
-                    </div>
-                </div>
 
                 <div class="card text-white bg-primary mb-3" style="max-width: 18rem;">
                     <div class="card-header bg-transparenty">파이썬스터디 - 리더 이헌주</div>
@@ -100,17 +82,17 @@
 </div>
 <!--/body-->
 
-<div th:replace="layout/footer::footer"></div>
+{{> layout/footer}}
 
 <!-- Bootstrap core JavaScript -->
-  <script th:src="@{/js/jquery.min.js}"></script>
-  <script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+  <script src="/js/jquery.min.js"></script>
+  <script src="/js/bootstrap.bundle.min.js"></script>
 
   <!-- Plugin JavaScript -->
-  <script th:src="@{/js/jquery.easing.min.js}"></script>
+  <script src="/js/jquery.easing.min.js"></script>
 
   <!-- Custom JavaScript for this theme -->
-  <script th:src="@{/js/scrolling-nav.js}"></script>
+  <script src="/js/scrolling-nav.js"></script>
 
 </body>
 </html>
