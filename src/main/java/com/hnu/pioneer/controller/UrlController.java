@@ -32,7 +32,7 @@ public class UrlController {
 
     @GetMapping("/study")
     public String study(Model model) {
-        model.addAttribute("studys", studyService.)
+        model.addAttribute("studies", studyService.getIncruitStudy());
         return "study";
     }
 

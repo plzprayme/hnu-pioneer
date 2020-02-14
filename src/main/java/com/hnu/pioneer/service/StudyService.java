@@ -1,13 +1,15 @@
 package com.hnu.pioneer.service;
 
+import com.hnu.pioneer.Dto.StudyListResponseDto;
 import com.hnu.pioneer.Dto.StudySaveRequestDto;
-import com.hnu.pioneer.domain.Study;
-import com.hnu.pioneer.repository.StudyRepository;
+import com.hnu.pioneer.domain.StudyStatus;
+import com.hnu.pioneer.domain.StudyRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Service
@@ -19,8 +21,10 @@ public class StudyService {
         return studyRepository.save(requestDto.toEntity()).getIdx();
     }
 
-//    @Transactional
-//    public List<Study> getIncruitStudy() {
-//
-//    }
+    @Transactional
+    public List<StudyListResponseDto> getIncruitStudy() {
+        return studyRepository.findAllByStatus(StudyStatus.INCRUIT)
+                .stream().map(StudyListResponseDto::new)
+                .collect(Collectors.toList());
+    }
 }

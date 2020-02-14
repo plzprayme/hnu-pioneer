@@ -1,7 +1,7 @@
 package com.hnu.pioneer.service;
 
 import com.hnu.pioneer.domain.Activity;
-import com.hnu.pioneer.repository.ActivityRepository;
+import com.hnu.pioneer.domain.ActivityRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;

@@ -1,4 +1,4 @@
-package com.hnu.pioneer.repository;
+package com.hnu.pioneer.domain;
 
 import com.hnu.pioneer.domain.Activity;
 import org.springframework.data.jpa.repository.JpaRepository;
