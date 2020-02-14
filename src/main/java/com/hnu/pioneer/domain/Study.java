@@ -15,28 +15,22 @@ public class Study implements Serializable {
     @Id
     @Column
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer Idx;
+    private Long idx;
 
-    @Column
+    @Column(length = 60)
     private String studyName;
 
-    @Column
+    @Column(length = 30)
     private String leader;
 
-    @Column
+    @Column(columnDefinition = "TEXT")
     private String goal;
 
-    @Column
-    private String date;
+    @Column(length = 30)
+    private String duration;
 
-    @Column
+    @Column(length = 30)
     private String time;
-
-    @Column
-    private String place;
-
-    @Column
-    private Integer maxStudyMate;
 
     @Column
     private Integer currentStudyMate;
@@ -45,14 +39,13 @@ public class Study implements Serializable {
     private StudyStatus status;
 
     @Builder
-    public Study(String studyName, String leader, String time, String goal, String date, String place, Integer maxStudyMate, Integer currentStudyMate, StudyStatus status) {
+    public Study(String studyName, String leader, String time,
+                 String goal, String duration, Integer currentStudyMate, StudyStatus status) {
         this.studyName = studyName;
         this.time = time;
         this.leader = leader;
         this.goal = goal;
-        this.date = date;
-        this.place = place;
-        this.maxStudyMate = maxStudyMate;
+        this.duration = duration;
         this.currentStudyMate = currentStudyMate;
         this.status = status;
     }

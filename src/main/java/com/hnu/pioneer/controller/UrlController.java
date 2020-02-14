@@ -1,5 +1,6 @@
 package com.hnu.pioneer.controller;
 
+import com.hnu.pioneer.Dto.StudySaveRequestDto;
 import com.hnu.pioneer.domain.StudyStatus;
 import com.hnu.pioneer.factory.CardColorFactory;
 import com.hnu.pioneer.service.ActivityService;
@@ -10,6 +11,8 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
@@ -23,16 +26,24 @@ public class UrlController {
     StudyService studyService;
 
     @GetMapping("/")
-    public String index(@PageableDefault Pageable pageable, Model model) {
-        model.addAttribute("activityList", activityService.findActivityList(pageable));
+    public String index() {
         return "index";
     }
 
     @GetMapping("/study")
-    public String study(@PageableDefault Pageable pageable, Model model) {
-        model.addAttribute("studyList", studyService.findStudyList(pageable));
-        model.addAttribute("colorList",
-                CardColorFactory.getColorListBySize(studyService.findStudyList(pageable).getSize()));
+    public String study(Model model) {
+        model.addAttribute("studys", studyService.)
+        return "study";
+    }
+
+    @GetMapping("/create-study")
+    public String createStudy() {
+        return "create-study";
+    }
+
+    @PostMapping("/create-study/save")
+    public String saveStudy(@RequestBody StudySaveRequestDto requestDto) {
+        studyService.save(requestDto);
         return "study";
     }
 }

@@ -1,13 +1,13 @@
 package com.hnu.pioneer.domain;
 
 public enum StudyStatus {
-    INCRUIT(0),
-    ING(1),
-    END(2);
+    INCRUIT("모집중"),
+    ING("진행중"),
+    END("종료");
 
-    private Integer status;
+    private String status;
 
-    StudyStatus(Integer status) {
+    StudyStatus(String status) {
         this.status = status;
     }
 }

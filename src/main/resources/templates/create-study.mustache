@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="ko">
+<head>
+    <meta http-equiv="Content-Type" charset="UTF-8">
+    <link rel="stylesheet" href="/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="/css/mystyle.css"/>
+    <title>컴퓨터공학과 동아리 - PIONEER</title>
+</head>
+<body>
+
+{{> layout/study-header}}
+<br><br><br>
+<div class="col-md-12">
+    <div class="col-md-4">
+        <form action="">
+            <div class="form-group">
+                <label for="studyName">스터디 이름</label>
+                <input type="text" class="form-control" id="studyName" placeholder="스터디 이름을 입력하세요">
+            </div>
+            <div class="form-group">
+                <label for="leader">리더</label>
+                <input type="text" class="form-control" id="leader" placeholder="리더 이름을 입력하세요">
+            </div>
+            <div class="form-group">
+                <label for="goal">목표</label>
+                <textarea class="form-control" rows="10"
+                          id="goal" placeholder="스터디 목표를 입력하세요"></textarea>
+            </div>
+            <div class="form-group">
+                <label for="duration">진행기간</label>
+                <input type="text" class="form-control" id="duration" placeholder="ex) 2019.03.01 ~ 2019.06.30">
+            </div>
+            <div class="form-gorup">
+                <label for="time">진행시간</label>
+                <input type="text" class="form-control" id="time" placeholder="ex)매주 월요일 18:00~20:00">
+            </div>
+        </form>
+        <br>
+        <button type="button" class="btn btn-primary" id="btn-save">등록</button>
+        <a href="/study" role="button" class="btn btn-danger">취소</a>
+    </div>
+</div>
+
+{{> layout/footer}}
+
+<script>
+    var main = {
+        init: () => {
+            var httpRequest;
+
+            function makeRequest() {
+                httpRequest = new XMLHttpRequest();
+
+                if (!httpRequest) {
+                    alert('XMLHTTP 인스턴스 생성 불가');
+                    return false;
+                }
+
+                var data = {
+                    studyName: document.getElementById("studyName").value,
+                    leader: document.getElementById("leader").value,
+                    goal: document.getElementById("goal").value,
+                    duration: document.getElementById("duration").value,
+                    time: document.getElementById("time").value,
+                    currentStudyMate: 0,
+                    status: "INCRUIT",
+                };
+
+                httpRequest.onreadystatechange = alertContents;
+
+                httpRequest.open('POST', 'http://localhost:8080/create-study/save', true);
+                httpRequest.setRequestHeader('dataType', 'json')
+                httpRequest.setRequestHeader('Content-Type', 'application/json; charset=utf-8');
+                httpRequest.responseType = "document";
+                httpRequest.send(JSON.stringify(data));
+            }
+
+            function alertContents() {
+                try {
+                    if (httpRequest.readyState === XMLHttpRequest.DONE) {
+                        if (httpRequest.status === 200) {
+                            window.location.href = "/study";
+                        } else {
+                            alert('request에 뭔가 문제가 있어요.');
+                        }
+                    }
+                } catch(e) {
+                    alert('Exception' + e.description);
+                }
+            }
+
+            document.getElementById("btn-save").addEventListener('click', makeRequest);
+        }
+    };
+
+    main.init();
+</script>
+
+</body>
+</html>

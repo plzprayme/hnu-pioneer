@@ -1,80 +1,39 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="stylesheet" href="/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="/css/mystyle.css"/>
     <title>컴퓨터공학과 동아리 - PIONEER</title>
-    <link rel="stylesheet" href="/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="/css/mystyle.css" />
 </head>
 <body>
 
-{{> layout/study_header}}
+{{> layout/study-header}}
 
 <!--body-->
 <div class="container">
-<!-- 스터디 현황 리더, 주제, 날짜, 위치, 시간, 인원 -->
+    <!-- 스터디 현황 리더, 주제, 날짜, 위치, 시간, 인원 -->
     <br><br><br>
-    <h1>진행중인 스터디</h1>
+    <h1>진행중인 스터디 - <a href="/create-study" class="btn btn-success">스터디 생성하기</a></h1>
     <br>
     <div class="card-columns">
         <div class="tab-content" id="nav-tabContent">
             <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
-
+                {{#studys}}
                 <div class="card text-white bg-primary mb-3" style="max-width: 18rem;">
-                    <div class="card-header bg-transparenty">파이썬스터디 - 리더 이헌주</div>
+                    <div class="card-header bg-transparenty">{{studyName}} - 리더 {{leader}}</div>
                     <div class="card-body card-text">
-                        <p>파이썬의 기본 문법을 익히고 최종먹으로 파싱 프로그램을 구현한다.</p>
-                        <p>기간: 0000.00.00 ~ 0000.00.00</p>
-                        <p>시간: 00 ~ 00</p>
-                        <p>위치: 학교 근처</p>
-                        <p>인원: 0/??</p>
+                        <p>기간: {{duration}}}</p>
+                        <p>시간: {{time}}</p>
+                        <p>현재인원: {{currentStudyMate}}</p>
                     </div>
                     <div class="card-footer bg-transparent">
                         <p>목표</p>
-                        <p>파이썬의 기본 문법을 익히고 최종먹으로 파싱 프로그램을 구현한다.</p>
+                        <p>{{goal}}</p>
                         <a href="#" class="btn btn-outline-light btn-block">신청하기</a>
                     </div>
                 </div>
-
-                <div class="card text-white bg-primary mb-3" style="max-width: 18rem;">
-                    <div class="card-header bg-transparenty">파이썬스터디 - 리더 이헌주</div>
-                    <div class="card-body card-text">
-                        <p>파이썬의 기본 문법을 익히고 최종먹으로 파싱 프로그램을 구현한다.</p>
-                        <p>기간: 0000.00.00 ~ 0000.00.00</p>
-                        <p>시간: 00 ~ 00</p>
-                        <p>위치: 학교 근처</p>
-                        <p>인원: 0/??</p>
-                    </div>
-                    <div class="card-footer bg-transparent">
-                        <a href="#" class="btn btn-outline-light btn-block">신청하기</a>
-                    </div>
-                </div>
-                <div class="card text-white bg-primary mb-3" style="max-width: 18rem;">
-                    <div class="card-header bg-transparenty">파이썬스터디 - 리더 이헌주</div>
-                    <div class="card-body card-text">
-                        <p>파이썬의 기본 문법을 익히고 최종먹으로 파싱 프로그램을 구현한다.</p>
-                        <p>기간: 0000.00.00 ~ 0000.00.00</p>
-                        <p>시간: 00 ~ 00</p>
-                        <p>위치: 학교 근처</p>
-                        <p>인원: 0/??</p>
-                    </div>
-                    <div class="card-footer bg-transparent">
-                        <a href="#" class="btn btn-outline-light btn-block">신청하기</a>
-                    </div>
-                </div>
-                <div class="card text-white bg-primary mb-3" style="max-width: 18rem;">
-                    <div class="card-header bg-transparenty">파이썬스터디 - 리더 이헌주</div>
-                    <div class="card-body card-text">
-                        <p>파이썬의 기본 문법을 익히고 최종먹으로 파싱 프로그램을 구현한다.</p>
-                        <p>기간: 0000.00.00 ~ 0000.00.00</p>
-                        <p>시간: 00 ~ 00</p>
-                        <p>위치: 학교 근처</p>
-                        <p>인원: 0/??</p>
-                    </div>
-                    <div class="card-footer bg-transparent">
-                        <a href="#" class="btn btn-outline-light btn-block">신청하기</a>
-                    </div>
-                </div>
+                {{/studys}}
             </div>
         </div>
     </div>
@@ -83,16 +42,6 @@
 <!--/body-->
 
 {{> layout/footer}}
-
-<!-- Bootstrap core JavaScript -->
-  <script src="/js/jquery.min.js"></script>
-  <script src="/js/bootstrap.bundle.min.js"></script>
-
-  <!-- Plugin JavaScript -->
-  <script src="/js/jquery.easing.min.js"></script>
-
-  <!-- Custom JavaScript for this theme -->
-  <script src="/js/scrolling-nav.js"></script>
 
 </body>
 </html>
