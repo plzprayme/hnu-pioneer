@@ -46,4 +46,9 @@ public class UrlController {
         studyService.save(requestDto);
         return "study";
     }
+
+    @GetMapping("/signup")
+    public String signUp() {
+        return "signup";
+    }
 }

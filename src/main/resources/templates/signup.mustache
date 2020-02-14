@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="ko">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="pioneer">
+    <meta name="author" content="prayme">
+    <title>컴퓨터공학과 동아리 - PIONEER</title>
+
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css"/>
+    <!-- Custom styles for this template -->
+    <link rel="stylesheet" href="/css/signup.css"/>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/all.css">
+</head>
+<body>
+<div class="container">
+    <br><br>
+
+    <div class="card bg-light">
+        <article class="card-body mx-auto" style="max-width: 400px;">
+
+            <h4 class="card-title mt-3 text-center">회원가입</h4>
+            <br>
+<!--            <p>-->
+<!--                <a href="" class="btn btn-block btn-twitter"> <i class="fab fa-twitter"></i>   Login via Twitter</a>-->
+<!--                <a href="" class="btn btn-block btn-facebook"> <i class="fab fa-facebook-f"></i>   Login via-->
+<!--                    facebook</a>-->
+<!--            </p>-->
+<!--            <p class="divider-text">-->
+<!--                <span class="bg-light">OR</span>-->
+<!--            </p>-->
+            <form>
+                <div class="form-group input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"> <i class="fa fa-envelope"></i> </span>
+                    </div>
+                    <input id="email" class="form-control" placeholder="Email" type="email">
+                </div> <!-- form-group// -->
+                <div class="form-group input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
+                    </div>
+                    <input id="password" class="form-control" placeholder="비밀번호" type="password">
+                </div> <!-- form-group// -->
+                <div class="form-group input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"> <i class="fa fa-user"></i> </span>
+                    </div>
+                    <input id="name" class="form-control" placeholder="이름" type="text">
+                </div> <!-- form-group// -->
+                <div class="form-group input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"> <i class="fa fa-user"></i> </span>
+                    </div>
+                    <input id="studentNumber" class="form-control" placeholder="학번" type="text">
+                </div> <!-- form-group// -->
+                <div class="form-group">
+                    <button id="btn-signup" type="submit" class="btn btn-primary btn-block">회원가입</button>
+                    <button type="button" class="btn btn-danger btn-block" onclick="window.location.href='/'">취소</button>
+                </div> <!-- form-group// -->
+                <p class="text-center">이미 가입하셨나요? <a href="/signin">로그인</a></p>
+            </form>
+        </article>
+    </div> <!-- card.// -->
+
+</div>
+<br><br>
+
+{{> layout/footer}}
+</body>
+</html>
