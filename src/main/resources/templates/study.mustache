@@ -1,13 +1,3 @@
-<!DOCTYPE html>
-<html lang="ko">
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <link rel="stylesheet" href="/css/bootstrap.min.css"/>
-    <link rel="stylesheet" href="/css/mystyle.css"/>
-    <title>컴퓨터공학과 동아리 - PIONEER</title>
-</head>
-<body>
-
 {{> layout/study-header}}
 
 <!--body-->
@@ -19,6 +9,13 @@
     <div class="card-columns">
         <div class="tab-content" id="nav-tabContent">
             <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+
+                {{^studies}}
+                    <img style="align-items: center;" class="rounded mx-auto d-block" src="/images/no-study.jpg"
+                         alt="no-study">
+                    <br><br><br><br>
+                {{/studies}}
+
                 {{#studies}}
                     <div class="card text-white bg-primary mb-3" style="max-width: 18rem;">
                         <div class="card-header bg-transparenty">{{studyName}}스터디 - 리더 {{leader}}</div>
@@ -36,11 +33,6 @@
                     <br>
                 {{/studies}}
 
-                {{^studies}}
-                    <img style="align-items: center;" class="rounded mx-auto d-block" src="/images/no-study.jpg"
-                         alt="no-study">
-                    <br><br><br><br>
-                {{/studies}}
             </div>
         </div>
     </div>
@@ -49,6 +41,3 @@
 <!--/body-->
 
 {{> layout/footer}}
-
-</body>
-</html>

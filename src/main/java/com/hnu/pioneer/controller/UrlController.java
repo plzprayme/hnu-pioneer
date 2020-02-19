@@ -51,4 +51,9 @@ public class UrlController {
     public String signUp() {
         return "signup";
     }
+
+    @PostMapping("/signup/request")
+    public String signUpRequest() {
+        return "index";
+    }
 }

@@ -1,35 +1,22 @@
-<!doctype html>
-<html lang="ko">
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="pioneer">
-    <meta name="author" content="prayme">
-    <title>컴퓨터공학과 동아리 - PIONEER</title>
+{{> layout/sign-header}}
 
-    <!-- Bootstrap core CSS -->
-    <link rel="stylesheet" href="/css/bootstrap.min.css"/>
-    <!-- Custom styles for this template -->
-    <link rel="stylesheet" href="/css/signup.css"/>
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/all.css">
-</head>
-<body>
 <div class="container">
-    <br><br>
+    <br><br><br><br>
 
     <div class="card bg-light">
         <article class="card-body mx-auto" style="max-width: 400px;">
 
-            <img src="/images/pioneer-logo.png" alt="pioneer" height="60" width="60" style="display: block; margin-left: auto; margin-right: auto;">
+            <img src="/images/pioneer-logo.png" alt="pioneer" height="60" width="60"
+                 style="display: block; margin-left: auto; margin-right: auto;">
             <h4 class="card-title mt-3 text-center">회원가입</h4>
-<!--            <p>-->
-<!--                <a href="" class="btn btn-block btn-twitter"> <i class="fab fa-twitter"></i>   Login via Twitter</a>-->
-<!--                <a href="" class="btn btn-block btn-facebook"> <i class="fab fa-facebook-f"></i>   Login via-->
-<!--                    facebook</a>-->
-<!--            </p>-->
-<!--            <p class="divider-text">-->
-<!--                <span class="bg-light">OR</span>-->
-<!--            </p>-->
+            <!--            <p>-->
+            <!--                <a href="" class="btn btn-block btn-twitter"> <i class="fab fa-twitter"></i>   Login via Twitter</a>-->
+            <!--                <a href="" class="btn btn-block btn-facebook"> <i class="fab fa-facebook-f"></i>   Login via-->
+            <!--                    facebook</a>-->
+            <!--            </p>-->
+            <!--            <p class="divider-text">-->
+            <!--                <span class="bg-light">OR</span>-->
+            <!--            </p>-->
             <form>
                 <div class="form-group input-group">
                     <div class="input-group-prepend">
@@ -57,7 +44,8 @@
                 </div> <!-- form-group// -->
                 <div class="form-group">
                     <button id="btn-signup" type="submit" class="btn btn-primary btn-block">회원가입</button>
-                    <button type="button" class="btn btn-danger btn-block" onclick="window.location.href='/'">취소</button>
+                    <button type="button" class="btn btn-danger btn-block" onclick="window.location.href='/'">취소
+                    </button>
                 </div> <!-- form-group// -->
                 <p class="text-center">이미 가입하셨나요? <a href="/signin">로그인</a></p>
             </form>
@@ -66,7 +54,84 @@
 
 </div>
 <br><br>
+<script>
+    let _this;
+    let httpRequest;
+
+    function init() {
+
+        _this = this;
+
+        if (document.getElementById('btn-save') !== null) {
+            document.getElementById('btn-save')
+                    .addEventListener('click', () => {
+                        _this.save('POST', 'http://localhost:8080/create-study/save');
+                    });
+        }
+
+        if (document.getElementById('btn-signup') !== null) {
+            document.getElementById('btn-signup')
+                    .addEventListener('click', () => {
+                        _this.signUp('POST', 'http://localhost:8080/signup/request');
+                    });
+        }
+    }
+
+    function save(method, url) {
+        httpRequest = initXHR();
+
+        const data = {
+            studyName: document.getElementById("studyName").value,
+            leader: document.getElementById("leader").value,
+            goal: document.getElementById("goal").value,
+            duration: document.getElementById("duration").value,
+            time: document.getElementById("time").value,
+            currentStudyMate: 0,
+            status: "INCRUIT",
+        };
+
+        httpRequest.open(method, url, true);
+        httpRequest.setRequestHeader('dataType', 'json');
+        httpRequest.setRequestHeader('Content-Type', 'application/json; charset=utf-8');
+        httpRequest.responseType = "document";
+        httpRequest.send(JSON.stringify(data));
+
+        httpRequest.addEventListener('load', () => {
+            window.location.href = "/study";
+        })
+    }
+
+    function signUp(method, url) {
+        httpRequest = initXHR();
+
+        const data = {
+            email: document.getElementById('email').value,
+            password: document.getElementById('password').value,
+            name: document.getElementById('name').value,
+            studentNumber: document.getElementById('studentNumber').value,
+        };
+
+        httpRequest.open(method, url, true);
+        httpRequest.setRequestHeader('dataType', 'json');
+        httpRequest.setRequestHeader('Content-Type', 'application/json; charset=utf-8');
+        httpRequest.responseType = "document";
+        httpRequest.send(JSON.stringify(data));
+
+        httpRequest.addEventListener('load', () => {
+            window.location.href = "/";
+        })
+    }
+
+    function initXHR() {
+        httpRequest = new XMLHttpRequest();
+
+        if (!httpRequest) {
+            alert('XMLHTTP 인스턴스 생성 불가');
+            return false;
+        }
+
+        return httpRequest;
+    }
+</script>
 
 {{> layout/footer}}
-</body>
-</html>
