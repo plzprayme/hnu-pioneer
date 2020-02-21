@@ -16,20 +16,20 @@ public class Member {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idx;
 
-    @Column(length = 30, nullable = false)
+    @Column(length = 50, nullable = false)
     private String name;
 
-    @Column(length = 100, nullable = false)
+    @Column(length = 50, nullable = false)
     private String password;
 
     @Column(nullable = false)
-    private Integer studentNumber;
+    private Long studentNumber;
 
-    @Column(length = 20, nullable = false)
+    @Column(length = 50, nullable = false)
     private String email;
 
     @Builder
-    public Member(String name, String password, Integer studentNumber, String email) {
+    public Member(String name, String password, Long studentNumber, String email) {
         this.name = name;
         this.password = password;
         this.studentNumber = studentNumber;

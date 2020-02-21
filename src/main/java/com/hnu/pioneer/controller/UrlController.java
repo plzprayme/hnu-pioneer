@@ -1,13 +1,10 @@
 package com.hnu.pioneer.controller;
 
+import com.hnu.pioneer.Dto.MemberSaveRequestDto;
 import com.hnu.pioneer.Dto.StudySaveRequestDto;
-import com.hnu.pioneer.domain.StudyStatus;
-import com.hnu.pioneer.factory.CardColorFactory;
-import com.hnu.pioneer.service.ActivityService;
+import com.hnu.pioneer.service.MemberService;
 import com.hnu.pioneer.service.StudyService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.web.PageableDefault;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,15 +12,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+@RequiredArgsConstructor
 @Controller
 @RequestMapping("/")
 public class UrlController {
-
-    @Autowired
-    ActivityService activityService;
-
-    @Autowired
-    StudyService studyService;
+    private final StudyService studyService;
+    private final MemberService memberService;
 
     @GetMapping("/")
     public String index() {
@@ -53,7 +47,8 @@ public class UrlController {
     }
 
     @PostMapping("/signup/request")
-    public String signUpRequest() {
+    public String signUpRequest(@RequestBody MemberSaveRequestDto requestDto) {
+        memberService.signUp(requestDto);
         return "index";
     }
 }

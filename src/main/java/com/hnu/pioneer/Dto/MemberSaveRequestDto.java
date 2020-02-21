@@ -7,10 +7,10 @@ import lombok.NoArgsConstructor;
 
 @NoArgsConstructor
 @Getter
-public class MemberJoinRequestDto {
+public class MemberSaveRequestDto {
     private String name;
     private String password;
-    private Integer studentNumber;
+    private Long studentNumber;
     private String email;
 
     public Member toEntity() {
@@ -23,8 +23,8 @@ public class MemberJoinRequestDto {
     }
 
     @Builder
-    public MemberJoinRequestDto(String name, String password,
-                                Integer studentNumber, String email) {
+    public MemberSaveRequestDto(String name, String password,
+                                Long studentNumber, String email) {
         this.name = name;
         this.password = password;
         this.studentNumber = studentNumber;

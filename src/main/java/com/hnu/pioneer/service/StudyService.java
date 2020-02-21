@@ -23,8 +23,8 @@ public class StudyService {
 
     @Transactional
     public List<StudyListResponseDto> getIncruitStudy() {
-        return studyRepository.findAllByStatus(StudyStatus.INCRUIT)
-                .stream().map(StudyListResponseDto::new)
+        return studyRepository.findAllByStatus(StudyStatus.INCRUIT).stream()
+                .map(StudyListResponseDto::new)
                 .collect(Collectors.toList());
     }
 }
