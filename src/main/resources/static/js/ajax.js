@@ -18,6 +18,13 @@ function init() {
                 _this.signUp('POST', 'http://localhost:8080/signup/request');
             });
     }
+
+    if (document.getElementById('btn-signin') !== null) {
+        document.getElementById('btn-signup')
+            .addEventListener('click', () => {
+                _this.signUp('POST', 'http://localhost:8080/signin/request');
+            })
+    }
 }
 
 function save(method, url) {
@@ -36,7 +43,6 @@ function save(method, url) {
     httpRequest.open(method, url, true);
     httpRequest.setRequestHeader('dataType', 'json');
     httpRequest.setRequestHeader('Content-Type', 'application/json; charset=utf-8');
-    // httpRequest.responseType = "document";
     httpRequest.send(JSON.stringify(data));
 
     httpRequest.addEventListener('load', () => {
@@ -52,16 +58,33 @@ function signUp(method, url) {
         password: document.getElementById('password').value,
         name: document.getElementById('name').value,
         studentNumber: document.getElementById('studentNumber').value,
+        role: "STUDENT",
     };
 
     httpRequest.open(method, url, true);
     httpRequest.setRequestHeader('dataType', 'json');
     httpRequest.setRequestHeader('Content-Type', 'application/json; charset=utf-8');
-    // httpRequest.responseType = "document";
     httpRequest.send(JSON.stringify(data));
 
     httpRequest.addEventListener('load', () => {
-        window.location.href = "/#page-top";
+        window.location.href = "/";
+    });
+}
+
+function signIn(method, url) {
+    httpRequest = initXHR();
+
+    const data = {
+        email: document.getElementById('email').value,
+        password: document.getElementById('password').value,
+    };
+
+    httpRequest.open(method, url, true);
+    httpRequest.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+    httpRequest.send(JSON.stringify(data));
+
+    httpRequest.addEventListener('load', () => {
+        window.location.href = "/";
     });
 }
 

@@ -32,11 +32,12 @@ public class Study implements Serializable {
     @Column(length = 30)
     private String time;
 
-    @Column
+    @Column(columnDefinition = "integer default 0")
     private Integer currentStudyMate;
 
-    @Column
-    private StudyStatus status;
+    @Enumerated(EnumType.STRING)
+    @Column(length = 50, nullable = false)
+    private StudyStatus status = StudyStatus.INCRUIT;
 
     @Builder
     public Study(String studyName, String leader, String time,

@@ -19,7 +19,7 @@ public class Member {
     @Column(length = 50, nullable = false)
     private String name;
 
-    @Column(length = 50, nullable = false)
+    @Column(length = 100, nullable = false)
     private String password;
 
     @Column(nullable = false)
@@ -28,11 +28,16 @@ public class Member {
     @Column(length = 50, nullable = false)
     private String email;
 
+    @Enumerated(EnumType.STRING)
+    @Column(length = 50, nullable = false)
+    private Role role;
+
     @Builder
-    public Member(String name, String password, Long studentNumber, String email) {
+    public Member(String name, String password, Long studentNumber, String email, Role role) {
         this.name = name;
         this.password = password;
         this.studentNumber = studentNumber;
         this.email = email;
+        this.role = role;
     }
 }

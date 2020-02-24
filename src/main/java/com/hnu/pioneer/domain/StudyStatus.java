@@ -1,13 +1,15 @@
 package com.hnu.pioneer.domain;
 
+
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+
+@RequiredArgsConstructor
+@Getter
 public enum StudyStatus {
     INCRUIT("모집중"),
     ING("진행중"),
     END("종료");
 
-    private String status;
-
-    StudyStatus(String status) {
-        this.status = status;
-    }
+    private final String status;
 }

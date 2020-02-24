@@ -51,4 +51,9 @@ public class UrlController {
         memberService.signUp(requestDto);
         return "index";
     }
+
+    @GetMapping("/signin")
+    public String displayLoginPage() {
+        return "signin";
+    }
 }
