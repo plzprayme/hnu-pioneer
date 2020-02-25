@@ -52,6 +52,13 @@ public class UrlController {
         return "index";
     }
 
+    @GetMapping("/text")
+    public String test() {
+        memberService.test();
+
+        return "index";
+    }
+
     @GetMapping("/signin")
     public String displayLoginPage() {
         return "signin";

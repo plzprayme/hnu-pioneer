@@ -29,6 +29,13 @@ public class MemberService implements UserDetailsService {
         return memberRepository.save(requestDto.toEntity()).getIdx();
     }
 
+    @Transactional
+    public void test() {
+
+        Optional<Member> member = memberRepository.findByEmail("dbfpzk142@gmail.com");
+
+    }
+
 
     /**
      * @param 로그인에 쓰인 email

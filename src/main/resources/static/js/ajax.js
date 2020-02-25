@@ -20,9 +20,9 @@ function init() {
     }
 
     if (document.getElementById('btn-signin') !== null) {
-        document.getElementById('btn-signup')
+        document.getElementById('btn-signin')
             .addEventListener('click', () => {
-                _this.signUp('POST', 'http://localhost:8080/signin/request');
+                _this.signIn('POST', 'http://localhost:8080/signin/request');
             })
     }
 }

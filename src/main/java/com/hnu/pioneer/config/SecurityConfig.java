@@ -30,17 +30,21 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws  Exception {
         http
-                .csrf().disable()
                 .headers().frameOptions().disable()
                 .and()
                     .authorizeRequests()
                     .antMatchers("/admin/**").hasRole("ADMIN")
                     .antMatchers("/create-study", "/create-study/save").hasAnyRole("ADMIN","LEADER")
-                    .antMatchers("/**", "/css/**", "/images/**", "/js/**").permitAll()
+                    .antMatchers("/signup/**","/**", "/css/**", "/images/**", "/js/**", "/h2-console/**").permitAll()
                     .anyRequest().authenticated()
+                .and()
+                    .csrf()
+                        .ignoringAntMatchers("/h2-console/**", "/signup/request", "/save/request")
                 .and()
                     .formLogin()
                     .loginPage("/signin")
+                    .loginProcessingUrl("/signin/request")
+                    .usernameParameter("email")
                     .defaultSuccessUrl("/")
                     .permitAll()
                 .and()

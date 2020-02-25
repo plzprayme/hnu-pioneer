@@ -6,21 +6,23 @@
     <div class="card bg-light">
         <article class="card-body mx-auto" style="max-width: 400px;">
 
-            <img src="/static/images/pioneer-logo.png" alt="pioneer" height="60" width="60"
+            <img src="/images/pioneer-logo.png" alt="pioneer" height="60" width="60"
                  style="display: block; margin-left: auto; margin-right: auto;">
             <h4 class="card-title mt-3 text-center">로그인</h4>
-            <form action="/signin" method="post">
+            <form action="/signin/request" method="post" enctype="multipart/form-data">
+                <input type="hidden" name="_csrf" value="{{#_csrf}}token{{/_csrf}}">
+
                 <div class="form-group input-group">
                     <div class="input-group-prepend">
                         <span class="input-group-text"> <i class="fa fa-envelope"></i> </span>
                     </div>
-                    <input id="email" class="form-control" placeholder="Email" type="email">
+                    <input id="email" class="form-control" placeholder="Email" type="email" name="email">
                 </div> <!-- form-group// -->
                 <div class="form-group input-group">
                     <div class="input-group-prepend">
                         <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
                     </div>
-                    <input id="password" class="form-control" placeholder="비밀번호" type="password">
+                    <input id="password" class="form-control" placeholder="비밀번호" type="password" name="password">
                 </div> <!-- form-group// -->
                 <div class="form-group">
 <!--                    <button id="btn-login" type="button" class="btn btn-primary btn-block">로그인</button>-->
