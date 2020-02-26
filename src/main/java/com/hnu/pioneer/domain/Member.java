@@ -40,4 +40,16 @@ public class Member {
         this.email = email;
         this.role = role;
     }
+
+    public boolean isAdmin() {
+        return role == Role.ADMIN;
+    }
+
+    public boolean isStudent() {
+        return role == Role.STUDENT;
+    }
+
+    public boolean isLeader() {
+        return role == Role.LEADER;
+    }
 }

@@ -3,8 +3,11 @@ package com.hnu.pioneer.service;
 import com.hnu.pioneer.Dto.MemberSaveRequestDto;
 import com.hnu.pioneer.domain.Member;
 import com.hnu.pioneer.domain.MemberRepository;
+import com.hnu.pioneer.domain.Role;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -14,6 +17,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
@@ -43,16 +47,36 @@ public class MemberService implements UserDetailsService {
      */
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        System.out.println(email);
-        Optional<Member> memberEntityWrapper = memberRepository.findByEmail(email);
+        Optional<Member> memberEntityWrapper = loadByEmail(email);
+
         Member memberEntity = memberEntityWrapper.get();
 
+        return new User(memberEntity.getEmail(), memberEntity.getPassword(), authorities(memberEntity));
+    }
+
+    private Optional<Member> loadByEmail(String email) {
+        Optional<Member> member = memberRepository.findByEmail(email);
+
+        if (!member.isPresent()) {
+            throw new UsernameNotFoundException(email);
+        }
+
+        return member;
+    }
+
+    private static Collection<? extends GrantedAuthority> authorities(Member member) {
         List<GrantedAuthority> authorities = new ArrayList<>();
 
-        System.out.println(memberEntity.getRole());
-        
+        if (member.isAdmin()) {
+            authorities.add(new SimpleGrantedAuthority(Role.ADMIN.getKey()));
+        } else if (member.isLeader()) {
+            authorities.add(new SimpleGrantedAuthority(Role.LEADER.getKey()));
+        } else if (member.isStudent()) {
+            authorities.add(new SimpleGrantedAuthority(Role.STUDENT.getKey()));
+        } else {
+            System.out.println("!!!!!에러!!!!! 없는 권한입니다!!!!!");
+        }
 
-        return new User(memberEntity.getEmail(), memberEntity.getPassword(), authorities);
-
+        return authorities;
     }
 }

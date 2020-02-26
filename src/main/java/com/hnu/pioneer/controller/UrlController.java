@@ -5,12 +5,14 @@ import com.hnu.pioneer.Dto.StudySaveRequestDto;
 import com.hnu.pioneer.service.MemberService;
 import com.hnu.pioneer.service.StudyService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+
+import java.io.IOException;
+import java.net.URI;
 
 @RequiredArgsConstructor
 @Controller
@@ -60,7 +62,14 @@ public class UrlController {
     }
 
     @GetMapping("/signin")
-    public String displayLoginPage() {
+    public String displayLoginPage(
+            @RequestParam(required = false) String error, Model model) {
+
+        if (error != null) {
+            model.addAttribute("isWrong", error.equals(""));
+        }
+
         return "signin";
     }
+
 }

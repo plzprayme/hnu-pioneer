@@ -83,8 +83,13 @@ function signIn(method, url) {
     httpRequest.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
     httpRequest.send(JSON.stringify(data));
 
-    httpRequest.addEventListener('load', () => {
-        window.location.href = "/";
+    httpRequest.addEventListener('error', () => {
+        alert("ERROR!!")
+    });
+
+    httpRequest.addEventListener('load', (err) => {
+        // window.location.href = "/";
+        alert(JSON.stringify(err));
     });
 }
 
