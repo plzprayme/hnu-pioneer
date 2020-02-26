@@ -33,24 +33,15 @@ public class MemberService implements UserDetailsService {
         return memberRepository.save(requestDto.toEntity()).getIdx();
     }
 
-    @Transactional
-    public void test() {
-
-        Optional<Member> member = memberRepository.findByEmail("dbfpzk142@gmail.com");
-
-    }
-
-
     /**
      * @param 로그인에 쓰인 email
      * 로그인에 쓰인 email으로 조회를 한 후 권한을 부여한다.
      */
     @Override
+    @Transactional
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         Optional<Member> memberEntityWrapper = loadByEmail(email);
-
         Member memberEntity = memberEntityWrapper.get();
-
         return new User(memberEntity.getEmail(), memberEntity.getPassword(), authorities(memberEntity));
     }
 
