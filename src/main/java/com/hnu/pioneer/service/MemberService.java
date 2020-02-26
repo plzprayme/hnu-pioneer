@@ -34,7 +34,7 @@ public class MemberService implements UserDetailsService {
     }
 
     /**
-     * @param 로그인에 쓰인 email
+     * @param 로그인 페이지에서 입력한 email
      * 로그인에 쓰인 email으로 조회를 한 후 권한을 부여한다.
      */
     @Override
@@ -42,7 +42,7 @@ public class MemberService implements UserDetailsService {
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         Optional<Member> memberEntityWrapper = loadByEmail(email);
         Member memberEntity = memberEntityWrapper.get();
-        return new User(memberEntity.getEmail(), memberEntity.getPassword(), authorities(memberEntity));
+        return new com.hnu.pioneer.domain.UserDetails(memberEntity.getEmail(), memberEntity.getPassword(), authorities(memberEntity), memberEntity.getName());
     }
 
     private Optional<Member> loadByEmail(String email) {

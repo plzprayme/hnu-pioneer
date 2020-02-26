@@ -2,12 +2,14 @@ package com.hnu.pioneer.controller;
 
 import com.hnu.pioneer.Dto.MemberSaveRequestDto;
 import com.hnu.pioneer.Dto.StudySaveRequestDto;
+import com.hnu.pioneer.domain.UserDetails;
 import com.hnu.pioneer.service.MemberService;
 import com.hnu.pioneer.service.StudyService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.net.URI;
+import java.security.Principal;
 
 @RequiredArgsConstructor
 @Controller
@@ -25,7 +28,13 @@ public class UrlController {
     private final MemberService memberService;
 
     @GetMapping("/")
-    public String index() {
+    public String index(Model model) {
+        UserDetails user = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        if (user != null) {
+            model.addAttribute("name", user.getMemberName());
+        }
+
         return "index";
     }
 
@@ -70,30 +79,8 @@ public class UrlController {
 
     @RequestMapping("/auth")
     public String handleRequest(HttpServletRequest request, Model model) {
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        System.out.println("auth: " + auth.toString());
-        System.out.println(auth.getAuthorities());
-        System.out.println(auth.getCredentials());
-        System.out.println(auth.getDetails());
-        System.out.println(auth.getName());
-        System.out.println(auth.getPrincipal());
-        System.out.println(auth.getClass());
-
+        UserDetails user = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        model.addAttribute("name", user.getMemberName());
         return "index";
    }
-
-   @RequestMapping("/auth2")
-   public String handleRequest2(HttpServletRequest request, Model model) {
-       Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-       System.out.println("auth: " + auth.toString());
-       System.out.println(auth.getAuthorities());
-       System.out.println(auth.getCredentials());
-       System.out.println(auth.getDetails());
-       System.out.println(auth.getName());
-       System.out.println(auth.getPrincipal());
-       System.out.println(auth.getClass());
-
-       return "index";
-   }
-
 }
