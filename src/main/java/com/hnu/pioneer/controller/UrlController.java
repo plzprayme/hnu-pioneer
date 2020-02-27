@@ -29,9 +29,15 @@ public class UrlController {
 
     @GetMapping("/")
     public String index(Model model) {
-        UserDetails user = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
-        if (user != null) {
+        UserDetails user;
+
+        if (SecurityContextHolder.getContext().getAuthentication().getPrincipal().equals("anonymousUser")) {
+            model.addAttribute("isLoggedIn", false);
+            model.addAttribute("name", "");
+        } else {
+            user = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+            model.addAttribute("isLoggedIn", true);
             model.addAttribute("name", user.getMemberName());
         }
 
@@ -61,8 +67,20 @@ public class UrlController {
     }
 
     @PostMapping("/signup/request")
-    public String signUpRequest(@RequestBody MemberSaveRequestDto requestDto) {
+    public String signUpRequest(@RequestBody MemberSaveRequestDto requestDto, Model model) {
         memberService.signUp(requestDto);
+
+        UserDetails user;
+
+        if (SecurityContextHolder.getContext().getAuthentication().getPrincipal().equals("anonymousUser")) {
+            model.addAttribute("isLoggedIn", false);
+            model.addAttribute("name", "");
+        } else {
+            user = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+            model.addAttribute("isLoggedIn", true);
+            model.addAttribute("name", user.getMemberName());
+        }
+
         return "index";
     }
 
