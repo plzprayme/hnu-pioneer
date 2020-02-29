@@ -29,32 +29,34 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     @Override
-    protected void configure(HttpSecurity http) throws  Exception {
+    protected void configure(HttpSecurity http) throws Exception {
         http
                 .headers().frameOptions().disable()
                 .and()
-                    .authorizeRequests()
-                    .antMatchers("/admin/**").hasRole("ADMIN")
-                    .antMatchers("/create-study", "/create-study/save").hasAnyRole("ADMIN","LEADER")
-                    .antMatchers("/signup/**","/**", "/css/**", "/images/**", "/js/**", "/h2-console/**").permitAll()
-                    .anyRequest().authenticated()
+                .authorizeRequests()
+                .antMatchers("/admin/**").hasRole("ADMIN")
+//                .antMatchers("/create-study", "/create-study/save").hasAnyRole("ADMIN","LEADER")
+                .antMatchers("/create-study/save").hasAnyRole("LEADER", "ADMIN")
+                .antMatchers("/signup/**", "/**", "/css/**", "/h2-console/**","/create-study").permitAll()
+                .antMatchers("/css/**", "/images/**", "/js/**").permitAll()
+                .anyRequest().authenticated()
                 .and()
-                    .csrf()
-                        .ignoringAntMatchers("/h2-console/**", "/signup/request", "/save/request")
+                .csrf()
+                .ignoringAntMatchers("/h2-console/**", "/signup/request", "/save/request", "/create-study/save")
 //                    .disable()
                 .and()
-                    .formLogin()
-                        .loginPage("/signin")
-                        .loginProcessingUrl("/signin/request")
-                        .usernameParameter("email")
-                        .defaultSuccessUrl("/auth")
-                        .permitAll()
+                .formLogin()
+                .loginPage("/signin")
+                .loginProcessingUrl("/signin/request")
+                .usernameParameter("email")
+                .defaultSuccessUrl("/")
+                .permitAll()
                 .and()
-                    .logout()
-                        .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-                        .logoutUrl("/logout")
-                        .invalidateHttpSession(true)
-                        .logoutSuccessUrl("/");
+                .logout()
+                .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+                .logoutUrl("/logout")
+                .invalidateHttpSession(true)
+                .logoutSuccessUrl("/");
 
     }
 }

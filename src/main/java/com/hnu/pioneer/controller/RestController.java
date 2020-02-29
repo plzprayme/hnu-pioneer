@@ -24,6 +24,7 @@ public class RestController {
 
     @PostMapping("/create-study/save")
     public Long saveStudy(@RequestBody StudySaveRequestDto requestDto) {
+        System.out.println("OKOKOKOK");;
         return studyService.save(requestDto);
     }
 }

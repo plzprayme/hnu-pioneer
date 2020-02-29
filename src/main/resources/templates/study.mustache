@@ -1,10 +1,11 @@
-{{> layout/study-header}}
+{{> layout/header}}
 
 <!--body-->
 <div class="container">
     <!-- 스터디 현황 리더, 주제, 날짜, 위치, 시간, 인원 -->
     <br><br><br>
-    <h1>진행중인 스터디 - <a href="/create-study" class="btn btn-success">스터디 생성하기</a></h1>
+    <h1>진행중인 스터디 {{#leader}}- <a href="/create-study" class="btn btn-success">스터디 생성하기</a>{{/leader}}
+    </h1>
     <br>
     <div class="card-columns">
         <div class="tab-content" id="nav-tabContent">
@@ -18,7 +19,7 @@
 
                 {{#studies}}
                     <div class="card text-white bg-primary mb-3" style="max-width: 18rem;">
-                        <div class="card-header bg-transparenty">{{studyName}}스터디 - 리더 {{leader}}</div>
+                        <div class="card-header bg-transparenty">{{studyName}} 스터디 - 리더 {{leader}}</div>
                         <div class="card-body card-text">
                             <p>기간: {{duration}}</p>
                             <p>시간: {{time}}</p>

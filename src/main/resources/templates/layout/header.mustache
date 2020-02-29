@@ -24,25 +24,25 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav ml-auto">
-
-                <li class="nav-item">
-                    <a class="nav-link js-scroll-trigger" href="/signin">로그인</a>
-                </li>
-                <li class="nav-item">
-                    <form action="/logout" method="post" enctype="multipart/form-data">
-                        <input type="hidden" name="_csrf" value="{{#_csrf}}token{{/_csrf}}">
-                        <input type="submit" value="로그아웃">
-                    </form>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link js-scroll-trigger" href="/signup">회원가입</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link js-scroll-trigger" href="/#about">동아리 소개</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link js-scroll-trigger" href="/#services">주요 활동</a>
-                </li>
+                {{#user}}
+                    <li class="nav-item">
+                        <a class="nav-link js-scroll-trigger">{{memberName}}님, 안녕하세요!</a>
+                    </li>
+                    <li class="nav-item">
+                        <form action="/logout" method="post" enctype="multipart/form-data">
+                            <input type="hidden" name="_csrf" value="{{#_csrf}}token{{/_csrf}}">
+                            <input class="nav-link js-scroll-trigger bg-dark border border-dark" type="submit" value="로그아웃">
+                        </form>
+                    </li>
+                {{/user}}
+                {{^user}}
+                    <li class="nav-item">
+                        <a class="nav-link js-scroll-trigger" href="/signin">로그인</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link js-scroll-trigger" href="/signup">회원가입</a>
+                    </li>
+                {{/user}}
                 <li class="nav-item">
                     <a class="nav-link js-scroll-trigger" href="/#contact">가입 문의</a>
                 </li>

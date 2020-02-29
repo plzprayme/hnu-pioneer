@@ -16,13 +16,9 @@ public class Controller {
     @GetMapping("/")
     public String index(Model model) {
 
-        UserDetails user;
-
-        if (SecurityContextHolder.getContext().getAuthentication().getPrincipal().equals("anonymousUser")) {
-            model.addAttribute("name", "");
-        } else {
-            user = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-            model.addAttribute("name", user.getMemberName());
+        if (!SecurityContextHolder.getContext().getAuthentication().getPrincipal().equals("anonymousUser")) {
+            model.addAttribute("user",
+                    (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal());
         }
 
         return "index";
@@ -31,11 +27,32 @@ public class Controller {
     @GetMapping("/study")
     public String study(Model model) {
         model.addAttribute("studies", studyService.getIncruitStudy());
+
+        if (!SecurityContextHolder.getContext().getAuthentication().getPrincipal().equals("anonymousUser")) {
+
+            UserDetails user = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+            model.addAttribute("user",
+                    (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal());
+
+            if (user.getAuthorities().toArray()[0].toString().equals("ROLE_STUDENT")) {
+                model.addAttribute("student", "");
+            } else {
+                model.addAttribute("leader", "");
+            }
+
+        }
+
         return "study";
     }
 
     @GetMapping("/create-study")
-    public String createStudy() {
+    public String createStudy(Model model) {
+
+        if (!SecurityContextHolder.getContext().getAuthentication().getPrincipal().equals("anonymousUser")) {
+            model.addAttribute("user",
+                    (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal());
+        }
+
         return "create-study";
     }
 
@@ -54,12 +71,4 @@ public class Controller {
 
         return "signin";
     }
-
-    @GetMapping("/auth")
-    public String handleRequest(HttpServletRequest request, Model model) {
-        UserDetails user = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        System.out.println("auth user: " + user);
-        model.addAttribute("name", user.getMemberName());
-        return "index";
-   }
 }
