@@ -2,11 +2,21 @@ var main = {
     init: function () {
         var _this = this;
         $('#btn-save').on('click', function () {
-            _this.save();
+            if (_this.isEmpty(['studyName', 'goal'])) {
+                alert("스터디 주제와 목표를 작성해주세요!");
+            } else {
+                _this.save();
+            }
         });
 
         $('#btn-signup').on('click', function () {
-            _this.signUp();
+            if (_this.isEmpty(['email', 'password', 'name', 'studentNumber'])) {
+                alert("모든 정보를 입력해주세요!");
+            } else if (_this.isNumeric('studentNumber')) {
+                alert('학번은 숫자만 입력할 수 있습니다.');
+            } else {
+                _this.signUp();
+            }
         });
     },
     save: function () {
@@ -34,6 +44,7 @@ var main = {
         });
     },
     signUp: function () {
+
         let data = {
             email: document.getElementById('email').value,
             password: document.getElementById('password').value,
@@ -55,6 +66,12 @@ var main = {
             alert(JSON.stringify(error));
         });
     },
+    isEmpty: function (inputNameArray) {
+        return inputNameArray.some(name => document.getElementById(name).value === "");
+    },
+    isNumeric: function (studentNumber) {
+        return !isNaN(parseInt(document.getElementById(studentNumber.value)));
+    }
 };
 
 main.init();
