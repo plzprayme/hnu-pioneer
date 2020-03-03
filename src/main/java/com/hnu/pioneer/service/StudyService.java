@@ -1,3 +1,4 @@
+
 package com.hnu.pioneer.service;
 
 import com.hnu.pioneer.Dto.StudyListResponseDto;
@@ -21,9 +22,16 @@ public class StudyService {
         return studyRepository.save(requestDto.toEntity()).getIdx();
     }
 
-    @Transactional
+    @Transactional(readOnly = true)
     public List<StudyListResponseDto> getIncruitStudy() {
         return studyRepository.findAllByStatus(StudyStatus.INCRUIT).stream()
+                .map(StudyListResponseDto::new)
+                .collect(Collectors.toList());
+    }
+
+    @Transactional(readOnly = true)
+    public List<StudyListResponseDto> getStudyByLeader(String leader) {
+        return studyRepository.findAllByLeader(leader).stream()
                 .map(StudyListResponseDto::new)
                 .collect(Collectors.toList());
     }

@@ -6,6 +6,7 @@ import com.hnu.pioneer.service.MemberService;
 import com.hnu.pioneer.service.StudyService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
@@ -24,7 +25,11 @@ public class RestController {
 
     @PostMapping("/create-study/save")
     public Long saveStudy(@RequestBody StudySaveRequestDto requestDto) {
-        System.out.println("OKOKOKOK");;
         return studyService.save(requestDto);
+    }
+
+    @GetMapping("/study/apply")
+    public Long applyStudy() {
+        return 1L;
     }
 }

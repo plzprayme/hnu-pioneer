@@ -1,10 +1,13 @@
 var main = {
     init: function () {
         var _this = this;
+        var doubleSubmitFlag = true;
+
         $('#btn-save').on('click', function () {
             if (_this.isEmpty(['studyName', 'goal'])) {
                 alert("스터디 주제와 목표를 작성해주세요!");
-            } else {
+            } else if (doubleSubmitFlag) {
+                doubleSubmitFlag = false;
                 _this.save();
             }
         });
@@ -14,7 +17,8 @@ var main = {
                 alert("모든 정보를 입력해주세요!");
             } else if (_this.isNumeric('studentNumber')) {
                 alert('학번은 숫자만 입력할 수 있습니다.');
-            } else {
+            } else if (doubleSubmitFlag) {
+                doubleSubmitFlag = false;
                 _this.signUp();
             }
         });

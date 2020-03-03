@@ -6,4 +6,5 @@ import java.util.List;
 
 public interface StudyRepository extends JpaRepository<Study, Long> {
     List<Study> findAllByStatus(StudyStatus incruit);
+    List<Study> findAllByLeader(String leader);
 }
