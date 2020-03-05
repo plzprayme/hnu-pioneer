@@ -5,6 +5,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @NoArgsConstructor
@@ -32,6 +34,9 @@ public class Member {
     @Column(length = 50, nullable = false)
     private Role role;
 
+    @OneToMany(mappedBy = "member")
+    private List<Study> createStudies = new ArrayList<>();
+
     @Builder
     public Member(String name, String password, Long studentNumber, String email, Role role) {
         this.name = name;
@@ -51,5 +56,10 @@ public class Member {
 
     public boolean isLeader() {
         return role == Role.LEADER;
+    }
+
+    public void addCreateStudies(Study study) {
+        createStudies.add(study);
+        study.setMember(this);
     }
 }

@@ -33,6 +33,11 @@ public class MemberService implements UserDetailsService {
         return memberRepository.save(requestDto.toEntity()).getIdx();
     }
 
+    @Transactional
+    public Optional<Member> getByStudentNumber(Long studentNumber) {
+        return memberRepository.findByStudentNumber(studentNumber);
+    }
+
     /**
      * @param 로그인 페이지에서 입력한 email
      * 로그인에 쓰인 email으로 조회를 한 후 권한을 부여한다.
@@ -42,7 +47,8 @@ public class MemberService implements UserDetailsService {
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         Optional<Member> memberEntityWrapper = loadByEmail(email);
         Member memberEntity = memberEntityWrapper.get();
-        return new com.hnu.pioneer.domain.UserDetails(memberEntity.getEmail(), memberEntity.getPassword(), authorities(memberEntity), memberEntity.getName());
+        return new com.hnu.pioneer.domain.UserDetails(memberEntity.getEmail(), memberEntity.getPassword(), authorities(memberEntity),
+                memberEntity.getName(), memberEntity.getStudentNumber());
     }
 
     private Optional<Member> loadByEmail(String email) {

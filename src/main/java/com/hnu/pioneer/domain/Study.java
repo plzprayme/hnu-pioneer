@@ -39,9 +39,14 @@ public class Study implements Serializable {
     @Column(length = 50, nullable = false)
     private StudyStatus status = StudyStatus.INCRUIT;
 
+    @ManyToOne
+    @JoinColumn(name = "member_idx", foreignKey = @ForeignKey(name = "FK_MEMBER_IDX"))
+    private Member member;
+
     @Builder
     public Study(String studyName, String leader, String time,
-                 String goal, String duration, Integer currentStudyMate, StudyStatus status) {
+                 String goal, String duration, Integer currentStudyMate, StudyStatus status, Member member) {
+        this.member = member;
         this.studyName = studyName;
         this.time = time;
         this.leader = leader;
@@ -49,5 +54,9 @@ public class Study implements Serializable {
         this.duration = duration;
         this.currentStudyMate = currentStudyMate;
         this.status = status;
+    }
+
+    public void setMember(Member member) {
+        this.member = member;
     }
 }

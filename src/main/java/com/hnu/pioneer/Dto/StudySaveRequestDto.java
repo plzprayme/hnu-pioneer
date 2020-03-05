@@ -1,5 +1,6 @@
 package com.hnu.pioneer.Dto;
 
+import com.hnu.pioneer.domain.Member;
 import com.hnu.pioneer.domain.Study;
 import com.hnu.pioneer.domain.StudyStatus;
 import lombok.Builder;
@@ -8,7 +9,6 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 
-// toEntity
 @ToString
 @Getter
 @NoArgsConstructor
@@ -20,6 +20,7 @@ public class StudySaveRequestDto {
     private String time;
     private Integer currentStudyMate;
     private StudyStatus status;
+    private Member member;
 
     @Builder
     public StudySaveRequestDto(String studyName, String leader, String goal,
@@ -36,6 +37,7 @@ public class StudySaveRequestDto {
 
     public Study toEntity() {
         return Study.builder()
+                .member(member)
                 .studyName(studyName)
                 .leader(leader)
                 .goal(goal)
@@ -44,5 +46,9 @@ public class StudySaveRequestDto {
                 .status(status)
                 .time(time)
                 .build();
+    }
+
+    public void setMember(Member member) {
+        this.member = member;
     }
 }
