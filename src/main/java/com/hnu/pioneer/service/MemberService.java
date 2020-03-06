@@ -1,9 +1,7 @@
 package com.hnu.pioneer.service;
 
 import com.hnu.pioneer.Dto.MemberSaveRequestDto;
-import com.hnu.pioneer.domain.Member;
-import com.hnu.pioneer.domain.MemberRepository;
-import com.hnu.pioneer.domain.Role;
+import com.hnu.pioneer.domain.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.GrantedAuthority;
@@ -33,9 +31,14 @@ public class MemberService implements UserDetailsService {
         return memberRepository.save(requestDto.toEntity()).getIdx();
     }
 
-    @Transactional
+    @Transactional(readOnly = true)
     public Optional<Member> getByStudentNumber(Long studentNumber) {
         return memberRepository.findByStudentNumber(studentNumber);
+    }
+
+    @Transactional
+    public void registerStudy(Member member, StudyMemberMapping studyMember) {
+        member.addRegisteredStudy(studyMember);
     }
 
     /**

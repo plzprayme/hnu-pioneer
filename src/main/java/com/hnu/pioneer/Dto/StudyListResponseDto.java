@@ -9,6 +9,7 @@ import lombok.ToString;
 @Getter
 @NoArgsConstructor
 public class StudyListResponseDto {
+    private Long idx;
     private String studyName;
     private String leader;
     private String duration;
@@ -17,6 +18,7 @@ public class StudyListResponseDto {
     private Integer currentStudyMate;
 
     public StudyListResponseDto(Study study) {
+        this.idx = study.getIdx();
         this.studyName = study.getStudyName();
         this.leader = study.getLeader();
         this.duration = study.getDuration();

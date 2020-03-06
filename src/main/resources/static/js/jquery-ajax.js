@@ -3,6 +3,13 @@ var main = {
         var _this = this;
         var doubleSubmitFlag = true;
 
+        $('#btn-register').on('click', function() {
+            if (doubleSubmitFlag) {
+                doubleSubmitFlag = false;
+                _this.register();
+            }
+        });
+
         $('#btn-save').on('click', function () {
             if (_this.isEmpty(['studyName', 'goal'])) {
                 alert("스터디 주제와 목표를 작성해주세요!");
@@ -49,7 +56,7 @@ var main = {
     },
     signUp: function () {
 
-        let data = {
+        const data = {
             email: document.getElementById('email').value,
             password: document.getElementById('password').value,
             name: document.getElementById('name').value,
@@ -65,6 +72,21 @@ var main = {
             data: JSON.stringify(data)
         }).done(function () {
             alert('회원가입에 성공했습니다.');
+            window.location.href = '/';
+        }).fail(function (error) {
+            alert(JSON.stringify(error));
+        });
+    },
+    register : function () {
+        const idx = document.getElementById("id").value;
+
+        $.ajax({
+            type: 'GET',
+            url: '/study/register/' + idx,
+            dataType: 'json',
+            contentType:'application/json; charset=utf-8'
+        }).done(function () {
+            alert('신청완료');
             window.location.href = '/';
         }).fail(function (error) {
             alert(JSON.stringify(error));

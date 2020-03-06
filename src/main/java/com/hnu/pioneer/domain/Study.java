@@ -6,6 +6,8 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 @NoArgsConstructor
 @Getter
@@ -43,6 +45,9 @@ public class Study implements Serializable {
     @JoinColumn(name = "member_idx", foreignKey = @ForeignKey(name = "FK_MEMBER_IDX"))
     private Member member;
 
+    @OneToMany(mappedBy = "participant")
+    private List<StudyMemberMapping> participants = new ArrayList<>();
+
     @Builder
     public Study(String studyName, String leader, String time,
                  String goal, String duration, Integer currentStudyMate, StudyStatus status, Member member) {
@@ -58,5 +63,14 @@ public class Study implements Serializable {
 
     public void setMember(Member member) {
         this.member = member;
+    }
+
+    public void addParticipants(StudyMemberMapping mapper) {
+        participants.add(mapper);
+        mapper.setRegisteredStudy(this);
+    }
+
+    public void increaseOneStudyMate() {
+        this.currentStudyMate++;
     }
 }

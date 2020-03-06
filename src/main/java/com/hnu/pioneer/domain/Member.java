@@ -37,6 +37,9 @@ public class Member {
     @OneToMany(mappedBy = "member")
     private List<Study> createStudies = new ArrayList<>();
 
+    @OneToMany(mappedBy = "registeredStudy")
+    private List<StudyMemberMapping> registeredStuies = new ArrayList<>();
+
     @Builder
     public Member(String name, String password, Long studentNumber, String email, Role role) {
         this.name = name;
@@ -61,5 +64,10 @@ public class Member {
     public void addCreateStudies(Study study) {
         createStudies.add(study);
         study.setMember(this);
+    }
+
+    public void addRegisteredStudy(StudyMemberMapping mapper) {
+        registeredStuies.add(mapper);
+        mapper.setParticipant(this);
     }
 }

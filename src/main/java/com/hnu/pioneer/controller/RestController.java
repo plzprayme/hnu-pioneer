@@ -2,13 +2,18 @@ package com.hnu.pioneer.controller;
 
 import com.hnu.pioneer.Dto.MemberSaveRequestDto;
 import com.hnu.pioneer.Dto.StudySaveRequestDto;
+import com.hnu.pioneer.domain.Member;
+import com.hnu.pioneer.domain.Study;
+import com.hnu.pioneer.domain.StudyMemberMapping;
 import com.hnu.pioneer.domain.UserDetails;
 import com.hnu.pioneer.service.MemberService;
+import com.hnu.pioneer.service.StudyMemberService;
 import com.hnu.pioneer.service.StudyService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
@@ -18,6 +23,7 @@ public class RestController {
 
     private final MemberService memberService;
     private final StudyService studyService;
+    private final StudyMemberService studyMemberService;
 
     @PostMapping("/signup/request")
     public Long signUpRequest(
@@ -32,15 +38,23 @@ public class RestController {
         return studyService.save(requestDto);
     }
 
-    @GetMapping("/study/apply")
-    public Long applyStudy() {
+    @GetMapping("/study/register/{idx}")
+    public Long applyStudy(@PathVariable("idx") Long studyIdx) {
         // findByIdx()
+        UserDetails user = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
-        // setParticipants
+        Study study = studyService.getByIdx(studyIdx);
+        Member member = memberService.getByStudentNumber(user.getStudentNumber()).get();
 
-        // setApplyStudies & currentParticipant + 1
+        StudyMemberMapping studyMember = studyMemberService.getAfterMapping(study, member);
+
+        memberService.registerStudy(member, studyMember);
+        studyService.assignParticipant(study, studyMember);
 
 
-        return 1L;
+        System.out.println(study.toString());
+        System.out.println(member.toString());
+
+        return study.getIdx();
     }
 }
