@@ -85,7 +85,13 @@ var main = {
             url: '/study/register/' + idx,
             dataType: 'json',
             contentType:'application/json; charset=utf-8'
-        }).done(function () {
+        }).done(function (response) {
+
+            if (response === -1) {
+                alert("이미 신청한 스터디입니다!!");
+                return;
+            }
+
             alert('신청완료');
             window.location.href = '/';
         }).fail(function (error) {

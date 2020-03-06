@@ -25,7 +25,7 @@ public class RestController {
     private final StudyService studyService;
     private final StudyMemberService studyMemberService;
 
-    private final Long ALREADY_REGISTER_ERROR = 1L;
+    private final Long ALREADY_REGISTER_ERROR = -1L;
 
     @PostMapping("/signup/request")
     public Long signUpRequest(
