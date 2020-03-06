@@ -25,6 +25,8 @@ public class RestController {
     private final StudyService studyService;
     private final StudyMemberService studyMemberService;
 
+    private final Long ALREADY_REGISTER_ERROR = 1L;
+
     @PostMapping("/signup/request")
     public Long signUpRequest(
             @RequestBody MemberSaveRequestDto requestDto, Model model) {
@@ -40,21 +42,21 @@ public class RestController {
 
     @GetMapping("/study/register/{idx}")
     public Long applyStudy(@PathVariable("idx") Long studyIdx) {
-        // findByIdx()
+
         UserDetails user = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
         Study study = studyService.getByIdx(studyIdx);
         Member member = memberService.getByStudentNumber(user.getStudentNumber()).get();
 
-        StudyMemberMapping studyMember = studyMemberService.getAfterMapping(study, member);
+        if (!studyMemberService.isAlreadyRegister(study, member.getIdx())) {
+            StudyMemberMapping studyMember = studyMemberService.getAfterMapping(study, member);
 
-        memberService.registerStudy(member, studyMember);
-        studyService.assignParticipant(study, studyMember);
+            memberService.registerStudy(member, studyMember);
+            studyService.assignParticipant(study, studyMember);
 
+            return study.getIdx();
+        }
 
-        System.out.println(study.toString());
-        System.out.println(member.toString());
-
-        return study.getIdx();
+        return ALREADY_REGISTER_ERROR;
     }
 }

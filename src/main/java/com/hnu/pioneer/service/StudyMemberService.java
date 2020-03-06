@@ -10,6 +10,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 
 @RequiredArgsConstructor
 @Service
@@ -20,5 +22,11 @@ public class StudyMemberService {
     @Transactional
     public StudyMemberMapping getAfterMapping(Study study, Member member) {
         return repository.save(StudyMemberMappingDto.builder().participant(member).registeredStudy(study).build().toEntity());
+    }
+
+    @Transactional(readOnly = true)
+    public boolean isAlreadyRegister(Study study, Long memberIdx) {
+        List<StudyMemberMapping> mappingList = repository.findAllByRegisteredStudy(study);
+        return mappingList.stream().map(StudyMemberMapping::getIdx).anyMatch(id -> id.equals(memberIdx));
     }
 }
