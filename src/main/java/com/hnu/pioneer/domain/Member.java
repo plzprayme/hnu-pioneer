@@ -24,10 +24,10 @@ public class Member {
     @Column(length = 100, nullable = false)
     private String password;
 
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     private Long studentNumber;
 
-    @Column(length = 50, nullable = false)
+    @Column(length = 50, nullable = false, unique = true)
     private String email;
 
     @Enumerated(EnumType.STRING)

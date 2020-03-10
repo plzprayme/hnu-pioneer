@@ -70,9 +70,18 @@ var main = {
             dataType: 'json',
             contentType: 'application/json; charset=utf-8',
             data: JSON.stringify(data)
-        }).done(function () {
-            alert('회원가입에 성공했습니다.');
-            window.location.href = '/';
+        }).done(function (response) {
+
+            if (response === -1) {
+                alert('이미 존재하는 메일주소입니다!');
+                window.location.href = "/signup"
+            } else if (response === -2) {
+                alert('이미 가입한 학번입니다!');
+                window.location.href = "/signup"
+            } else {
+                alert('회원가입에 성공했습니다.');
+                window.location.href = '/';
+            }
         }).fail(function (error) {
             alert(JSON.stringify(error));
         });
@@ -90,10 +99,13 @@ var main = {
             if (response === -1) {
                 alert("이미 신청한 스터디입니다!!");
                 return;
+            } else if (response === -2) {
+                alert("회원가입 후 이용할 수 있습니다!!");
             }
 
             alert('신청완료');
             window.location.href = '/';
+
         }).fail(function (error) {
             alert(JSON.stringify(error));
         });
@@ -103,7 +115,7 @@ var main = {
     },
     isNumeric: function (studentNumber) {
         return !isNaN(parseInt(document.getElementById(studentNumber.value)));
-    }
+    },
 };
 
 main.init();

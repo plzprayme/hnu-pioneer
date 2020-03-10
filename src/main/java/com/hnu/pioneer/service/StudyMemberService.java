@@ -1,7 +1,7 @@
 package com.hnu.pioneer.service;
 
 
-import com.hnu.pioneer.Dto.StudyMemberMappingDto;
+import com.hnu.pioneer.dto.StudyMemberMappingDto;
 import com.hnu.pioneer.domain.Member;
 import com.hnu.pioneer.domain.Study;
 import com.hnu.pioneer.domain.StudyMemberMapping;

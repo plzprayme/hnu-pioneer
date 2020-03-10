@@ -1,12 +1,10 @@
 package com.hnu.pioneer.service;
 
-import com.hnu.pioneer.Dto.MemberSaveRequestDto;
+import com.hnu.pioneer.dto.MemberSaveRequestDto;
 import com.hnu.pioneer.domain.*;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -29,6 +27,16 @@ public class MemberService implements UserDetailsService {
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         requestDto.setPassword(passwordEncoder.encode(requestDto.getPassword()));
         return memberRepository.save(requestDto.toEntity()).getIdx();
+    }
+
+    @Transactional
+    public boolean checkAlreadySignUpEmail(String email) {
+        return memberRepository.findByEmail(email).isPresent();
+    }
+
+    @Transactional
+    public boolean checkAlreadySignUpStudentNumber(Long studentNumber) {
+        return memberRepository.findByStudentNumber(studentNumber).isPresent();
     }
 
     @Transactional(readOnly = true)

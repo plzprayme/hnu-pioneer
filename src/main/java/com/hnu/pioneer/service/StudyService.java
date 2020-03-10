@@ -1,8 +1,8 @@
 
 package com.hnu.pioneer.service;
 
-import com.hnu.pioneer.Dto.StudyListResponseDto;
-import com.hnu.pioneer.Dto.StudySaveRequestDto;
+import com.hnu.pioneer.dto.StudyListResponseDto;
+import com.hnu.pioneer.dto.StudySaveRequestDto;
 import com.hnu.pioneer.domain.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

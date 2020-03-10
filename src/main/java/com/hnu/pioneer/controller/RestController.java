@@ -1,7 +1,7 @@
 package com.hnu.pioneer.controller;
 
-import com.hnu.pioneer.Dto.MemberSaveRequestDto;
-import com.hnu.pioneer.Dto.StudySaveRequestDto;
+import com.hnu.pioneer.dto.MemberSaveRequestDto;
+import com.hnu.pioneer.dto.StudySaveRequestDto;
 import com.hnu.pioneer.domain.Member;
 import com.hnu.pioneer.domain.Study;
 import com.hnu.pioneer.domain.StudyMemberMapping;
@@ -26,10 +26,20 @@ public class RestController {
     private final StudyMemberService studyMemberService;
 
     private final Long ALREADY_REGISTER_ERROR = -1L;
+    private final Long ALREADY_SIGNUP_EMAIL = -1L;
+    private final Long ALREADY_SIGNUP_STUDENTNUMBER = -2L;
+    private final Long NO_PERMISSION_ERROR = -2L;
 
     @PostMapping("/signup/request")
     public Long signUpRequest(
             @RequestBody MemberSaveRequestDto requestDto, Model model) {
+
+        if (memberService.checkAlreadySignUpEmail(requestDto.getEmail())) {
+           return ALREADY_SIGNUP_EMAIL;
+        } else if (memberService.checkAlreadySignUpStudentNumber(requestDto.getStudentNumber())) {
+            return ALREADY_SIGNUP_STUDENTNUMBER;
+        }
+
         return memberService.signUp(requestDto);
     }
 
@@ -42,6 +52,11 @@ public class RestController {
 
     @GetMapping("/study/register/{idx}")
     public Long applyStudy(@PathVariable("idx") Long studyIdx) {
+
+
+        if (SecurityContextHolder.getContext().getAuthentication().getPrincipal().equals("anonymousUser")) {
+            return NO_PERMISSION_ERROR;
+        }
 
         UserDetails user = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
