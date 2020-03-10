@@ -1,5 +1,6 @@
 package com.hnu.pioneer.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -9,6 +10,8 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+
+@JsonIgnoreProperties({"member"})
 @NoArgsConstructor
 @Getter
 @Entity

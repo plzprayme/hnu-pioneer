@@ -1,0 +1,68 @@
+{{> layout/header}}
+
+<!--body-->
+<div class="container">
+    <!-- 스터디 현황 리더, 주제, 날짜, 위치, 시간, 인원 -->
+    <br><br><br>
+    <h1>내가 생성한 스터디</h1>
+    <br>
+
+    <table class="table table-horizontal table-bordered">
+        <thead class="thead-strong">
+        <tr>
+            <th>번호</th>
+            <th>제목</th>
+            <th>리더</th>
+            <th>참여인원</th>
+            <th>개설날짜</th>
+        </tr>
+        </thead>
+        <tbody id="tbody">
+        {{#studies}}
+            <tr>
+                <td>{{id}}</td>
+                <td><a href="/posts/update/{{id}}">{{studyName}}</a></td>
+                <td>{{leader}}</td>
+                <td>{{currentStudyMate}}</td>
+                <td>{{modifiedDate}}</td>
+            </tr>
+        {{/studies}}
+        </tbody>
+    </table>
+
+    <div class="card-columns">
+        <div class="tab-content" id="nav-tabContent">
+            <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+
+                {{^studies}}
+                    <img style="align-items: center;" class="rounded mx-auto d-block" src="/images/no-study.jpg"
+                         alt="no-study">
+                    <br><br><br><br>
+                {{/studies}}
+
+                {{#studies}}
+                    <input type="hidden" id="id" value={{idx}}>
+                    <div class="card text-white bg-primary mb-3" style="max-width: 18rem;">
+                        <div class="card-header bg-transparenty">{{studyName}} 스터디 - 리더 {{leader}}</div>
+                        <div class="card-body card-text">
+                            <p>기간: {{duration}}</p>
+                            <p>시간: {{time}}</p>
+                            <p>현재인원: {{currentStudyMate}}</p>
+                        </div>
+                        <div class="card-footer bg-transparent">
+                            <p>목표</p>
+                            <p>{{goal}}</p>
+                            <a id="btn-register" class="btn btn-outline-light btn-block">신청하기</a>
+                        </div>
+                    </div>
+                    <br>
+                {{/studies}}
+
+            </div>
+        </div>
+    </div>
+
+</div>
+<!--/body-->
+
+{{> layout/footer}}

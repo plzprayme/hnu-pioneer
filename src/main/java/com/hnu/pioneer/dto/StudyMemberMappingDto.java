@@ -4,7 +4,10 @@ import com.hnu.pioneer.domain.Member;
 import com.hnu.pioneer.domain.Study;
 import com.hnu.pioneer.domain.StudyMemberMapping;
 import lombok.Builder;
+import lombok.NoArgsConstructor;
 
+
+@NoArgsConstructor
 public class StudyMemberMappingDto {
     Long idx;
     private Member participant;

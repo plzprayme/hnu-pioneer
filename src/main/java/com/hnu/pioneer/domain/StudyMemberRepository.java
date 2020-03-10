@@ -6,4 +6,5 @@ import java.util.List;
 
 public interface StudyMemberRepository extends JpaRepository<StudyMemberMapping, Long> {
     List<StudyMemberMapping> findAllByRegisteredStudy(Study study);
+    List<StudyMemberMapping> findAllByParticipant(Member member);
 }

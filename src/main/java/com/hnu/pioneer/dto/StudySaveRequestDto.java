@@ -9,7 +9,6 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 
-@ToString
 @Getter
 @NoArgsConstructor
 public class StudySaveRequestDto {

@@ -29,4 +29,11 @@ public class StudyMemberService {
         List<StudyMemberMapping> mappingList = repository.findAllByRegisteredStudy(study);
         return mappingList.stream().map(StudyMemberMapping::getIdx).anyMatch(id -> id.equals(memberIdx));
     }
+
+    @Transactional(readOnly = true)
+    public List<StudyMemberMapping> test(Member member) {
+        List<StudyMemberMapping> all = repository.findAll();
+        all.stream().map()
+        return repository.findAllByParticipant(member);
+    }
 }

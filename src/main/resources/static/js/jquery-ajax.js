@@ -101,11 +101,11 @@ var main = {
                 return;
             } else if (response === -2) {
                 alert("회원가입 후 이용할 수 있습니다!!");
+                return;
             }
 
             alert('신청완료');
             window.location.href = '/';
-
         }).fail(function (error) {
             alert(JSON.stringify(error));
         });
