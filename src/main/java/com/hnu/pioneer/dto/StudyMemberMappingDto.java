@@ -2,7 +2,7 @@ package com.hnu.pioneer.dto;
 
 import com.hnu.pioneer.domain.Member;
 import com.hnu.pioneer.domain.Study;
-import com.hnu.pioneer.domain.StudyMemberMapping;
+import com.hnu.pioneer.domain.jointable.StudyMemberMapping;
 import lombok.Builder;
 import lombok.NoArgsConstructor;
 

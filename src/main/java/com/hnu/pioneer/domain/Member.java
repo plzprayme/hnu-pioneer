@@ -1,5 +1,6 @@
 package com.hnu.pioneer.domain;
 
+import com.hnu.pioneer.domain.jointable.StudyMemberMapping;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -12,7 +13,7 @@ import java.util.List;
 @NoArgsConstructor
 @Entity
 @Table
-public class Member {
+public class Member extends BaseTimeEntity{
     @Id
     @Column
     @GeneratedValue(strategy = GenerationType.IDENTITY)

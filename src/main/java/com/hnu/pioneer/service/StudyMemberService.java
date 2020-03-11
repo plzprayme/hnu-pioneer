@@ -1,16 +1,15 @@
 package com.hnu.pioneer.service;
 
-
 import com.hnu.pioneer.dto.StudyMemberMappingDto;
 import com.hnu.pioneer.domain.Member;
 import com.hnu.pioneer.domain.Study;
-import com.hnu.pioneer.domain.StudyMemberMapping;
-import com.hnu.pioneer.domain.StudyMemberRepository;
+import com.hnu.pioneer.domain.jointable.StudyMemberMapping;
+import com.hnu.pioneer.domain.jointable.StudyMemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 @RequiredArgsConstructor
@@ -33,7 +32,7 @@ public class StudyMemberService {
     @Transactional(readOnly = true)
     public List<StudyMemberMapping> test(Member member) {
         List<StudyMemberMapping> all = repository.findAll();
-        all.stream().map()
+        all.stream().filter(a -> a.equals(member.getIdx())).collect(Collectors.toList());
         return repository.findAllByParticipant(member);
     }
 }

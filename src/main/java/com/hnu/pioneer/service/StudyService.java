@@ -1,6 +1,7 @@
 
 package com.hnu.pioneer.service;
 
+import com.hnu.pioneer.domain.jointable.StudyMemberMapping;
 import com.hnu.pioneer.dto.StudyListResponseDto;
 import com.hnu.pioneer.dto.StudySaveRequestDto;
 import com.hnu.pioneer.domain.*;

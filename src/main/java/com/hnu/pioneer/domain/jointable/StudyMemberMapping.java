@@ -1,5 +1,7 @@
-package com.hnu.pioneer.domain;
+package com.hnu.pioneer.domain.jointable;
 
+import com.hnu.pioneer.domain.Member;
+import com.hnu.pioneer.domain.Study;
 import lombok.*;
 
 import javax.persistence.*;

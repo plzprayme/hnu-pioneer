@@ -6,7 +6,6 @@
     <br><br><br>
     <h1>내가 생성한 스터디</h1>
     <br>
-
     <table class="table table-horizontal table-bordered">
         <thead class="thead-strong">
         <tr>
@@ -15,53 +14,62 @@
             <th>리더</th>
             <th>참여인원</th>
             <th>개설날짜</th>
+            <th>#</th>
+            <th>#</th>
+        </tr>
+        </thead>
+    <tbody id="tbody">
+        {{#createStudies}}
+        <tr>
+            <td>{{idx}}</td>
+            <td><a href="/study/detail/{{idx}}">{{studyName}}</a></td>
+            <td>{{leader}}</td>
+            <td>{{currentStudyMate}}</td>
+            <td>{{createdDate}}</td>
+            <td><a href="/study/update/{{idx}}" class="btn btn-success">수정하기</a></td>
+            <td><a href="/study/close/{{idx}}" class="btn btn-danger">마감하기</a></td>
+        </tr>
+        </tbody>
+        {{/createStudies}}
+        {{^createStudies}}
+            <tr>
+                <td colspan="7" class="text-center">생성한 스터디가 없습니다.</td>
+            </tr>
+        {{/createStudies}}
+    </table>
+
+    <br><br><br>
+    <h1>내가 신청한 스터디</h1>
+    <br>
+    <table class="table table-horizontal table-bordered">
+        <thead class="thead-strong">
+        <tr>
+            <th>번호</th>
+            <th>제목</th>
+            <th>리더</th>
+            <th>참여인원</th>
+            <th>개설날짜</th>
+            <th>#</th>
         </tr>
         </thead>
         <tbody id="tbody">
-        {{#studies}}
+        {{#registeredStudies}}
             <tr>
-                <td>{{id}}</td>
-                <td><a href="/posts/update/{{id}}">{{studyName}}</a></td>
+                <td>{{idx}}</td>
+                <td><a href="/study/detail/{{idx}}">{{studyName}}</a></td>
                 <td>{{leader}}</td>
                 <td>{{currentStudyMate}}</td>
-                <td>{{modifiedDate}}</td>
+                <td>{{createdDate}}</td>
+                <td><a href="/study/unregister/{{idx}}" class="btn btn-danger">신청취소</a></td>
             </tr>
-        {{/studies}}
+        {{/registeredStudies}}
+        {{^registeredStudies}}
+            <tr>
+                <td colspan="6" class="text-center">신청한 스터디가 없습니다.</td>
+            </tr>
+        {{/registeredStudies}}
         </tbody>
     </table>
-
-    <div class="card-columns">
-        <div class="tab-content" id="nav-tabContent">
-            <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
-
-                {{^studies}}
-                    <img style="align-items: center;" class="rounded mx-auto d-block" src="/images/no-study.jpg"
-                         alt="no-study">
-                    <br><br><br><br>
-                {{/studies}}
-
-                {{#studies}}
-                    <input type="hidden" id="id" value={{idx}}>
-                    <div class="card text-white bg-primary mb-3" style="max-width: 18rem;">
-                        <div class="card-header bg-transparenty">{{studyName}} 스터디 - 리더 {{leader}}</div>
-                        <div class="card-body card-text">
-                            <p>기간: {{duration}}</p>
-                            <p>시간: {{time}}</p>
-                            <p>현재인원: {{currentStudyMate}}</p>
-                        </div>
-                        <div class="card-footer bg-transparent">
-                            <p>목표</p>
-                            <p>{{goal}}</p>
-                            <a id="btn-register" class="btn btn-outline-light btn-block">신청하기</a>
-                        </div>
-                    </div>
-                    <br>
-                {{/studies}}
-
-            </div>
-        </div>
-    </div>
-
 </div>
 <!--/body-->
 

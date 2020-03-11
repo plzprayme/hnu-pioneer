@@ -1,22 +1,21 @@
 package com.hnu.pioneer.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.hnu.pioneer.domain.jointable.StudyMemberMapping;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 
-@JsonIgnoreProperties({"member"})
+//@JsonIgnoreProperties({"member"})
 @NoArgsConstructor
 @Getter
 @Entity
 @Table
-public class Study implements Serializable {
+public class Study extends BaseTimeEntity {
     @Id
     @Column
     @GeneratedValue(strategy = GenerationType.IDENTITY)

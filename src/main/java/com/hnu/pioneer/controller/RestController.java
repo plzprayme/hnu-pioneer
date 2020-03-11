@@ -4,7 +4,7 @@ import com.hnu.pioneer.dto.MemberSaveRequestDto;
 import com.hnu.pioneer.dto.StudySaveRequestDto;
 import com.hnu.pioneer.domain.Member;
 import com.hnu.pioneer.domain.Study;
-import com.hnu.pioneer.domain.StudyMemberMapping;
+import com.hnu.pioneer.domain.jointable.StudyMemberMapping;
 import com.hnu.pioneer.domain.UserDetails;
 import com.hnu.pioneer.service.MemberService;
 import com.hnu.pioneer.service.StudyMemberService;
@@ -73,5 +73,14 @@ public class RestController {
         }
 
         return ALREADY_REGISTER_ERROR;
+    }
+
+    @GetMapping("/study/unregister/{idx}")
+    public Long unregisterStudy(@PathVariable("idx") Long studyIdx) {
+        UserDetails user = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Member member = memberService.getByStudentNumber(user.getStudentNumber()).get();
+        memberService.
+
+
     }
 }
