@@ -75,4 +75,8 @@ public class Study extends BaseTimeEntity {
     public void increaseOneStudyMate() {
         this.currentStudyMate++;
     }
+
+    public void removeParticipant(StudyMemberMapping participant) {
+        participants.remove(participant);
+    }
 }

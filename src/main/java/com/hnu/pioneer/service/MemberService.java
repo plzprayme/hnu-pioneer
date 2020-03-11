@@ -33,19 +33,6 @@ public class MemberService implements UserDetailsService {
         return memberRepository.save(requestDto.toEntity()).getIdx();
     }
 
-    @Transactional
-    public Long removeRegisterStudy(Long studentNumber, Long studyNumber) {
-
-        for (StudyMemberMapping studyMember : getByStudentNumber(studentNumber).get().getRegisteredStuies()) {
-            if (studyMember.getRegisteredStudy().getIdx().equals(studyNumber)) {
-                studyMember.getRegisteredStudy().remo
-            }
-
-        }
-
-        return
-    }
-
     @Transactional(readOnly = true)
     public boolean checkAlreadySignUpEmail(String email) {
         return memberRepository.findByEmail(email).isPresent();

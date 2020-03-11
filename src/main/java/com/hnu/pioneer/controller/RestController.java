@@ -79,8 +79,6 @@ public class RestController {
     public Long unregisterStudy(@PathVariable("idx") Long studyIdx) {
         UserDetails user = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         Member member = memberService.getByStudentNumber(user.getStudentNumber()).get();
-        memberService.
-
-
+        return  studyMemberService.removeRegisterStudy(member.getIdx(), studyIdx);
     }
 }

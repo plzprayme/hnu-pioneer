@@ -71,4 +71,8 @@ public class Member extends BaseTimeEntity{
         registeredStuies.add(mapper);
         mapper.setParticipant(this);
     }
+
+    public void removeRegisteredStudy(StudyMemberMapping registeredStudy) {
+        registeredStuies.remove(registeredStudy);
+    }
 }

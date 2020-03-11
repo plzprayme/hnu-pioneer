@@ -35,4 +35,31 @@ public class StudyMemberService {
         all.stream().filter(a -> a.equals(member.getIdx())).collect(Collectors.toList());
         return repository.findAllByParticipant(member);
     }
+
+    @Transactional
+    public Long removeRegisterStudy(Long studentNumber, Long studyNumber) {
+
+        StudyMemberMapping a = repository.findAll().get(0);
+
+//        System.out.println(studentNumber);
+//        System.out.println(studyNumber);
+//        System.out.println(a.getParticipant().getIdx());
+//        System.out.println(a.getRegisteredStudy().getIdx());
+
+//        repository.findAll().stream().
+
+        for (StudyMemberMapping studyMember : repository.findAll()) {
+
+            if (studyMember.getParticipant().getIdx().equals(studentNumber)
+                    && studyMember.getRegisteredStudy().getIdx().equals(studyNumber)) {
+                studyMember.getRegisteredStudy().removeParticipant(studyMember);
+                studyMember.getParticipant().removeRegisteredStudy(studyMember);
+
+                return studyMember.getIdx();
+            }
+
+        }
+
+        return 0L;
+    }
 }
