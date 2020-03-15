@@ -42,7 +42,8 @@ public class StudyService {
     }
 
     @Transactional
-    public void assignParticipant(Study study, StudyMemberMapping studyMember) {
+    public void assignParticipant(Long studyIdx, StudyMemberMapping studyMember) {
+        Study study = studyRepository.findById(studyIdx).get();
         study.addParticipants(studyMember);
         study.increaseOneStudyMate();
     }

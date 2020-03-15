@@ -44,8 +44,8 @@ public class MemberService implements UserDetailsService {
     }
 
     @Transactional(readOnly = true)
-    public Optional<Member> getByStudentNumber(Long studentNumber) {
-        return memberRepository.findByStudentNumber(studentNumber);
+    public Member getByStudentNumber(Long studentNumber) {
+        return memberRepository.findByStudentNumber(studentNumber).get();
     }
 
     @Transactional(readOnly = true)
@@ -55,12 +55,14 @@ public class MemberService implements UserDetailsService {
 
     @Transactional(readOnly = true)
     public List<RegisteredStudyListResponseDto> getRegisteredStudyList(Member member) {
-        return member.getRegisteredStuies().stream().map(RegisteredStudyListResponseDto::new).collect(Collectors.toList());
+        return member.getRegisteredStudies().stream().map(RegisteredStudyListResponseDto::new).collect(Collectors.toList());
     }
 
     @Transactional
-    public void registerStudy(Member member, StudyMemberMapping studyMember) {
+    public void registerStudy(Long memberIdx, StudyMemberMapping studyMember) {
+        Member member = memberRepository.findById(memberIdx).get();
         member.addRegisteredStudy(studyMember);
+        memberRepository.save(member);
     }
 
     /**

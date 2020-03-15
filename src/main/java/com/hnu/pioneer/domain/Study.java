@@ -7,10 +7,10 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
-
-//@JsonIgnoreProperties({"member"})
 @NoArgsConstructor
 @Getter
 @Entity
@@ -44,11 +44,11 @@ public class Study extends BaseTimeEntity {
     private StudyStatus status = StudyStatus.INCRUIT;
 
     @ManyToOne
-    @JoinColumn(name = "member_idx", foreignKey = @ForeignKey(name = "FK_MEMBER_IDX"))
+    @JoinColumn(name = "leader_idx", foreignKey = @ForeignKey(name = "FK_MEMBER_IDX"))
     private Member member;
 
-    @OneToMany(mappedBy = "participant")
-    private List<StudyMemberMapping> participants = new ArrayList<>();
+    @OneToMany(mappedBy = "registeredStudy")
+    private Set<StudyMemberMapping> participants = new HashSet<>();
 
     @Builder
     public Study(String studyName, String leader, String time,
@@ -68,8 +68,7 @@ public class Study extends BaseTimeEntity {
     }
 
     public void addParticipants(StudyMemberMapping mapper) {
-        participants.add(mapper);
-        mapper.setRegisteredStudy(this);
+        this.participants.add(mapper);
     }
 
     public void increaseOneStudyMate() {
@@ -77,6 +76,8 @@ public class Study extends BaseTimeEntity {
     }
 
     public void removeParticipant(StudyMemberMapping participant) {
-        participants.remove(participant);
+        this.participants.remove(participant);
+        participant.setRegisteredStudy(null);
+        this.currentStudyMate--;
     }
 }

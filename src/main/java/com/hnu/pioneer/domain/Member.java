@@ -7,7 +7,9 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Getter
 @NoArgsConstructor
@@ -38,8 +40,8 @@ public class Member extends BaseTimeEntity{
     @OneToMany(mappedBy = "member")
     private List<Study> createStudies = new ArrayList<>();
 
-    @OneToMany(mappedBy = "registeredStudy")
-    private List<StudyMemberMapping> registeredStuies = new ArrayList<>();
+    @OneToMany(mappedBy = "participant")
+    private Set<StudyMemberMapping> registeredStudies = new HashSet<>();
 
     @Builder
     public Member(String name, String password, Long studentNumber, String email, Role role) {
@@ -63,16 +65,17 @@ public class Member extends BaseTimeEntity{
     }
 
     public void addCreateStudies(Study study) {
-        createStudies.add(study);
+        this.createStudies.add(study);
         study.setMember(this);
     }
 
     public void addRegisteredStudy(StudyMemberMapping mapper) {
-        registeredStuies.add(mapper);
-        mapper.setParticipant(this);
+        this.registeredStudies.add(mapper);
+//        mapper.setParticipant(this);
     }
 
     public void removeRegisteredStudy(StudyMemberMapping registeredStudy) {
-        registeredStuies.remove(registeredStudy);
+        this.registeredStudies.remove(registeredStudy);
+        registeredStudy.setParticipant(null);
     }
 }

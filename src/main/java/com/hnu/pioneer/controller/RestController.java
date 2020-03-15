@@ -46,7 +46,7 @@ public class RestController {
     @PostMapping("/create-study/save")
     public Long saveStudy(@RequestBody StudySaveRequestDto requestDto) {
         UserDetails user = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        requestDto.setMember(memberService.getByStudentNumber(user.getStudentNumber()).get());
+        requestDto.setMember(memberService.getByStudentNumber(user.getStudentNumber()));
         return studyService.save(requestDto);
     }
 
@@ -61,13 +61,13 @@ public class RestController {
         UserDetails user = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
         Study study = studyService.getByIdx(studyIdx);
-        Member member = memberService.getByStudentNumber(user.getStudentNumber()).get();
+        Member member = memberService.getByStudentNumber(user.getStudentNumber());
 
         if (!studyMemberService.isAlreadyRegister(study, member.getIdx())) {
             StudyMemberMapping studyMember = studyMemberService.getAfterMapping(study, member);
 
-            memberService.registerStudy(member, studyMember);
-            studyService.assignParticipant(study, studyMember);
+            memberService.registerStudy(member.getIdx(), studyMember);
+            studyService.assignParticipant(study.getIdx(), studyMember);
 
             return study.getIdx();
         }
@@ -78,7 +78,7 @@ public class RestController {
     @GetMapping("/study/unregister/{idx}")
     public Long unregisterStudy(@PathVariable("idx") Long studyIdx) {
         UserDetails user = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        Member member = memberService.getByStudentNumber(user.getStudentNumber()).get();
+        Member member = memberService.getByStudentNumber(user.getStudentNumber());
         return  studyMemberService.removeRegisterStudy(member.getIdx(), studyIdx);
     }
 }

@@ -11,17 +11,18 @@ import javax.persistence.*;
 @Getter
 @Setter
 @Entity
+@Table
 public class StudyMemberMapping {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long idx;
 
     @ManyToOne
-    @JoinColumn(name = "member_id")
+    @JoinColumn(name = "member_idx")
     private Member participant;
 
     @ManyToOne
-    @JoinColumn(name = "study_id")
+    @JoinColumn(name = "study_idx")
     private Study registeredStudy;
 
     @Builder

@@ -54,7 +54,7 @@ public class StudyController {
         UserDetails user = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         model.addAttribute("user", user);
 
-        Member member = memberService.getByStudentNumber(user.getStudentNumber()).get();
+        Member member = memberService.getByStudentNumber(user.getStudentNumber());
         model.addAttribute("registeredStudies", memberService.getRegisteredStudyList(member));
 
         if (user.getAuthorities().toArray()[0].toString().equals("ROLE_LEADER")) {
