@@ -1,7 +1,7 @@
 package com.hnu.pioneer.controller;
 
-import com.hnu.pioneer.dto.MemberSaveRequestDto;
-import com.hnu.pioneer.dto.StudySaveRequestDto;
+import com.hnu.pioneer.dto.request.MemberSaveRequestDto;
+import com.hnu.pioneer.dto.request.StudySaveRequestDto;
 import com.hnu.pioneer.domain.Member;
 import com.hnu.pioneer.domain.Study;
 import com.hnu.pioneer.domain.jointable.StudyMemberMapping;

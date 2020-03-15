@@ -1,10 +1,10 @@
 package com.hnu.pioneer.service;
 
 import com.hnu.pioneer.domain.jointable.StudyMemberMapping;
-import com.hnu.pioneer.dto.CreateStudyListResponseDto;
-import com.hnu.pioneer.dto.MemberSaveRequestDto;
+import com.hnu.pioneer.dto.response.CreateStudyListResponseDto;
+import com.hnu.pioneer.dto.request.MemberSaveRequestDto;
 import com.hnu.pioneer.domain.*;
-import com.hnu.pioneer.dto.RegisteredStudyListResponseDto;
+import com.hnu.pioneer.dto.response.RegisteredStudyListResponseDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;

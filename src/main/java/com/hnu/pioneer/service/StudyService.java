@@ -2,8 +2,9 @@
 package com.hnu.pioneer.service;
 
 import com.hnu.pioneer.domain.jointable.StudyMemberMapping;
-import com.hnu.pioneer.dto.StudyListResponseDto;
-import com.hnu.pioneer.dto.StudySaveRequestDto;
+import com.hnu.pioneer.dto.response.StudyDetailResponseDto;
+import com.hnu.pioneer.dto.response.StudyListResponseDto;
+import com.hnu.pioneer.dto.request.StudySaveRequestDto;
 import com.hnu.pioneer.domain.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -46,5 +47,21 @@ public class StudyService {
         Study study = studyRepository.findById(studyIdx).get();
         study.addParticipants(studyMember);
         study.increaseOneStudyMate();
+    }
+
+    @Transactional(readOnly = true)
+    public StudyDetailResponseDto getStudyDetail(Long studyIdx) {
+        Study study = getByIdx(studyIdx);
+        StudyDetailResponseDto responseDto = new StudyDetailResponseDto(study);
+        responseDto.setParticipantNames(getParticipantNames(study));
+
+        return responseDto;
+    }
+
+    private String getParticipantNames(Study study) {
+        return study.getParticipants().stream()
+                .map(StudyMemberMapping::getParticipant)
+                .map(Member::getName)
+                .collect(Collectors.joining(", "));
     }
 }

@@ -1,4 +1,4 @@
-package com.hnu.pioneer.dto;
+package com.hnu.pioneer.dto.response;
 
 import com.hnu.pioneer.domain.jointable.StudyMemberMapping;
 import lombok.Getter;

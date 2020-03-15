@@ -1,13 +1,11 @@
-package com.hnu.pioneer.dto;
+package com.hnu.pioneer.dto.response;
 
 import com.hnu.pioneer.domain.Study;
-import lombok.Getter;
+import lombok.Builder;
 import lombok.NoArgsConstructor;
-import lombok.ToString;
 
-@Getter
 @NoArgsConstructor
-public class StudyListResponseDto {
+public class StudyDetailResponseDto {
     private Long idx;
     private String studyName;
     private String leader;
@@ -15,8 +13,9 @@ public class StudyListResponseDto {
     private String time;
     private String goal;
     private Integer currentStudyMate;
+    private String participantNames;
 
-    public StudyListResponseDto(Study study) {
+    public StudyDetailResponseDto(Study study) {
         this.idx = study.getIdx();
         this.studyName = study.getStudyName();
         this.leader = study.getLeader();
@@ -24,5 +23,9 @@ public class StudyListResponseDto {
         this.time = study.getTime();
         this.goal = study.getGoal();
         this.currentStudyMate = study.getCurrentStudyMate();
+    }
+    
+    public void setParticipantNames(String name) {
+        this.participantNames = name;
     }
 }

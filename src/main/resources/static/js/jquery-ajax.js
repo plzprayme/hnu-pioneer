@@ -29,6 +29,13 @@ var main = {
                 _this.signUp();
             }
         });
+
+        $('#btn-unregister').on('click', function() {
+            if (doubleSubmitFlag) {
+                doubleSubmitFlag = false;
+                _this.unregister();
+            }
+        })
     },
     save: function () {
         const data = {
@@ -110,6 +117,9 @@ var main = {
             alert(JSON.stringify(error));
         });
     },
+    unregister: function() {
+
+    }
     isEmpty: function (inputNameArray) {
         return inputNameArray.some(name => document.getElementById(name).value === "");
     },

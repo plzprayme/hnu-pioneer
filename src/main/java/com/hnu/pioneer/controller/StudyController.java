@@ -1,6 +1,7 @@
 package com.hnu.pioneer.controller;
 
 import com.hnu.pioneer.domain.Member;
+import com.hnu.pioneer.domain.Study;
 import com.hnu.pioneer.domain.UserDetails;
 import com.hnu.pioneer.service.MemberService;
 import com.hnu.pioneer.service.StudyMemberService;
@@ -10,6 +11,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
 @RequiredArgsConstructor
 @Controller
@@ -67,5 +69,16 @@ public class StudyController {
         }
 
         return "error";
+    }
+
+    @GetMapping("/study/detail/{idx}")
+    public String displayStudyDetail(Model model,
+                                     @PathVariable("idx") Long studyIdx) {
+        UserDetails user = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if (user.getAuthorities().toArray()[0].toString().equals("ROLE_LEADER")) {
+            model.addAttribute("isLeader", true);
+        }
+        model.addAttribute("study", studyService.getStudyDetail(studyIdx));
+        return "study-detail";
     }
 }

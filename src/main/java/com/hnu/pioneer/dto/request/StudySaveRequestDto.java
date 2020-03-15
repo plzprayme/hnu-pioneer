@@ -1,4 +1,4 @@
-package com.hnu.pioneer.dto;
+package com.hnu.pioneer.dto.request;
 
 import com.hnu.pioneer.domain.Member;
 import com.hnu.pioneer.domain.Study;
