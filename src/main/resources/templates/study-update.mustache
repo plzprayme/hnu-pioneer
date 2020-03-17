@@ -1,0 +1,44 @@
+{{> layout/header}}
+<br><br><br>
+<div class="col-md-12">
+    {{#study}}
+        <div class="col-md-4">
+            <form>
+                <input type="hidden" value="{{idx}}">
+                <div class="form-group">
+                    <label for="studyName">스터디 주제</label>
+                    <input type="text" class="form-control" id="studyName" value="{{studyName}}">
+                </div>
+                <div class="form-group">
+                    <label for="leader">리더</label>
+                    <input type="text" class="form-control" id="leader" value="{{leader}}" readonly>
+                </div>
+                <div class="form-group">
+                    <label for="goal">목표</label>
+                    <textarea class="form-control" rows="10"
+                              id="goal">{{goal}}</textarea>
+                </div>
+                <div class="form-group">
+                    <label for="duration">진행기간</label>
+                    <input type="text" class="form-control" id="duration" value="{{duration}}">
+                </div>
+                <div class="form-gorup">
+                    <label for="time">진행시간</label>
+                    <input type="text" class="form-control" id="time" value="{{time}}">
+                </div>
+                <div class="form-gorup">
+                    <label for="time">참여자 - {{currentStudyMate}}명</label>
+                    <input type="text" class="form-control" id="time" value="{{participantNames}}" readonly>
+                </div>
+            </form>
+
+            <br>
+            <a href="/update-study/{{idx}}" role="button" class="btn btn-success">수정하기</a>
+            <a href="/study/delete/{{idx}}" role="button" class="btn btn-danger">삭제하기</a>
+            <a href="/mystudy" class="btn btn-primary">돌아가기</a>
+        </div>
+    {{/study}}
+</div>
+<br>
+
+{{> layout/footer}}

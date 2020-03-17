@@ -1,6 +1,7 @@
 package com.hnu.pioneer.domain;
 
 import com.hnu.pioneer.domain.jointable.StudyMemberMapping;
+import com.hnu.pioneer.dto.request.StudyUpdateRequestDto;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -79,5 +80,12 @@ public class Study extends BaseTimeEntity {
         this.participants.remove(participant);
         participant.setRegisteredStudy(null);
         this.currentStudyMate--;
+    }
+
+    public void update(StudyUpdateRequestDto requestDto) {
+        studyName = requestDto.getStudyName();
+        duration = requestDto.getDuration();
+        goal = requestDto.getGoal();
+        time = requestDto.getTime();
     }
 }

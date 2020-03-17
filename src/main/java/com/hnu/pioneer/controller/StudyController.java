@@ -75,10 +75,17 @@ public class StudyController {
     public String displayStudyDetail(Model model,
                                      @PathVariable("idx") Long studyIdx) {
         UserDetails user = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        if (user.getAuthorities().toArray()[0].toString().equals("ROLE_LEADER")) {
-            model.addAttribute("isLeader", true);
-        }
+        model.addAttribute("user", user);
         model.addAttribute("study", studyService.getStudyDetail(studyIdx));
         return "study-detail";
+    }
+
+    @GetMapping("/study/update/{idx}")
+    public String displayStudyUpdate(Model model,
+                                     @PathVariable("idx") Long studyIdx) {
+        UserDetails user = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        model.addAttribute("user", user);
+        model.addAttribute("study", studyService.getStudyDetail(studyIdx));
+        return "study-update";
     }
 }

@@ -22,11 +22,11 @@
         {{#createStudies}}
         <tr>
             <td>{{idx}}</td>
-            <td><a href="/study/detail/{{idx}}">{{studyName}}</a></td>
+            <td><a href="/study/update/{{idx}}">{{studyName}}</a></td>
             <td>{{leader}}</td>
             <td>{{currentStudyMate}}</td>
             <td>{{createdDate}}</td>
-            <td><a href="/study/update/{{idx}}" class="btn btn-success">수정하기</a></td>
+            <td><a href="/study/delete/{{idx}}" class="btn btn-success">삭제하기</a></td>
             <td><a href="/study/close/{{idx}}" class="btn btn-danger">마감하기</a></td>
         </tr>
         </tbody>

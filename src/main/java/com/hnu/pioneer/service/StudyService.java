@@ -2,6 +2,7 @@
 package com.hnu.pioneer.service;
 
 import com.hnu.pioneer.domain.jointable.StudyMemberMapping;
+import com.hnu.pioneer.dto.request.StudyUpdateRequestDto;
 import com.hnu.pioneer.dto.response.StudyDetailResponseDto;
 import com.hnu.pioneer.dto.response.StudyListResponseDto;
 import com.hnu.pioneer.dto.request.StudySaveRequestDto;
@@ -56,6 +57,18 @@ public class StudyService {
         responseDto.setParticipantNames(getParticipantNames(study));
 
         return responseDto;
+    }
+
+    @Transactional
+    public Long update(Long studyIdx, StudyUpdateRequestDto requestDto) {
+        Study study = studyRepository.findById(studyIdx).orElseThrow(() -> new IllegalArgumentException("잘못된 ID..."));
+        study.update(requestDto);
+        return study.getIdx();
+    }
+
+    @Transactional
+    public void delete(Long studyIdx) {
+        studyRepository.deleteById(studyIdx);
     }
 
     private String getParticipantNames(Study study) {

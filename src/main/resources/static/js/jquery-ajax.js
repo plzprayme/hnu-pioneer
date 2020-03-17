@@ -3,7 +3,31 @@ var main = {
         var _this = this;
         var doubleSubmitFlag = true;
 
-        $("a[href*='/study/unregister'").click(function (e) {
+        $("a[href*='/study/delete/']").click(function (e) {
+            e.preventDefault();
+            if (doubleSubmitFlag) {
+                doubleSubmitFlag = false;
+                _this.delete($(this));
+            }
+        });
+
+        $("a[href*='/study/close/']").click(function (e) {
+            e.preventDefault();
+            if (doubleSubmitFlag) {
+                doubleSubmitFlag = false;
+                _this.close($(this));
+            }
+        });
+
+        $("a[href*='/update-study/']").click(function (e) {
+            e.preventDefault();
+            if (doubleSubmitFlag) {
+                doubleSubmitFlag = false;
+                _this.update($(this));
+            }
+        });
+
+        $("a[href*='/study/unregister']").click(function (e) {
             e.preventDefault();
             if (doubleSubmitFlag) {
                 doubleSubmitFlag = false;
@@ -13,7 +37,6 @@ var main = {
 
         $("form[name='form-study']").submit(function (e) {
             e.preventDefault();
-
             if (doubleSubmitFlag) {
                 doubleSubmitFlag = false;
                 _this.register($(this));
@@ -40,7 +63,7 @@ var main = {
             }
         });
 
-        $('#btn-unregister').on('click', function() {
+        $('#btn-unregister').on('click', function () {
             if (doubleSubmitFlag) {
                 doubleSubmitFlag = false;
                 _this.unregister();
@@ -65,8 +88,61 @@ var main = {
             contentType: 'application/json; charset=utf-8',
             data: JSON.stringify(data)
         }).done(function () {
-            alert('스터디가 생성되었습니다.');
+            alert('저장완료');
             window.location.href = '/study';
+        }).fail(function (error) {
+            alert(JSON.stringify(error));
+        });
+    },
+    update: function (_this) {
+        const data = {
+            studyName: document.getElementById("studyName").value,
+            goal: document.getElementById("goal").value,
+            duration: document.getElementById("duration").value,
+            time: document.getElementById("time").value,
+        };
+
+        $.ajax({
+            type: 'POST',
+            url: _this.attr("href"),
+            dataType: 'json',
+            contentType: 'application/json; charset=utf-8',
+            data: JSON.stringify(data)
+        }).done(function () {
+            alert('저장완료');
+            window.location.href = '/study';
+        }).fail(function (error) {
+            alert(JSON.stringify(error));
+        });
+    },
+    delete: function (_this) {
+        $.ajax({
+            type: "GET",
+            url: _this.attr('href'),
+        }).done(function (response) {
+            if (response > 0) {
+                alert('삭제 되었습니다.');
+                window.location.href = '/mystudy';
+            }
+
+            alert("삭제 실패");
+            window.location.href = '/';
+        }).fail(function (error) {
+            alert(JSON.stringify(error));
+        });
+    },
+    close: function (_this) {
+        $.ajax({
+            type: "GET",
+            url: _this.attr('href'),
+        }).done(function (response) {
+            if (response > 0) {
+                alert('모집이 마감되었습니다.');
+                window.location.href = '/mystudy';
+            }
+
+            alert("모집 마감 실패");
+            window.location.href = '/';
         }).fail(function (error) {
             alert(JSON.stringify(error));
         });
@@ -107,7 +183,6 @@ var main = {
             type: "GET",
             url: _this.attr('action'),
         }).done(function (response) {
-
             if (response === -1) {
                 alert("이미 신청한 스터디입니다!!");
                 return;
@@ -115,29 +190,23 @@ var main = {
                 alert("회원가입 후 이용할 수 있습니다!!");
                 return;
             }
-
             alert('신청완료');
             window.location.href = '/mystudy';
         }).fail(function (error) {
             alert(JSON.stringify(error));
         });
     },
-    unregister: function(_this) {
+    unregister: function (_this) {
         $.ajax({
             type: "GET",
             url: _this.attr('href'),
         }).done(function (response) {
-
-            if (response === -1) {
-                alert("이미 신청한 스터디입니다!!");
-                return;
-            } else if (response === -2) {
-                alert("회원가입 후 이용할 수 있습니다!!");
-                return;
+            if (response > 0) {
+                alert('취소완료');
+                window.location.href = '/mystudy';
             }
 
-            alert('신청완료');
-            window.location.href = '/mystudy';
+            alert("취소실패");
         }).fail(function (error) {
             alert(JSON.stringify(error));
         });

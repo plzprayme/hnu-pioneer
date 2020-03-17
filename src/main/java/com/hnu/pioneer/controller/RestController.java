@@ -6,6 +6,7 @@ import com.hnu.pioneer.domain.Member;
 import com.hnu.pioneer.domain.Study;
 import com.hnu.pioneer.domain.jointable.StudyMemberMapping;
 import com.hnu.pioneer.domain.UserDetails;
+import com.hnu.pioneer.dto.request.StudyUpdateRequestDto;
 import com.hnu.pioneer.service.MemberService;
 import com.hnu.pioneer.service.StudyMemberService;
 import com.hnu.pioneer.service.StudyService;
@@ -50,6 +51,18 @@ public class RestController {
         return studyService.save(requestDto);
     }
 
+    @PostMapping("/update-study/{idx}")
+    public Long updateStudy(@PathVariable("idx") Long studyIdx,
+                            @RequestBody StudyUpdateRequestDto requestDto) {
+        return studyService.update(studyIdx, requestDto);
+    }
+
+    @GetMapping("/study/delete/{idx}")
+    public Long deleteStudy(@PathVariable("idx") Long studyIdx) {
+        studyService.delete(studyIdx);
+        return studyIdx;
+    }
+
     @GetMapping("/study/register/{idx}")
     public Long applyStudy(@PathVariable("idx") Long studyIdx) {
 
@@ -76,7 +89,8 @@ public class RestController {
     }
 
     @GetMapping("/study/unregister/{idx}")
-    public Long unregisterStudy(@PathVariable("idx") Long studyIdx) {
+    public Long unregisterStudy(@PathVariable("idx") Long studyIdx,
+                                @RequestBody StudySaveRequestDto requestDto) {
         UserDetails user = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         return memberService.unregisterStudy(user.getStudentNumber(), studyIdx);
     }
