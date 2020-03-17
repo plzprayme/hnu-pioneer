@@ -18,21 +18,22 @@
                 {{/studies}}
 
                 {{#studies}}
-                    <input type="hidden" id="id" value={{idx}}>
-                    <div class="card text-white bg-primary mb-3" style="max-width: 18rem;">
-                        <div class="card-header bg-transparenty">{{studyName}} 스터디 - 리더 {{leader}}</div>
-                        <div class="card-body card-text">
-                            <p>기간: {{duration}}</p>
-                            <p>시간: {{time}}</p>
-                            <p>현재인원: {{currentStudyMate}}</p>
+                    <form action="/study/register/{{idx}}" method="get" name="form-study">
+                        <div class="card text-white bg-primary mb-3" style="max-width: 18rem;">
+                            <div class="card-header bg-transparenty">{{studyName}} 스터디 - 리더 {{leader}}</div>
+                            <div class="card-body card-text">
+                                <p>기간: {{duration}}</p>
+                                <p>시간: {{time}}</p>
+                                <p>현재인원: {{currentStudyMate}}</p>
+                            </div>
+                            <div class="card-footer bg-transparent">
+                                <p>목표</p>
+                                <p>{{goal}}</p>
+                                <input type="submit" class="btn btn-outline-light btn-block" value="신청하기">
+                            </div>
                         </div>
-                        <div class="card-footer bg-transparent">
-                            <p>목표</p>
-                            <p>{{goal}}</p>
-                            <a id="btn-register" class="btn btn-outline-light btn-block">신청하기</a>
-                        </div>
-                    </div>
-                    <br>
+                        <br>
+                    </form>
                 {{/studies}}
 
             </div>

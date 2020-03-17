@@ -65,6 +65,19 @@ public class MemberService implements UserDetailsService {
         memberRepository.save(member);
     }
 
+    @Transactional
+    public Long unregisterStudy(Long studentNumber, Long studyIdx) {
+        Member member = memberRepository.findByStudentNumber(studentNumber).get();
+        member.getRegisteredStudies().stream()
+                .filter(a -> a.getRegisteredStudy().getIdx().equals(studyIdx))
+                .forEach(studyMember -> {
+                    studyMember.getParticipant().removeRegisteredStudy(studyMember);
+                    studyMember.getRegisteredStudy().removeParticipant(studyMember);
+                });
+
+        return member.getIdx();
+    }
+
     /**
      * @param 로그인 페이지에서 입력한 email
      *            로그인에 쓰인 email으로 조회를 한 후 권한을 부여한다.

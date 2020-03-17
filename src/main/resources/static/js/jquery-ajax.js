@@ -3,10 +3,20 @@ var main = {
         var _this = this;
         var doubleSubmitFlag = true;
 
-        $('#btn-register').on('click', function() {
+        $("a[href*='/study/unregister'").click(function (e) {
+            e.preventDefault();
             if (doubleSubmitFlag) {
                 doubleSubmitFlag = false;
-                _this.register();
+                _this.unregister($(this));
+            }
+        });
+
+        $("form[name='form-study']").submit(function (e) {
+            e.preventDefault();
+
+            if (doubleSubmitFlag) {
+                doubleSubmitFlag = false;
+                _this.register($(this));
             }
         });
 
@@ -62,7 +72,6 @@ var main = {
         });
     },
     signUp: function () {
-
         const data = {
             email: document.getElementById('email').value,
             password: document.getElementById('password').value,
@@ -93,14 +102,10 @@ var main = {
             alert(JSON.stringify(error));
         });
     },
-    register : function () {
-        const idx = document.getElementById("id").value;
-
+    register: function (_this) {
         $.ajax({
-            type: 'GET',
-            url: '/study/register/' + idx,
-            dataType: 'json',
-            contentType:'application/json; charset=utf-8'
+            type: "GET",
+            url: _this.attr('action'),
         }).done(function (response) {
 
             if (response === -1) {
@@ -112,20 +117,37 @@ var main = {
             }
 
             alert('신청완료');
-            window.location.href = '/';
+            window.location.href = '/mystudy';
         }).fail(function (error) {
             alert(JSON.stringify(error));
         });
     },
-    unregister: function() {
+    unregister: function(_this) {
+        $.ajax({
+            type: "GET",
+            url: _this.attr('href'),
+        }).done(function (response) {
 
-    }
+            if (response === -1) {
+                alert("이미 신청한 스터디입니다!!");
+                return;
+            } else if (response === -2) {
+                alert("회원가입 후 이용할 수 있습니다!!");
+                return;
+            }
+
+            alert('신청완료');
+            window.location.href = '/mystudy';
+        }).fail(function (error) {
+            alert(JSON.stringify(error));
+        });
+    },
     isEmpty: function (inputNameArray) {
         return inputNameArray.some(name => document.getElementById(name).value === "");
     },
     isNumeric: function (studentNumber) {
         return !isNaN(parseInt(document.getElementById(studentNumber.value)));
-    },
+    }
 };
 
 main.init();

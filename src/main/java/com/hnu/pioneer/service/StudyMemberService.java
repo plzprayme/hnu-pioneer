@@ -31,24 +31,4 @@ public class StudyMemberService {
                 .map(StudyMemberMapping::getParticipant)
                 .anyMatch(participant -> participant.getIdx().equals(memberIdx));
     }
-
-    @Transactional
-    public Long removeRegisterStudy(Long studentNumber, Long studyNumber) {
-
-        StudyMemberMapping a = repository.findAll().get(0);
-
-        for (StudyMemberMapping studyMember : repository.findAll()) {
-
-            if (studyMember.getParticipant().getIdx().equals(studentNumber)
-                    && studyMember.getRegisteredStudy().getIdx().equals(studyNumber)) {
-                studyMember.getRegisteredStudy().removeParticipant(studyMember);
-                studyMember.getParticipant().removeRegisteredStudy(studyMember);
-
-                return studyMember.getIdx();
-            }
-
-        }
-
-        return 0L;
-    }
 }
