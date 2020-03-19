@@ -37,10 +37,10 @@ public class Member extends BaseTimeEntity{
     @Column(length = 50, nullable = false)
     private Role role;
 
-    @OneToMany(mappedBy = "member")
+    @OneToMany(mappedBy = "member", orphanRemoval = true)
     private List<Study> createStudies = new ArrayList<>();
 
-    @OneToMany(mappedBy = "participant")
+    @OneToMany(mappedBy = "participant", orphanRemoval = true)
     private Set<StudyMemberMapping> registeredStudies = new HashSet<>();
 
     @Builder

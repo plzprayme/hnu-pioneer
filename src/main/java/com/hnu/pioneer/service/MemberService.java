@@ -78,9 +78,19 @@ public class MemberService implements UserDetailsService {
         return member.getIdx();
     }
 
+    @Transactional
+    public Long deleteStudy(Long studentNumber, Long studyIdx) {
+        Member member = memberRepository.findByStudentNumber(studentNumber).get();
+        List<Study> createStudy = member.getCreateStudies().stream()
+                .filter(study -> study.getIdx().equals(studyIdx))
+                .collect(Collectors.toList());
+        member.getCreateStudies().remove(createStudy.get(0));
+        return member.getIdx();
+    }
+
     /**
-     * @param 로그인 페이지에서 입력한 email
-     *            로그인에 쓰인 email으로 조회를 한 후 권한을 부여한다.
+     * 로그인 페이지에서 입력한 email
+     * 로그인에 쓰인 email으로 조회를 한 후 권한을 부여한다.
      */
     @Override
     @Transactional

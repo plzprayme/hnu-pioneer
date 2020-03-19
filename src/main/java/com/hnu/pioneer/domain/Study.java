@@ -45,10 +45,11 @@ public class Study extends BaseTimeEntity {
     private StudyStatus status = StudyStatus.INCRUIT;
 
     @ManyToOne
-    @JoinColumn(name = "leader_idx", foreignKey = @ForeignKey(name = "FK_MEMBER_IDX"))
+//    @JoinColumn(name = "leader_idx", foreignKey = @ForeignKey(name = "FK_MEMBER_IDX"))
+    @JoinColumn(name = "leader_idx")
     private Member member;
 
-    @OneToMany(mappedBy = "registeredStudy")
+    @OneToMany(mappedBy = "registeredStudy", orphanRemoval = true)
     private Set<StudyMemberMapping> participants = new HashSet<>();
 
     @Builder

@@ -120,13 +120,13 @@ var main = {
             type: "GET",
             url: _this.attr('href'),
         }).done(function (response) {
-            if (response > 0) {
-                alert('삭제 되었습니다.');
-                window.location.href = '/mystudy';
+            if (response < 0) {
+                alert("삭제 실패");
+                window.location.href = '/';
             }
 
-            alert("삭제 실패");
-            window.location.href = '/';
+            alert('삭제 되었습니다.');
+            window.location.href = '/mystudy';
         }).fail(function (error) {
             alert(JSON.stringify(error));
         });
