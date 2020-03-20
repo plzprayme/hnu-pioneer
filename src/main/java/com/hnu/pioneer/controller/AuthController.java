@@ -30,15 +30,20 @@ public class AuthController {
         return "signin";
     }
 
-    @GetMapping("/forgot")
+    @GetMapping("/forgot-password")
     public String displayFindPasswordPage() {
-        return "forgot";
+        return "forgot-password";
     }
 
-    @GetMapping("/change-password/{studentNumber}")
+    @GetMapping("/forgot-id")
+    public String displayFindIdPage() {
+        return "forgot-id";
+    }
+
+    @GetMapping("/change-password/{email}")
     public String displayChangePassWordPage(Model model ,
-                                            @PathVariable("studentNumber") Long studentNumber) {
-        model.addAttribute("email", memberService.getByStudentNumber(studentNumber).getEmail());
+                                            @PathVariable("email") String email) {
+        model.addAttribute("email", email);
         return "change-password";
     }
 }

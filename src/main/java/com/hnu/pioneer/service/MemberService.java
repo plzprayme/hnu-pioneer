@@ -56,7 +56,12 @@ public class MemberService implements UserDetailsService {
 
     @Transactional(readOnly = true)
     public Member getByStudentNumber(Long studentNumber) {
-        return memberRepository.findByStudentNumber(studentNumber).get();
+        return memberRepository.findByStudentNumber(studentNumber).orElseThrow(() -> new IllegalArgumentException("잘못된 ID"));
+    }
+
+    @Transactional(readOnly = true)
+    public Member getByEmail(String email) {
+        return memberRepository.findByEmail(email).orElseThrow(() -> new IllegalArgumentException("잘못된 E-MAIL"));
     }
 
     @Transactional(readOnly = true)

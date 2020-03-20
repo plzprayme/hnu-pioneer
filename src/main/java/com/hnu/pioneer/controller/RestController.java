@@ -28,18 +28,29 @@ public class RestController {
     private final StudyMemberService studyMemberService;
 
     private final Long ALREADY_REGISTER_ERROR = -1L;
-    private final Long NOT_REGISTER_STUDENT_NUMBER = -1L;
+    private final String  NOT_REGISTER_STUDENT_NUMBER = "-1";
+    private final String  NOT_REGISTER_EMAIL = "-1L";
     private final Long ALREADY_SIGNUP_EMAIL = -1L;
     private final Long ALREADY_SIGNUP_STUDENTNUMBER = -2L;
     private final Long NO_PERMISSION_ERROR = -2L;
 
-    @GetMapping("/forgot/{studentNumber}")
-    public Long forgotRequest(@PathVariable("studentNumber") Long studentNumber) {
-        if (!memberService.checkAlreadySignUpStudentNumber(studentNumber)) {
+    @GetMapping("/forgot-id/{studentNumber}")
+    public String forgotIdRequest(@PathVariable("studentNumber") Long studentNumber) {
+
+        try {
+            return memberService.getByStudentNumber(studentNumber).getEmail();
+        } catch (IllegalArgumentException e) {
             return NOT_REGISTER_STUDENT_NUMBER;
         }
+    }
 
-        return studentNumber;
+    @GetMapping("/forgot-password/{email}")
+    public String  forgotPasswordRequest(@PathVariable("email") String email) {
+        try {
+            return memberService.getByEmail(email).getEmail();
+        } catch (IllegalArgumentException e) {
+            return NOT_REGISTER_EMAIL;
+        }
     }
 
     @PostMapping("/change-password/request")

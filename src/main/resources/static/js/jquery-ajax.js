@@ -62,12 +62,21 @@ var main = {
             }
         });
 
-        $("#btn-forgot").on('click', function () {
+        $("#btn-forgot-id").on('click', function () {
             if (_this.isEmpty(['studentNumber'])) {
                 alert("학번을 입력해주세요!");
             } else if (doubleSubmitFlag) {
                 doubleSubmitFlag = false;
-                _this.forgotRequest();
+                _this.forgotIdRequest();
+            }
+        });
+
+        $("#btn-forgot-password").on('click', function () {
+            if (_this.isEmpty(['email'])) {
+                alert("학번을 입력해주세요!");
+            } else if (doubleSubmitFlag) {
+                doubleSubmitFlag = false;
+                _this.forgotPasswordRequest();
             }
         });
 
@@ -241,18 +250,34 @@ var main = {
             alert(JSON.stringify(error));
         });
     },
-    forgotRequest: function () {
+    forgotIdRequest: function () {
         const studentNumber = $('#studentNumber').val();
         $.ajax({
             type: "GET",
-            url: "/forgot/" + studentNumber
+            url: "/forgot-id/" + studentNumber
         }).done(function (response) {
-            if (response === -1) {
+            if (response === "-1") {
                 alert('가입하지 않은 학번입니다!');
                 return;
             }
 
-            window.location.href = "/change-password/" + studentNumber;
+            alert("아이디는 " + response + "입니다.");
+            window.location.href = "/signin/";
+        }).fail(function (error) {
+            alert(JSON.stringify(error));
+        });
+    },
+    forgotPasswordRequest: function () {
+        const email = $('#email').val();
+        $.ajax({
+            type: "GET",
+            url: "/forgot-password/" + email
+        }).done(function (response) {
+            if (response === "-1") {
+                alert('가입하지 않은 아이디입니다!');
+                return;
+            }
+            window.location.href = "/change-password/" + email;
         }).fail(function (error) {
             alert(JSON.stringify(error));
         });
