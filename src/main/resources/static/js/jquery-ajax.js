@@ -3,6 +3,14 @@ var main = {
         var _this = this;
         var doubleSubmitFlag = true;
 
+        $("#checkPassword").on('keyup', function () {
+            if ($('#password').val() === $('#checkPassword').val()) {
+                document.getElementById("isCorrect").innerHTML = "";
+            } else {
+                document.getElementById("isCorrect").innerHTML = "비밀번호가 일치하지 않습니다!";
+            }
+        });
+
         $("a[href*='/study/delete/']").click(function (e) {
             e.preventDefault();
             if (doubleSubmitFlag) {
@@ -44,16 +52,18 @@ var main = {
         });
 
         $("#btn-changePassword").on('click', function () {
-            if(_this.isEmpty(['password'])) {
+            if (_this.isEmpty(['password'])) {
                 alert("변경할 비밀번호를 입력해주세요!");
+            } else if (document.getElementById('isCorrect').innerHTML !== "") {
+                alert('비밀번호가 일치하지 않습니다!');
             } else if (doubleSubmitFlag) {
                 doubleSubmitFlag = false;
                 _this.changePassword();
             }
         });
 
-        $("#btn-forgot").on('click', function() {
-            if(_this.isEmpty(['studentNumber'])) {
+        $("#btn-forgot").on('click', function () {
+            if (_this.isEmpty(['studentNumber'])) {
                 alert("학번을 입력해주세요!");
             } else if (doubleSubmitFlag) {
                 doubleSubmitFlag = false;
@@ -75,6 +85,8 @@ var main = {
                 alert("모든 정보를 입력해주세요!");
             } else if (_this.isNumeric('studentNumber')) {
                 alert('학번은 숫자만 입력할 수 있습니다.');
+            } else if (document.getElementById('isCorrect').innerHTML !== "") {
+                alert('비밀번호가 일치하지 않습니다!');
             } else if (doubleSubmitFlag) {
                 doubleSubmitFlag = false;
                 _this.signUp();
@@ -223,7 +235,6 @@ var main = {
                 alert("취소실패");
             }
 
-
             alert('취소완료');
             window.location.href = '/mystudy';
         }).fail(function (error) {
@@ -246,7 +257,7 @@ var main = {
             alert(JSON.stringify(error));
         });
     },
-    changePassword: function() {
+    changePassword: function () {
         const data = {
             email: document.getElementById('email').value,
             password: document.getElementById('password').value,
