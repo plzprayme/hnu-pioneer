@@ -219,12 +219,13 @@ var main = {
             type: "GET",
             url: _this.attr('href'),
         }).done(function (response) {
-            if (response > 0) {
-                alert('취소완료');
-                window.location.href = '/mystudy';
+            if (response < 0) {
+                alert("취소실패");
             }
 
-            alert("취소실패");
+
+            alert('취소완료');
+            window.location.href = '/mystudy';
         }).fail(function (error) {
             alert(JSON.stringify(error));
         });

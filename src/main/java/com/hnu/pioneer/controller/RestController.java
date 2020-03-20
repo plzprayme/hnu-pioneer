@@ -105,8 +105,7 @@ public class RestController {
     }
 
     @GetMapping("/study/unregister/{idx}")
-    public Long unregisterStudy(@PathVariable("idx") Long studyIdx,
-                                @RequestBody StudySaveRequestDto requestDto) {
+    public Long unregisterStudy(@PathVariable("idx") Long studyIdx) {
         UserDetails user = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         return memberService.unregisterStudy(user.getStudentNumber(), studyIdx);
     }
