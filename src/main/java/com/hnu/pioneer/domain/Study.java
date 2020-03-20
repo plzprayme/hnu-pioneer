@@ -45,7 +45,6 @@ public class Study extends BaseTimeEntity {
     private StudyStatus status = StudyStatus.INCRUIT;
 
     @ManyToOne
-//    @JoinColumn(name = "leader_idx", foreignKey = @ForeignKey(name = "FK_MEMBER_IDX"))
     @JoinColumn(name = "leader_idx")
     private Member member;
 
@@ -88,5 +87,9 @@ public class Study extends BaseTimeEntity {
         duration = requestDto.getDuration();
         goal = requestDto.getGoal();
         time = requestDto.getTime();
+    }
+
+    public void close() {
+        status = StudyStatus.CLOSED;
     }
 }

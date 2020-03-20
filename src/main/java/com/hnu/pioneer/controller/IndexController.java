@@ -21,4 +21,14 @@ public class IndexController {
 
         return "index";
     }
+
+    @GetMapping("/howtogroom")
+    public String displayHowToGroom(Model model) {
+
+        if(!SecurityContextHolder.getContext().getAuthentication().getPrincipal().equals("anonymousUser")) {
+            model.addAttribute("user", (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal());
+        }
+
+        return "howtogroom";
+    }
 }

@@ -1,6 +1,7 @@
 package com.hnu.pioneer.service;
 
 import com.hnu.pioneer.domain.jointable.StudyMemberMapping;
+import com.hnu.pioneer.dto.request.ChangePasswordRequestDto;
 import com.hnu.pioneer.dto.response.CreateStudyListResponseDto;
 import com.hnu.pioneer.dto.request.MemberSaveRequestDto;
 import com.hnu.pioneer.domain.*;
@@ -28,9 +29,19 @@ public class MemberService implements UserDetailsService {
 
     @Transactional
     public Long signUp(MemberSaveRequestDto requestDto) {
-        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-        requestDto.setPassword(passwordEncoder.encode(requestDto.getPassword()));
+        requestDto.setPassword(getBCryptEncodedPassword(requestDto.getPassword()));
         return memberRepository.save(requestDto.toEntity()).getIdx();
+    }
+
+    @Transactional
+    public Long changePassword(ChangePasswordRequestDto requestDto) {
+        Member member = memberRepository.findByEmail(requestDto.getEmail()).get();
+        member.changePassword(getBCryptEncodedPassword(requestDto.getPassword()));
+        return member.getIdx();
+    }
+
+    private String getBCryptEncodedPassword(String rawPassword) {
+        return new BCryptPasswordEncoder().encode(rawPassword);
     }
 
     @Transactional(readOnly = true)
@@ -50,12 +61,18 @@ public class MemberService implements UserDetailsService {
 
     @Transactional(readOnly = true)
     public List<CreateStudyListResponseDto> getCreateStudyList(Member member) {
-        return member.getCreateStudies().stream().map(CreateStudyListResponseDto::new).collect(Collectors.toList());
+        return member.getCreateStudies().stream()
+                .filter(study -> study.getStatus().equals(StudyStatus.INCRUIT))
+                .map(CreateStudyListResponseDto::new)
+                .collect(Collectors.toList());
     }
 
     @Transactional(readOnly = true)
     public List<RegisteredStudyListResponseDto> getRegisteredStudyList(Member member) {
-        return member.getRegisteredStudies().stream().map(RegisteredStudyListResponseDto::new).collect(Collectors.toList());
+        return member.getRegisteredStudies().stream()
+                .filter(study -> study.getRegisteredStudy().getStatus().equals(StudyStatus.INCRUIT))
+                .map(RegisteredStudyListResponseDto::new)
+                .collect(Collectors.toList());
     }
 
     @Transactional

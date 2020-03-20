@@ -77,4 +77,8 @@ public class Member extends BaseTimeEntity{
         this.registeredStudies.remove(registeredStudy);
         registeredStudy.setParticipant(null);
     }
+
+    public void changePassword(String encodedPassword) {
+        password = encodedPassword;
+    }
 }

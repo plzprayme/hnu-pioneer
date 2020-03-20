@@ -1,5 +1,6 @@
 package com.hnu.pioneer.controller;
 
+import com.hnu.pioneer.dto.request.ChangePasswordRequestDto;
 import com.hnu.pioneer.dto.request.MemberSaveRequestDto;
 import com.hnu.pioneer.dto.request.StudySaveRequestDto;
 import com.hnu.pioneer.domain.Member;
@@ -27,9 +28,24 @@ public class RestController {
     private final StudyMemberService studyMemberService;
 
     private final Long ALREADY_REGISTER_ERROR = -1L;
+    private final Long NOT_REGISTER_STUDENT_NUMBER = -1L;
     private final Long ALREADY_SIGNUP_EMAIL = -1L;
     private final Long ALREADY_SIGNUP_STUDENTNUMBER = -2L;
     private final Long NO_PERMISSION_ERROR = -2L;
+
+    @GetMapping("/forgot/{studentNumber}")
+    public Long forgotRequest(@PathVariable("studentNumber") Long studentNumber) {
+        if (!memberService.checkAlreadySignUpStudentNumber(studentNumber)) {
+            return NOT_REGISTER_STUDENT_NUMBER;
+        }
+
+        return studentNumber;
+    }
+
+    @PostMapping("/change-password/request")
+    public Long changePassword(@RequestBody ChangePasswordRequestDto requestDto) {
+        return memberService.changePassword(requestDto);
+    }
 
     @PostMapping("/signup/request")
     public Long signUpRequest(
@@ -93,5 +109,10 @@ public class RestController {
                                 @RequestBody StudySaveRequestDto requestDto) {
         UserDetails user = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         return memberService.unregisterStudy(user.getStudentNumber(), studyIdx);
+    }
+
+    @GetMapping("/study/close/{idx}")
+    public Long closeStudy(@PathVariable("idx") Long studyIdx) {
+        return studyService.closeStudy(studyIdx);
     }
 }

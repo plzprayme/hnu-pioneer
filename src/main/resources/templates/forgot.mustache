@@ -1,0 +1,32 @@
+{{> layout/sign-header}}
+
+<div class="container">
+    <br><br><br><br>
+
+    <div class="card bg-light">
+        <article class="card-body mx-auto" style="max-width: 400px;">
+
+            <img src="/images/pioneer-logo.png" alt="pioneer" height="60" width="60"
+                 style="display: block; margin-left: auto; margin-right: auto;">
+            <h4 class="card-title mt-3 text-center">비밀번호 찾기</h4>
+            <form id="form-forgot">
+                <div class="form-group input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"> <i class="fa fa-user"></i> </span>
+                    </div>
+                    <input id="studentNumber" class="form-control" placeholder="학번" type="text">
+                </div> <!-- form-group// -->
+                <div class="form-group">
+                    <button id="btn-forgot" type="button" class="btn btn-primary btn-block">찾기</button>
+                    <button type="button" class="btn btn-danger btn-block" onclick="window.location.href='/'">취소
+                    </button>
+                </div> <!-- form-group// -->
+                <p class="text-center"><a href="/signup">아이디가 없으신가요?</a></p>
+            </form>
+        </article>
+    </div> <!-- card.// -->
+
+</div>
+<br><br>
+
+{{> layout/footer}}

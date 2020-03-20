@@ -42,7 +42,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .anyRequest().authenticated()
                 .and()
                 .csrf()
-                .ignoringAntMatchers("/h2-console/**", "/signup/request", "/save/request", "/create-study/save", "/update-study/**")
+                .ignoringAntMatchers("/h2-console/**", "/signup/request", "/save/request", "/create-study/save", "/update-study/**", "/change-password/request**")
 //                    .disable()
                 .and()
                 .formLogin()

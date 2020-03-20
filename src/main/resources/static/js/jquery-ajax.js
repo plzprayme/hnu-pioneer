@@ -43,6 +43,24 @@ var main = {
             }
         });
 
+        $("#btn-changePassword").on('click', function () {
+            if(_this.isEmpty(['password'])) {
+                alert("변경할 비밀번호를 입력해주세요!");
+            } else if (doubleSubmitFlag) {
+                doubleSubmitFlag = false;
+                _this.changePassword();
+            }
+        });
+
+        $("#btn-forgot").on('click', function() {
+            if(_this.isEmpty(['studentNumber'])) {
+                alert("학번을 입력해주세요!");
+            } else if (doubleSubmitFlag) {
+                doubleSubmitFlag = false;
+                _this.forgotRequest();
+            }
+        });
+
         $('#btn-save').on('click', function () {
             if (_this.isEmpty(['studyName', 'goal'])) {
                 alert("스터디 주제와 목표를 작성해주세요!");
@@ -136,13 +154,13 @@ var main = {
             type: "GET",
             url: _this.attr('href'),
         }).done(function (response) {
-            if (response > 0) {
-                alert('모집이 마감되었습니다.');
-                window.location.href = '/mystudy';
+            if (response < 0) {
+                alert("모집 마감 실패");
+                window.location.href = '/';
             }
 
-            alert("모집 마감 실패");
-            window.location.href = '/';
+            alert('모집이 마감되었습니다.');
+            window.location.href = '/mystudy';
         }).fail(function (error) {
             alert(JSON.stringify(error));
         });
@@ -207,6 +225,46 @@ var main = {
             }
 
             alert("취소실패");
+        }).fail(function (error) {
+            alert(JSON.stringify(error));
+        });
+    },
+    forgotRequest: function () {
+        const studentNumber = $('#studentNumber').val();
+        $.ajax({
+            type: "GET",
+            url: "/forgot/" + studentNumber
+        }).done(function (response) {
+            if (response === -1) {
+                alert('가입하지 않은 학번입니다!');
+                return;
+            }
+
+            window.location.href = "/change-password/" + studentNumber;
+        }).fail(function (error) {
+            alert(JSON.stringify(error));
+        });
+    },
+    changePassword: function() {
+        const data = {
+            email: document.getElementById('email').value,
+            password: document.getElementById('password').value,
+        };
+
+        $.ajax({
+            type: "POST",
+            url: "/change-password/request",
+            dataType: 'json',
+            contentType: 'application/json; charset=utf-8',
+            data: JSON.stringify(data)
+        }).done(function (response) {
+            if (response === -1) {
+                alert('변경실패');
+                return;
+            }
+
+            alert("변경완료");
+            window.location.href = "/signin"
         }).fail(function (error) {
             alert(JSON.stringify(error));
         });

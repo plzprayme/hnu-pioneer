@@ -71,6 +71,13 @@ public class StudyService {
         studyRepository.deleteById(studyIdx);
     }
 
+    @Transactional
+    public Long closeStudy(Long studyIdx) {
+        Study study = studyRepository.findById(studyIdx).orElseThrow(() -> new IllegalArgumentException("잘못된 ID입니다"));
+        study.close();
+        return  study.getIdx();
+    }
+
     private String getParticipantNames(Study study) {
         return study.getParticipants().stream()
                 .map(StudyMemberMapping::getParticipant)
