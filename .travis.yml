@@ -44,7 +44,7 @@ deploy:
     application: hnu-pioneer
     deployment_group: hnu-pioneer-group
     region: ap-northeast-2
-    wait-until-deployed: true
+    wait_until_deployed: true
 
 # Alarm after complete CI
 notifications:
