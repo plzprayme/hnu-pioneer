@@ -41,7 +41,7 @@ deploy:
     bucket: hnu-pioneer-build
     key: hnu-pioneer.zip
     bundle_type: zip
-    appication: hnu-pioneer
+    application: hnu-pioneer
     deployment_group: hnu-pioneer-group
     region: ap-northeast-2
     wait-until-deployed: true
