@@ -32,7 +32,7 @@ deploy:
     region: ap-northeast-2
     acl: private
     local_dir: deploy
- #   wait-until-deployed: true
+    wait-until-deployed: true
 
   - provider: codedeploy
     access_key_id: $AWS_ACCESS_KEY
@@ -44,7 +44,7 @@ deploy:
     application: hnu-pioneer
     deployment_group: hnu-pioneer-group
     region: ap-northeast-2
-  #  wait-until-deployed: true
+    wait-until-deployed: true
 
 # Alarm after complete CI
 notifications:
