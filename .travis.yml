@@ -27,7 +27,6 @@ deploy:
     region: ap-northeast-2
     acl: private
     local_dir: deploy
-    wait_until_deployed: true
 
 notifications:
   email:
