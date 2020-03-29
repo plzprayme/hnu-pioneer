@@ -6,11 +6,10 @@ branches:
   only:
     - master
 
-# Travis CI server's home
 cache:
   directories:
     - '$HOME/.m2/repository'
-    - '$HOME/.gradle'
+    - '$Home/.gradle'
 
 script: "./gradlew clean build"
 
@@ -27,9 +26,9 @@ deploy:
   - provider: s3
     access_key_id: $AWS_ACCESS_KEY
     secret_access_key: $AWS_SECRET_KEY
-
     bucket: hnu-pioneer-build
     region: ap-northeast-2
+    skip_cleanup: true
     acl: private
     local_dir: deploy
     wait-until-deployed: true
@@ -37,7 +36,6 @@ deploy:
   - provider: codedeploy
     access_key_id: $AWS_ACCESS_KEY
     secret_access_key: $AWS_SECRET_KEY
-
     bucket: hnu-pioneer-build
     key: hnu-pioneer.zip
     bundle_type: zip
@@ -46,7 +44,6 @@ deploy:
     region: ap-northeast-2
     wait-until-deployed: true
 
-# Alarm after complete CI
 notifications:
   email:
     recipients:
