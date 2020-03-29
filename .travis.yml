@@ -29,6 +29,17 @@ deploy:
     local_dir: deploy
     wait-until-deployed: true
 
+  - provider: codedeploy
+    access_key_id: $AWS_ACCESS_KEY
+    secret_access_key: $AWS_SECRET_KEY
+    bucket: hnu-pioneer-build
+    key: hnu-pioneer.zip
+    bundle_type: zip
+    application: hnu-pioneer
+    deployment_group: hnu-pioneer-grip
+    region: ap-northeast-2
+    wait-until-deployed: true
+
 notifications:
   email:
     recipients:
