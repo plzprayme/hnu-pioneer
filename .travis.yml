@@ -36,7 +36,7 @@ deploy:
     key: hnu-pioneer.zip
     bundle_type: zip
     application: hnu-pioneer
-    deployment_group: hnu-pioneer-grip
+    deployment_group: hnu-pioneer-group
     region: ap-northeast-2
     wait-until-deployed: true
 
