@@ -7,13 +7,13 @@ source ${ABSDIR}/profile.sh
 REPOSITORY=/home/ec2-user/app/step3
 PROJECT_NAME=hnu-pioneer
 
-echo "> Build 파일복사"
-echo "> cp $REPOSITORY/zip*.jar $REPOSITORY/"
+echo "> Build 파일 복사"
+echo "> cp $REPOSITORY/zip/*.jar $REPOSITORY/"
 
 cp $REPOSITORY/zip/*.jar $REPOSITORY/
 
-echo "> 새 애플리케이션 배포"
-JAR_NAME=$(ls -tr $REPSOSITORY/*.jar | tail -n 1)
+echo "> 새 어플리케이션 배포"
+JAR_NAME=$(ls -tr $REPOSITORY/*.jar | tail -n 1)
 
 echo "> JAR Name: $JAR_NAME"
 
