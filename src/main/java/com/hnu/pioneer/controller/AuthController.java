@@ -12,8 +12,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 public class AuthController {
 
-    private final MemberService memberService;
-
     @GetMapping("/signup")
     public String signUp() {
         return "signup";
@@ -22,11 +20,9 @@ public class AuthController {
     @GetMapping("/signin")
     public String displayLoginPage(
             @RequestParam(required = false) String error, Model model) {
-
         if (error != null) {
             model.addAttribute("isWrong", error.equals(""));
         }
-
         return "signin";
     }
 

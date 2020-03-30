@@ -18,18 +18,16 @@ import org.springframework.web.bind.annotation.PathVariable;
 public class StudyController {
 
     private final StudyService studyService;
-    private final StudyMemberService studyMemberService;
     private final MemberService memberService;
 
     @GetMapping("/study")
     public String study(Model model) {
         model.addAttribute("studies", studyService.getIncruitStudy());
 
-        if (!SecurityContextHolder.getContext().getAuthentication().getPrincipal().equals("anonymousUser")) {
-            UserDetails user = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-            model.addAttribute("user", user);
+        if (AuthAttributeAddHelper.isLoggedIn()) {
+            model.addAttribute("user", AuthAttributeAddHelper.getUserDetails());
 
-            if (user.getAuthorities().toArray()[0].toString().equals("ROLE_STUDENT")) {
+            if (AuthAttributeAddHelper.isStudent(AuthAttributeAddHelper.getUserDetails())) {
                 model.addAttribute("student", "");
             } else {
                 model.addAttribute("leader", "");
@@ -42,40 +40,30 @@ public class StudyController {
 
     @GetMapping("/create-study")
     public String createStudy(Model model) {
-
-        if (!SecurityContextHolder.getContext().getAuthentication().getPrincipal().equals("anonymousUser")) {
-            model.addAttribute("user",
-                    (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal());
-        }
-
+        AuthAttributeAddHelper.addAttributeIfLoggedIn(model);
         return "create-study";
     }
 
     @GetMapping("/mystudy")
     public String displayMyStudy(Model model) {
-        UserDetails user = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        model.addAttribute("user", user);
-
+        UserDetails user = AuthAttributeAddHelper.getUserDetails();
         Member member = memberService.getByStudentNumber(user.getStudentNumber());
+
+        model.addAttribute("user", user);
         model.addAttribute("registeredStudies", memberService.getRegisteredStudyList(member));
 
-        if (user.getAuthorities().toArray()[0].toString().equals("ROLE_LEADER")) {
+        if (!AuthAttributeAddHelper.isStudent(user)) {
             model.addAttribute("createStudies", memberService.getCreateStudyList(member));
             return "mystudy-leader";
         }
 
-        if (user.getAuthorities().toArray()[0].toString().equals("ROLE_STUDENT")) {
-            return "mystudy-student";
-        }
-
-        return "error";
+        return "mystudy-student";
     }
 
     @GetMapping("/study/detail/{idx}")
     public String displayStudyDetail(Model model,
                                      @PathVariable("idx") Long studyIdx) {
-        UserDetails user = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        model.addAttribute("user", user);
+        model.addAttribute("user", AuthAttributeAddHelper.getUserDetails());
         model.addAttribute("study", studyService.getStudyDetail(studyIdx));
         return "study-detail";
     }
@@ -83,8 +71,7 @@ public class StudyController {
     @GetMapping("/study/update/{idx}")
     public String displayStudyUpdate(Model model,
                                      @PathVariable("idx") Long studyIdx) {
-        UserDetails user = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        model.addAttribute("user", user);
+        model.addAttribute("user", AuthAttributeAddHelper.getUserDetails());
         model.addAttribute("study", studyService.getStudyDetail(studyIdx));
         return "study-update";
     }
