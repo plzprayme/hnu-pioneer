@@ -1,4 +1,4 @@
-package com.hnu.pioneer.controller;
+package com.hnu.pioneer.controller.helper;
 
 import com.hnu.pioneer.domain.UserDetails;
 import org.springframework.security.core.context.SecurityContextHolder;

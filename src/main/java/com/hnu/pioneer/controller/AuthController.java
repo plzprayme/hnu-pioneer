@@ -1,6 +1,5 @@
 package com.hnu.pioneer.controller;
 
-import com.hnu.pioneer.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

@@ -1,5 +1,6 @@
 package com.hnu.pioneer.controller;
 
+import com.hnu.pioneer.controller.helper.AuthAttributeAddHelper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

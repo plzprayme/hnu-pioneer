@@ -2,6 +2,7 @@ package com.hnu.pioneer.service;
 
 import com.hnu.pioneer.domain.jointable.StudyMemberMapping;
 import com.hnu.pioneer.dto.request.ChangePasswordRequestDto;
+import com.hnu.pioneer.dto.response.AdminMemberListResponseDto;
 import com.hnu.pioneer.dto.response.CreateStudyListResponseDto;
 import com.hnu.pioneer.dto.request.MemberSaveRequestDto;
 import com.hnu.pioneer.domain.*;
@@ -26,6 +27,40 @@ import java.util.stream.Collectors;
 @Service
 public class MemberService implements UserDetailsService {
     private final MemberRepository memberRepository;
+
+    @Transactional(readOnly = true)
+    public List<AdminMemberListResponseDto> getAllMemberForAdminPage() {
+        return memberRepository.findAll().stream()
+                .map(AdminMemberListResponseDto::new)
+                .collect(Collectors.toList());
+    }
+
+    @Transactional
+    public String setRoleToStudent(Long idx) {
+        Member member = memberRepository.findById(idx).orElseThrow(() -> new IllegalArgumentException("잘못된 ID"));
+        member.setRoleToStudent();
+        return member.getRole().getTitle();
+    }
+
+    @Transactional
+    public String setRoleToLeader(Long idx) {
+        Member member = memberRepository.findById(idx).orElseThrow(() -> new IllegalArgumentException("잘못된 ID"));
+        member.setRoleToLeader();
+        return member.getRole().getTitle();
+    }
+
+    @Transactional
+    public String setRoleToAdmin(Long idx) {
+        Member member = memberRepository.findById(idx).orElseThrow(() -> new IllegalArgumentException("잘못된 ID"));
+        member.setRoleToAdmin();
+        return member.getRole().getTitle();
+    }
+
+    @Transactional
+    public void deleteMember(Long idx) {
+        memberRepository.delete(
+                memberRepository.findById(idx).orElseThrow(IllegalArgumentException::new));
+    }
 
     @Transactional
     public Long signUp(MemberSaveRequestDto requestDto) {

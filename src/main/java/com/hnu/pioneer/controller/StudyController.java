@@ -1,13 +1,11 @@
 package com.hnu.pioneer.controller;
 
+import com.hnu.pioneer.controller.helper.AuthAttributeAddHelper;
 import com.hnu.pioneer.domain.Member;
-import com.hnu.pioneer.domain.Study;
 import com.hnu.pioneer.domain.UserDetails;
 import com.hnu.pioneer.service.MemberService;
-import com.hnu.pioneer.service.StudyMemberService;
 import com.hnu.pioneer.service.StudyService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
