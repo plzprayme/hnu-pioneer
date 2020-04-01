@@ -7,6 +7,7 @@
     <thead>
     <tr>
         <th scope="col">인덱스</th>
+        <th scope="col">아이디</th>
         <th scope="col">이름</th>
         <th scope="col">학번</th>
         <th scope="col">참가 중인 스터디</th>
@@ -21,11 +22,13 @@
     {{#members}}
         <tr>
             <th scope="row">{{idx}}</th>
+            <td>{{email}}</td>
             <td>{{name}}</td>
             <td>{{studentNumber}}</td>
             <td>{{registerStudy}}</td>
-            <td id = "member-{{idx}}">{{role}}</td>
-            <td><a id="change-role-student" href="/admin/member/change-role-student/{{idx}}" class="btn btn-success">학생 권한 부여</a></td>
+            <td id="member-{{idx}}">{{role}}</td>
+            <td><a id="change-role-student" href="/admin/member/change-role-student/{{idx}}" class="btn btn-success">학생
+                권한 부여</a></td>
             <td><a href="/admin/member/change-role-leader/{{idx}}" class="btn btn-success">리더 권한 부여</a></td>
             <td><a href="/admin/member/change-role-admin/{{idx}}" class="btn btn-success">어드민 권한 부여</a></td>
             <td><a href="/admin/member/fire/{{idx}}" class="btn btn-success">제명</a></td>
@@ -42,7 +45,7 @@
         <th scope="col">인덱스</th>
         <th scope="col">이름</th>
         <th scope="col">리더</th>
-        <th scope="col">참가 인원 수</th>
+        <th scope="col">참가 인원</th>
         <th scope="col">참가자 이름</th>
         <th scope="col">진행 기간</th>
         <th scope="col">현재 상태</th>
@@ -53,6 +56,21 @@
     </tr>
     </thead>
     <tbody>
+    {{#studies}}
+        <tr>
+            <th scope="row">{{idx}}</th>
+            <td>{{studyName}}</td>
+            <td>{{leader}}</td>
+            <td>{{currentStudyMate}}</td>
+            <td>{{participantNames}}</td>
+            <td>{{duration}}</td>
+            <td id="study-{{idx}}">{{status}}</td>
+            <td><a href="/admin/study/change-status-incruit/{{idx}}" class="btn btn-success">모집 중</a></td>
+            <td><a href="/admin/study/change-status-open/{{idx}}" class="btn btn-success">진행 중</a></td>
+            <td><a href="/admin/study/change-status-close/{{idx}}" class="btn btn-success">종료</a></td>
+            <td><a href="/admin/study/fire/{{idx}}" class="btn btn-success">삭제</a></td>
+        </tr>
+    {{/studies}}
     </tbody>
 </table>
 

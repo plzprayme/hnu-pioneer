@@ -92,4 +92,6 @@ public class Study extends BaseTimeEntity {
     public void close() {
         status = StudyStatus.CLOSED;
     }
+    public void incruit() { status = StudyStatus.INCRUIT; }
+    public void open() { status = StudyStatus.OPEN; }
 }

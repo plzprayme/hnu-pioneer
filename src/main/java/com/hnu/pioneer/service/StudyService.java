@@ -3,6 +3,7 @@ package com.hnu.pioneer.service;
 
 import com.hnu.pioneer.domain.jointable.StudyMemberMapping;
 import com.hnu.pioneer.dto.request.StudyUpdateRequestDto;
+import com.hnu.pioneer.dto.response.AdminStudyListResponseDto;
 import com.hnu.pioneer.dto.response.StudyDetailResponseDto;
 import com.hnu.pioneer.dto.response.StudyListResponseDto;
 import com.hnu.pioneer.dto.request.StudySaveRequestDto;
@@ -18,6 +19,39 @@ import java.util.stream.Collectors;
 @Service
 public class StudyService {
     private final StudyRepository studyRepository;
+
+    @Transactional(readOnly = true)
+    public List<AdminStudyListResponseDto> getAllStudyForAdminPage() {
+        return studyRepository.findAll().stream()
+                .map(AdminStudyListResponseDto::new)
+                .collect(Collectors.toList());
+    }
+
+    @Transactional
+    public String setStatusToIncruit(Long idx) {
+        Study study = studyRepository.findById(idx).orElseThrow(() -> new IllegalArgumentException("잘못된 ID 입니다"));
+        study.incruit();
+        return study.getStatus().getStatus();
+    }
+
+    @Transactional
+    public String setStatusToOpen(Long idx) {
+        Study study = studyRepository.findById(idx).orElseThrow(() -> new IllegalArgumentException("잘못된 ID 입니다"));
+        study.open();
+        return study.getStatus().getStatus();
+    }
+
+    @Transactional
+    public String setStatusToClose(Long idx) {
+        Study study = studyRepository.findById(idx).orElseThrow(() -> new IllegalArgumentException("잘못된 ID 입니다"));
+        study.close();
+        return study.getStatus().getStatus();
+    }
+
+    @Transactional
+    public void fireStudy(Long idx) {
+        studyRepository.deleteById(idx);
+    }
 
     @Transactional
     public Long save(StudySaveRequestDto requestDto) {
@@ -82,6 +116,6 @@ public class StudyService {
         return study.getParticipants().stream()
                 .map(StudyMemberMapping::getParticipant)
                 .map(Member::getName)
-                .collect(Collectors.joining(", "));
+                .collect(Collectors.joining(" 스터디, "));
     }
 }

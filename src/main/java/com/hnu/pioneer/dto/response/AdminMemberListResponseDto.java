@@ -13,23 +13,25 @@ import java.util.stream.Collectors;
 @NoArgsConstructor
 public class AdminMemberListResponseDto {
     private Long idx;
+    private String email;
     private String name;
     private Long studentNumber;
     private String registerStudy;
     private String role;
 
-    private String getRegisterStudiesName(Set<StudyMemberMapping> registerStudy) {
-        return registerStudy.stream()
-                .map(StudyMemberMapping::getRegisteredStudy)
-                .map(Study::getStudyName)
-                .collect(Collectors.joining(", ")).toString();
-    }
-
     public AdminMemberListResponseDto(Member member) {
         this.idx = member.getIdx();
+        this.email = member.getEmail();
         this.studentNumber = member.getStudentNumber();
         this.name = member.getName();
         this.registerStudy = getRegisterStudiesName(member.getRegisteredStudies());
         this.role = member.getRole().getTitle();
+    }
+
+    private String getRegisterStudiesName(Set<StudyMemberMapping> registerStudy) {
+        return registerStudy.stream()
+                .map(StudyMemberMapping::getRegisteredStudy)
+                .map(Study::getStudyName)
+                .collect(Collectors.joining(" 스터디, "));
     }
 }

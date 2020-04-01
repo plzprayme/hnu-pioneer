@@ -13,7 +13,22 @@ document.querySelectorAll("a[href*='/admin/member/change-role-']")
         })
     });
 
-document.querySelectorAll("a[href*='/admin/member/fire']")
+document.querySelectorAll("a[href*='/admin/study/change-status-']")
+    .forEach(element => {
+        element.addEventListener('click', element =>{
+            element.preventDefault();
+            const url = element.target.href;
+
+            fetch(url)
+                .then(res => res.text())
+                .then(data => {
+                    document.getElementById("study-" + url.split("/")[6]).innerHTML = data;
+                });
+
+        })
+    });
+
+document.querySelectorAll("a[href*='fire']")
     .forEach( element => {
         element.addEventListener('click', element => {
             element.preventDefault();
