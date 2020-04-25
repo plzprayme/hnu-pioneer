@@ -10,16 +10,18 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 @RequiredArgsConstructor
 @Controller
-public class StudyController {
+@RequestMapping("/studies")
+public class StudyViewController {
 
     private final StudyService studyService;
     private final MemberService memberService;
 
-    @GetMapping("/study")
-    public String study(Model model) {
+    @GetMapping("")
+    public String studies(Model model) {
         model.addAttribute("studies", studyService.getIncruitStudy());
 
         if (AuthAttributeAddHelper.isLoggedIn()) {
@@ -36,14 +38,30 @@ public class StudyController {
         return "study";
     }
 
-    @GetMapping("/create-study")
-    public String createStudy(Model model) {
+    @GetMapping("/{idx}")
+    public String read(Model model,
+                         @PathVariable("idx") Long studyIdx) {
+        model.addAttribute("user", AuthAttributeAddHelper.getUserDetails());
+        model.addAttribute("study", studyService.getStudyDetail(studyIdx));
+        return "study-detail";
+    }
+
+    @GetMapping("/save")
+    public String create(Model model) {
         AuthAttributeAddHelper.addAttributeIfLoggedIn(model);
         return "create-study";
     }
 
-    @GetMapping("/mystudy")
-    public String displayMyStudy(Model model) {
+    @GetMapping("/{idx}/update")
+    public String update(Model model,
+                         @PathVariable("idx") Long studyIdx) {
+        model.addAttribute("user", AuthAttributeAddHelper.getUserDetails());
+        model.addAttribute("study", studyService.getStudyDetail(studyIdx));
+        return "study-update";
+    }
+
+    @GetMapping("/own")
+    public String myStudy(Model model) {
         UserDetails user = AuthAttributeAddHelper.getUserDetails();
         Member member = memberService.getByStudentNumber(user.getStudentNumber());
 
@@ -56,21 +74,5 @@ public class StudyController {
         }
 
         return "mystudy-student";
-    }
-
-    @GetMapping("/study/detail/{idx}")
-    public String displayStudyDetail(Model model,
-                                     @PathVariable("idx") Long studyIdx) {
-        model.addAttribute("user", AuthAttributeAddHelper.getUserDetails());
-        model.addAttribute("study", studyService.getStudyDetail(studyIdx));
-        return "study-detail";
-    }
-
-    @GetMapping("/study/update/{idx}")
-    public String displayStudyUpdate(Model model,
-                                     @PathVariable("idx") Long studyIdx) {
-        model.addAttribute("user", AuthAttributeAddHelper.getUserDetails());
-        model.addAttribute("study", studyService.getStudyDetail(studyIdx));
-        return "study-update";
     }
 }

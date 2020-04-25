@@ -1,6 +1,7 @@
 package com.hnu.pioneer.dto.response;
 
 import com.hnu.pioneer.domain.jointable.StudyMemberMapping;
+import com.hnu.pioneer.dto.StudyMemberMappingDto;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 

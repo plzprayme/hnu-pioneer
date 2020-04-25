@@ -122,13 +122,13 @@ var main = {
 
         $.ajax({
             type: 'POST',
-            url: '/create-study/save',
+            url: '/studies/save',
             dataType: 'json',
             contentType: 'application/json; charset=utf-8',
             data: JSON.stringify(data)
         }).done(function () {
             alert('저장완료');
-            window.location.href = '/study';
+            window.location.href = '/studies';
         }).fail(function (error) {
             alert(JSON.stringify(error));
         });
