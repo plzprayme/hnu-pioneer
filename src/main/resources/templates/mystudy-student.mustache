@@ -24,7 +24,7 @@
                 <td>{{leader}}</td>
                 <td>{{currentStudyMate}}</td>
                 <td>{{createdDate}}</td>
-                <td><a href="/study/unregister/{{idx}}" class="btn btn-danger">신청취소</a></td>
+                <td><div id="/api/v1/members/unregister/studies/{{idx}}" name="study-work" class="btn btn-danger">신청취소</div></td>
             </tr>
         {{/registeredStudies}}
         {{^registeredStudies}}

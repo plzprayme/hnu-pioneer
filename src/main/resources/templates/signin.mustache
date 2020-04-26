@@ -9,7 +9,7 @@
             <img src="/images/pioneer-logo.png" alt="pioneer" height="60" width="60"
                  style="display: block; margin-left: auto; margin-right: auto;">
             <h4 class="card-title mt-3 text-center">로그인</h4>
-            <form action="/signin/request" method="post" enctype="multipart/form-data">
+            <form action="/signin" method="post" enctype="multipart/form-data">
                 <!--            <form>-->
                 <input type="hidden" name="_csrf" value="{{#_csrf}}token{{/_csrf}}">
 
@@ -36,8 +36,8 @@
                     <p class="text-center text-danger">아이디 혹은 비밀번호가 틀렸습니다!</p>
                 {{/isWrong}}
                 <p class="text-center"><a href="/signup">아이디가 없으신가요?</a></p>
-                <p class="text-center"><a href="/forgot-id">아이디를 잊으셨나요?</a></p>
-                <p class="text-center"><a href="/forgot-password">비밀번호를 잊으셨나요?</a></p>
+                <p class="text-center"><a href="/findid">아이디를 잊으셨나요?</a></p>
+                <p class="text-center"><a href="/findpassword">비밀번호를 잊으셨나요?</a></p>
             </form>
         </article>
     </div> <!-- card.// -->

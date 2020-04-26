@@ -18,7 +18,7 @@
                 {{/studies}}
 
                 {{#studies}}
-                    <form action="/study/register/{{idx}}" method="get" name="form-study">
+                    <form action="/api/v1/members/register/studies/{{idx}}" method="put" name="form-study">
                         <div class="card text-white bg-primary mb-3" style="max-width: 18rem;">
                             <div class="card-header bg-transparenty">{{studyName}} 스터디 - 리더 {{leader}}</div>
                             <div class="card-body card-text">

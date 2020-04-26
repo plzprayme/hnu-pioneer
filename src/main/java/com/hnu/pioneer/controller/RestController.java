@@ -34,15 +34,6 @@ public class RestController {
     private final Long ALREADY_SIGNUP_STUDENTNUMBER = -2L;
     private final Long NO_PERMISSION_ERROR = -2L;
 
-    @GetMapping("/forgot-id/{studentNumber}")
-    public String forgotIdRequest(@PathVariable("studentNumber") Long studentNumber) {
-
-        try {
-            return memberService.getByStudentNumber(studentNumber).getEmail();
-        } catch (IllegalArgumentException e) {
-            return NOT_REGISTER_STUDENT_NUMBER;
-        }
-    }
 
     @GetMapping("/forgot-password/{email}")
     public String  forgotPasswordRequest(@PathVariable("email") String email) {
@@ -58,18 +49,6 @@ public class RestController {
         return memberService.changePassword(requestDto);
     }
 
-    @PostMapping("/signup/request")
-    public Long signUpRequest(
-            @RequestBody MemberSaveRequestDto requestDto, Model model) {
-
-        if (memberService.checkAlreadySignUpEmail(requestDto.getEmail())) {
-           return ALREADY_SIGNUP_EMAIL;
-        } else if (memberService.checkAlreadySignUpStudentNumber(requestDto.getStudentNumber())) {
-            return ALREADY_SIGNUP_STUDENTNUMBER;
-        }
-
-        return memberService.signUp(requestDto);
-    }
 
     @PostMapping("/create-study/save")
     public Long saveStudy(@RequestBody StudySaveRequestDto requestDto) {
@@ -90,41 +69,39 @@ public class RestController {
         return studyIdx;
     }
 
-    @GetMapping("/study/register/{idx}")
-    public Long applyStudy(@PathVariable("idx") Long studyIdx) {
+//    @GetMapping("/study/register/{idx}")
+//    public Long applyStudy(@PathVariable("idx") Long studyIdx) {
+//
+//
+//        if (SecurityContextHolder.getContext().getAuthentication().getPrincipal().equals("anonymousUser")) {
+//            return NO_PERMISSION_ERROR;
+//        }
+//
+//        UserDetails user = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+//
+//        Study study = studyService.getByIdx(studyIdx);
+//        Member member = memberService.getByStudentNumber(user.getStudentNumber());
+//
+//        if (!studyMemberService.isAlreadyRegister(study, member.getIdx())) {
+//            StudyMemberMapping studyMember = studyMemberService.getAfterMapping(study, member);
+//
+//            memberService.registerStudy(member.getIdx(), studyMember);
+//            studyService.assignParticipant(study.getIdx(), studyMember);
+//
+//            return study.getIdx();
+//        }
+//
+//        return ALREADY_REGISTER_ERROR;
+//    }
 
-
-        if (SecurityContextHolder.getContext().getAuthentication().getPrincipal().equals("anonymousUser")) {
-            return NO_PERMISSION_ERROR;
-        }
-
-        UserDetails user = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-
-        Study study = studyService.getByIdx(studyIdx);
-        Member member = memberService.getByStudentNumber(user.getStudentNumber());
-
-        if (!studyMemberService.isAlreadyRegister(study, member.getIdx())) {
-            StudyMemberMapping studyMember = studyMemberService.getAfterMapping(study, member);
-
-            memberService.registerStudy(member.getIdx(), studyMember);
-            studyService.assignParticipant(study.getIdx(), studyMember);
-
-            return study.getIdx();
-        }
-
-        return ALREADY_REGISTER_ERROR;
-    }
-
-    @GetMapping("/study/unregister/{idx}")
-    public Long unregisterStudy(@PathVariable("idx") Long studyIdx) {
-        UserDetails user = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        return memberService.unregisterStudy(user.getStudentNumber(), studyIdx);
-    }
-
-
-
-    @GetMapping("/study/close/{idx}")
-    public Long closeStudy(@PathVariable("idx") Long studyIdx) {
-        return studyService.closeStudy(studyIdx);
-    }
+//    @GetMapping("/study/unregister/{idx}")
+//    public Long unregisterStudy(@PathVariable("idx") Long studyIdx) {
+//        UserDetails user = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+//        return memberService.unregisterStudy(user.getStudentNumber(), studyIdx);
+//    }
+//
+//    @GetMapping("/study/close/{idx}")
+//    public Long closeStudy(@PathVariable("idx") Long studyIdx) {
+//        return studyService.closeStudy(studyIdx);
+//    }
 }

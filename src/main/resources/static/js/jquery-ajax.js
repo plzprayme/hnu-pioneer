@@ -52,11 +52,11 @@ var main = {
             }
         });
 
-        $("a[href*='/study/unregister']").click(function (e) {
+        $("div[name*='study-work']").click(function (e) {
             e.preventDefault();
             if (doubleSubmitFlag) {
                 doubleSubmitFlag = false;
-                _this.unregister($(this));
+                _this.registerOrUnregister($(this));
             }
         });
 
@@ -218,7 +218,7 @@ var main = {
 
         $.ajax({
             type: 'POST',
-            url: '/signup/request',
+            url: '/api/v1/members',
             dataType: 'json',
             contentType: 'application/json; charset=utf-8',
             data: JSON.stringify(data)
@@ -235,12 +235,13 @@ var main = {
                 window.location.href = '/';
             }
         }).fail(function (error) {
+            alert("error");
             alert(JSON.stringify(error));
         });
     },
     register: function (_this) {
         $.ajax({
-            type: "GET",
+            type: "PUT",
             url: _this.attr('action'),
         }).done(function (response) {
             if (response === -1) {
@@ -251,31 +252,46 @@ var main = {
                 return;
             }
             alert('신청완료');
-            window.location.href = '/mystudy';
+            window.location.href = '/studies/own';
         }).fail(function (error) {
             alert(JSON.stringify(error));
         });
     },
-    unregister: function (_this) {
+    registerOrUnregister: (_this) => {
         $.ajax({
-            type: "GET",
-            url: _this.attr('href'),
+            type: "PUT",
+            url: _this.attr('id'),
         }).done(function (response) {
             if (response < 0) {
                 alert("취소실패");
             }
 
             alert('취소완료');
-            window.location.href = '/mystudy';
+            window.location.href = '/studies/own';
         }).fail(function (error) {
             alert(JSON.stringify(error));
         });
     },
+    // unregister: function (_this) {
+    //     $.ajax({
+    //         type: "PUT",
+    //         url: _this.attr('id'),
+    //     }).done(function (response) {
+    //         if (response < 0) {
+    //             alert("취소실패");
+    //         }
+    //
+    //         alert('취소완료');
+    //         window.location.href = '/studies/own';
+    //     }).fail(function (error) {
+    //         alert(JSON.stringify(error));
+    //     });
+    // },
     forgotIdRequest: function () {
         const studentNumber = $('#studentNumber').val();
         $.ajax({
             type: "GET",
-            url: "/forgot-id/" + studentNumber
+            url: "/api/v1/members/" + studentNumber + "/email"
         }).done(function (response) {
             if (response === "-1") {
                 alert('가입하지 않은 학번입니다!');
@@ -283,7 +299,7 @@ var main = {
             }
 
             alert("아이디는 " + response + "입니다.");
-            window.location.href = "/signin/";
+            window.location.href = "/signin";
         }).fail(function (error) {
             alert(JSON.stringify(error));
         });
@@ -292,13 +308,13 @@ var main = {
         const email = $('#email').val();
         $.ajax({
             type: "GET",
-            url: "/forgot-password/" + email
+            url: "/api/v1/members/" + email
         }).done(function (response) {
             if (response === "-1") {
                 alert('가입하지 않은 아이디입니다!');
                 return;
             }
-            window.location.href = "/change-password/" + email;
+            window.location.href = "/changepassword/" + email;
         }).fail(function (error) {
             alert(JSON.stringify(error));
         });
@@ -310,8 +326,8 @@ var main = {
         };
 
         $.ajax({
-            type: "POST",
-            url: "/change-password/request",
+            type: "PUT",
+            url: "/api/v1/members/"+data.email+"/password",
             dataType: 'json',
             contentType: 'application/json; charset=utf-8',
             data: JSON.stringify(data)

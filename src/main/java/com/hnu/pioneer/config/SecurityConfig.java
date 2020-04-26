@@ -34,21 +34,25 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     .disable()
                     .and()
                 .csrf()
-                    .ignoringAntMatchers("/h2-console/**", "/signup/request", "/save/request",
-                            "/create-study/save", "/update-study/**", "/change-password/request**",
-                            "/api/v1/studies", "/api/v1/studies/**")
+                    .ignoringAntMatchers("/h2-console/**",
+                            "/api/v1/studies", "/api/v1/studies/**", "/api/v1/members", "/api/v1/members/**/password",
+                            "/api/v1/members/register/studies/**", "/api/v1/members/unregister/studies/**")
                     .and()
                 .authorizeRequests()
                     .antMatchers("/admin**").hasRole("ADMIN")
-                    .antMatchers("/studies/save", "/api/v1/studies", "/api/v1/studies/**").hasAnyRole("LEADER", "ADMIN")
-                    .antMatchers("/mystudy", "/study/register**").hasAnyRole("STUDENT", "LEADER","ADMIN")
-                    .antMatchers("/signup/**", "/**", "/create-study").permitAll()
+                    .antMatchers("/studies/save", "/studies/**/update").hasAnyRole("LEADER", "ADMIN") // LEADER ADMIN VIEW
+                    .antMatchers( "/api/v1/studies", "/api/v1/studies/**").hasAnyRole("LEADER", "ADMIN") // LEADER ADMIN API
+                    .antMatchers("/studies/own", "/studies/**").hasAnyRole("STUDENT", "LEADER", "ADMIN") // Members VIEW
+                    .antMatchers("/api/v1/members/unregister/studies/**", "/api/v1/members/register/studies/**").hasAnyRole("STUDENT", "LEADER","ADMIN") // Members API
+//                    .antMatchers( "/", "/howtogroom", "/signin", "/signup", "/findid", "/findpassword", "/changepassword/**", "/studies").permitAll() // Permit All View
+                    .antMatchers( "/**").permitAll()
+                    .antMatchers("/api/v1/members").permitAll()
                     .antMatchers("/css/**", "/images/**", "/js/**", "/h2-console/**", "/profile").permitAll()
                     .anyRequest().authenticated()
                     .and()
                 .formLogin()
                     .loginPage("/signin")
-                    .loginProcessingUrl("/signin/request")
+                    .loginProcessingUrl("/signin")
                     .usernameParameter("email")
                     .defaultSuccessUrl("/")
                     .permitAll()

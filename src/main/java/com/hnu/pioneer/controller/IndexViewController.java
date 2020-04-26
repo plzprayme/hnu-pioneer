@@ -22,7 +22,7 @@ public class IndexViewController {
         return "index";
     }
 
-    @GetMapping("howtogroom")
+    @GetMapping("/howtogroom")
     public String howtogroom(Model model){
         AuthAttributeAddHelper.addAttributeIfLoggedIn(model);
         return "howtogroom";
