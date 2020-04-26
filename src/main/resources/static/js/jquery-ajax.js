@@ -11,13 +11,30 @@ var main = {
             }
         });
 
-        $("a[href*='/study/delete/']").click(function (e) {
-            e.preventDefault();
+        // @GetMapping("/study/delete/{idx}") DELETE /api/v1/studies/{idx}
+        // @PostMapping("/update-study/{idx}") PUT /api/v1/studies/{idx}
+        // @PostMapping("/create-study/save") POST /api/v1/studies
+
+    // @GetMapping("/study/delete/{idx}") DELETE /api/v1/studies/{idx}
+    // @PostMapping("/update-study/{idx}") PUT /api/v1/studies/{idx}
+    // @PostMapping("/create-study/save") POST /api/v1/studies
+
+
+        // DELETE
+        $("div[name*='study-delete']").click(function (e) {
+            // e.preventDefault();
             if (doubleSubmitFlag) {
                 doubleSubmitFlag = false;
                 _this.delete($(this));
             }
         });
+
+        $("div[name*='study-status-']").click(function (e) {
+            if (doubleSubmitFlag) {
+                doubleSubmitFlag = false;
+                _this.updateStatus($(this));
+            }
+        })
 
         $("a[href*='/study/close/']").click(function (e) {
             e.preventDefault();
@@ -122,7 +139,7 @@ var main = {
 
         $.ajax({
             type: 'POST',
-            url: '/studies/save',
+            url: '/api/v1/studies',
             dataType: 'json',
             contentType: 'application/json; charset=utf-8',
             data: JSON.stringify(data)
@@ -141,8 +158,12 @@ var main = {
             time: document.getElementById("time").value,
         };
 
+
+    // @GetMapping("/study/delete/{idx}") DELETE /api/v1/studies/{idx}
+    // @PostMapping("/update-study/{idx}") PUT /api/v1/studies/{idx}
+    // @PostMapping("/create-study/save") POST /api/v1/studies
         $.ajax({
-            type: 'POST',
+            type: 'PUT',
             url: _this.attr("href"),
             dataType: 'json',
             contentType: 'application/json; charset=utf-8',
@@ -156,8 +177,8 @@ var main = {
     },
     delete: function (_this) {
         $.ajax({
-            type: "GET",
-            url: _this.attr('href'),
+            type: "DELETE",
+            url: _this.attr('id'),
         }).done(function (response) {
             if (response < 0) {
                 alert("삭제 실패");
@@ -165,7 +186,7 @@ var main = {
             }
 
             alert('삭제 되었습니다.');
-            window.location.href = '/mystudy';
+            window.location.href = '/studies/own';
         }).fail(function (error) {
             alert(JSON.stringify(error));
         });
@@ -303,6 +324,17 @@ var main = {
             alert("변경완료");
             window.location.href = "/signin"
         }).fail(function (error) {
+            alert(JSON.stringify(error));
+        });
+    },
+    updateStatus: function(_this) {
+        $.ajax({
+            type: "PUT",
+            url : _this.attr("id")
+        }).done((response) => {
+            alert("변경완료");
+            window.location.href = "/studies/own";
+        }).fail((error) => {
             alert(JSON.stringify(error));
         });
     },

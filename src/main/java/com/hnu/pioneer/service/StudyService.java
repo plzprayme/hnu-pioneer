@@ -112,6 +112,12 @@ public class StudyService {
         return  study.getIdx();
     }
 
+    @Transactional
+    public Long updateStatus(Long studyIdx, StudyStatus status) {
+        Study study = studyRepository.findById(studyIdx).orElseThrow(() -> new IllegalArgumentException("잘못된 ID입니다"));
+        return study.updateStatus(status);
+    }
+
     private String getParticipantNames(Study study) {
         return study.getParticipants().stream()
                 .map(StudyMemberMapping::getParticipant)

@@ -34,11 +34,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     .disable()
                     .and()
                 .csrf()
-                    .ignoringAntMatchers("/h2-console/**", "/signup/request", "/save/request", "/create-study/save", "/update-study/**", "/change-password/request**")
+                    .ignoringAntMatchers("/h2-console/**", "/signup/request", "/save/request",
+                            "/create-study/save", "/update-study/**", "/change-password/request**",
+                            "/api/v1/studies", "/api/v1/studies/**")
                     .and()
                 .authorizeRequests()
                     .antMatchers("/admin**").hasRole("ADMIN")
-                    .antMatchers("/create-study", "/create-study/save").hasAnyRole("LEADER", "ADMIN")
+                    .antMatchers("/studies/save", "/api/v1/studies", "/api/v1/studies/**").hasAnyRole("LEADER", "ADMIN")
                     .antMatchers("/mystudy", "/study/register**").hasAnyRole("STUDENT", "LEADER","ADMIN")
                     .antMatchers("/signup/**", "/**", "/create-study").permitAll()
                     .antMatchers("/css/**", "/images/**", "/js/**", "/h2-console/**", "/profile").permitAll()

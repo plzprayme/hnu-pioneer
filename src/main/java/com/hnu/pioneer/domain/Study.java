@@ -89,6 +89,11 @@ public class Study extends BaseTimeEntity {
         time = requestDto.getTime();
     }
 
+    public Long updateStatus(StudyStatus status) {
+        this.status = status;
+        return this.idx;
+    }
+
     public void close() {
         status = StudyStatus.CLOSED;
     }

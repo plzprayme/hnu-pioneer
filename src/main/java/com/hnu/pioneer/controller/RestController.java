@@ -121,6 +121,8 @@ public class RestController {
         return memberService.unregisterStudy(user.getStudentNumber(), studyIdx);
     }
 
+
+
     @GetMapping("/study/close/{idx}")
     public Long closeStudy(@PathVariable("idx") Long studyIdx) {
         return studyService.closeStudy(studyIdx);
