@@ -41,7 +41,7 @@ public class StudyApiController {
     }
 
     @PutMapping("/{idx}/status/{status}")
-    public Long close(@PathVariable("idx") Long studyIdx,
+    public Long updateStatus(@PathVariable("idx") Long studyIdx,
                       @PathVariable("status") StudyStatus status) {
         return studyService.updateStatus(studyIdx, status);
     }

@@ -36,27 +36,6 @@ public class MemberService implements UserDetailsService {
     }
 
     @Transactional
-    public String setRoleToStudent(Long idx) {
-        Member member = memberRepository.findById(idx).orElseThrow(() -> new IllegalArgumentException("잘못된 ID"));
-        member.setRoleToStudent();
-        return member.getRole().getTitle();
-    }
-
-    @Transactional
-    public String setRoleToLeader(Long idx) {
-        Member member = memberRepository.findById(idx).orElseThrow(() -> new IllegalArgumentException("잘못된 ID"));
-        member.setRoleToLeader();
-        return member.getRole().getTitle();
-    }
-
-    @Transactional
-    public String setRoleToAdmin(Long idx) {
-        Member member = memberRepository.findById(idx).orElseThrow(() -> new IllegalArgumentException("잘못된 ID"));
-        member.setRoleToAdmin();
-        return member.getRole().getTitle();
-    }
-
-    @Transactional
     public void deleteMember(Long idx) {
         memberRepository.delete(
                 memberRepository.findById(idx).orElseThrow(IllegalArgumentException::new));
@@ -136,13 +115,9 @@ public class MemberService implements UserDetailsService {
     }
 
     @Transactional
-    public Long deleteStudy(Long studentNumber, Long studyIdx) {
-        Member member = memberRepository.findByStudentNumber(studentNumber).get();
-        List<Study> createStudy = member.getCreateStudies().stream()
-                .filter(study -> study.getIdx().equals(studyIdx))
-                .collect(Collectors.toList());
-        member.getCreateStudies().remove(createStudy.get(0));
-        return member.getIdx();
+    public void updateRole(Long idx, Role role) {
+        Member member = memberRepository.findById(idx).orElseThrow(() -> new IllegalArgumentException("잘못된 ID"));
+        member.updateRole(role);
     }
 
     /**

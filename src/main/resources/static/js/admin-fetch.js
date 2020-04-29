@@ -1,40 +1,35 @@
-document.querySelectorAll("a[href*='/admin/member/change-role-']")
+document.querySelectorAll("div[name*='admin-member-put']")
     .forEach(element => {
-        element.addEventListener('click', element =>{
-            element.preventDefault();
-            const url = element.target.href;
+        element.addEventListener('click', element => {
+            const url = element.target.id;
 
-            fetch(url)
+            fetch(url, { method: 'PUT' })
                 .then(res => res.text())
                 .then(data => {
-                    document.getElementById("member-" + url.split("/")[6]).innerHTML = data;
-                });
-
+                    document.getElementById("member-" + url.split("/")[5]).innerHTML = data;
+                })
         })
     });
 
-document.querySelectorAll("a[href*='/admin/study/change-status-']")
+document.querySelectorAll("div[name*='admin-study-put']")
     .forEach(element => {
-        element.addEventListener('click', element =>{
-            element.preventDefault();
-            const url = element.target.href;
+        element.addEventListener('click', element => {
+            const url = element.target.id;
 
-            fetch(url)
+            fetch(url, { method: 'PUT' })
                 .then(res => res.text())
                 .then(data => {
-                    document.getElementById("study-" + url.split("/")[6]).innerHTML = data;
-                });
-
+                    document.getElementById("study-" + url.split("/")[5]).innerHTML = data;
+                })
         })
     });
 
-document.querySelectorAll("a[href*='fire']")
+document.querySelectorAll("div[name*='admin-delete']")
     .forEach( element => {
         element.addEventListener('click', element => {
-            element.preventDefault();
-            const url = element.target.href;
+            const url = element.target.id;
 
-            fetch(url)
+            fetch(url, {method: 'DELETE'})
                 .then(res => res.text())
                 .then(data => {
                     if (data !== "-1") {

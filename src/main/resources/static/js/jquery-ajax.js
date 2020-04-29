@@ -11,18 +11,16 @@ var main = {
             }
         });
 
-        // @GetMapping("/study/delete/{idx}") DELETE /api/v1/studies/{idx}
-        // @PostMapping("/update-study/{idx}") PUT /api/v1/studies/{idx}
-        // @PostMapping("/create-study/save") POST /api/v1/studies
+        $('#btn-save').on('click', function () {
+            if (_this.isEmpty(['studyName', 'goal'])) {
+                alert("스터디 주제와 목표를 작성해주세요!");
+            } else if (doubleSubmitFlag) {
+                doubleSubmitFlag = false;
+                _this.save();
+            }
+        });
 
-    // @GetMapping("/study/delete/{idx}") DELETE /api/v1/studies/{idx}
-    // @PostMapping("/update-study/{idx}") PUT /api/v1/studies/{idx}
-    // @PostMapping("/create-study/save") POST /api/v1/studies
-
-
-        // DELETE
         $("div[name*='study-delete']").click(function (e) {
-            // e.preventDefault();
             if (doubleSubmitFlag) {
                 doubleSubmitFlag = false;
                 _this.delete($(this));
@@ -33,22 +31,6 @@ var main = {
             if (doubleSubmitFlag) {
                 doubleSubmitFlag = false;
                 _this.updateStatus($(this));
-            }
-        })
-
-        $("a[href*='/study/close/']").click(function (e) {
-            e.preventDefault();
-            if (doubleSubmitFlag) {
-                doubleSubmitFlag = false;
-                _this.close($(this));
-            }
-        });
-
-        $("a[href*='/update-study/']").click(function (e) {
-            e.preventDefault();
-            if (doubleSubmitFlag) {
-                doubleSubmitFlag = false;
-                _this.update($(this));
             }
         });
 
@@ -68,44 +50,6 @@ var main = {
             }
         });
 
-        $("#btn-changePassword").on('click', function () {
-            if (_this.isEmpty(['password'])) {
-                alert("변경할 비밀번호를 입력해주세요!");
-            } else if (document.getElementById('isCorrect').innerHTML !== "") {
-                alert('비밀번호가 일치하지 않습니다!');
-            } else if (doubleSubmitFlag) {
-                doubleSubmitFlag = false;
-                _this.changePassword();
-            }
-        });
-
-        $("#btn-forgot-id").on('click', function () {
-            if (_this.isEmpty(['studentNumber'])) {
-                alert("학번을 입력해주세요!");
-            } else if (doubleSubmitFlag) {
-                doubleSubmitFlag = false;
-                _this.forgotIdRequest();
-            }
-        });
-
-        $("#btn-forgot-password").on('click', function () {
-            if (_this.isEmpty(['email'])) {
-                alert("학번을 입력해주세요!");
-            } else if (doubleSubmitFlag) {
-                doubleSubmitFlag = false;
-                _this.forgotPasswordRequest();
-            }
-        });
-
-        $('#btn-save').on('click', function () {
-            if (_this.isEmpty(['studyName', 'goal'])) {
-                alert("스터디 주제와 목표를 작성해주세요!");
-            } else if (doubleSubmitFlag) {
-                doubleSubmitFlag = false;
-                _this.save();
-            }
-        });
-
         $('#btn-signup').on('click', function () {
             if (_this.isEmpty(['email', 'password', 'name', 'studentNumber'])) {
                 alert("모든 정보를 입력해주세요!");
@@ -119,12 +63,35 @@ var main = {
             }
         });
 
-        $('#btn-unregister').on('click', function () {
-            if (doubleSubmitFlag) {
+        $("#btn-forgot-id").on('click', function () {
+            if (_this.isEmpty(['studentNumber'])) {
+                alert("학번을 입력해주세요!");
+            } else if (doubleSubmitFlag) {
                 doubleSubmitFlag = false;
-                _this.unregister();
+                _this.forgotIdRequest();
             }
-        })
+        });
+
+        $("#btn-changePassword").on('click', function () {
+            if (_this.isEmpty(['password'])) {
+                alert("변경할 비밀번호를 입력해주세요!");
+            } else if (document.getElementById('isCorrect').innerHTML !== "") {
+                alert('비밀번호가 일치하지 않습니다!');
+            } else if (doubleSubmitFlag) {
+                doubleSubmitFlag = false;
+                _this.changePassword();
+            }
+        });
+
+        $("#btn-forgot-password").on('click', function () {
+            if (_this.isEmpty(['email'])) {
+                alert("학번을 입력해주세요!");
+            } else if (doubleSubmitFlag) {
+                doubleSubmitFlag = false;
+                _this.forgotPasswordRequest();
+            }
+        });
+
     },
     save: function () {
         const data = {
@@ -158,10 +125,6 @@ var main = {
             time: document.getElementById("time").value,
         };
 
-
-    // @GetMapping("/study/delete/{idx}") DELETE /api/v1/studies/{idx}
-    // @PostMapping("/update-study/{idx}") PUT /api/v1/studies/{idx}
-    // @PostMapping("/create-study/save") POST /api/v1/studies
         $.ajax({
             type: 'PUT',
             url: _this.attr("href"),
@@ -187,22 +150,6 @@ var main = {
 
             alert('삭제 되었습니다.');
             window.location.href = '/studies/own';
-        }).fail(function (error) {
-            alert(JSON.stringify(error));
-        });
-    },
-    close: function (_this) {
-        $.ajax({
-            type: "GET",
-            url: _this.attr('href'),
-        }).done(function (response) {
-            if (response < 0) {
-                alert("모집 마감 실패");
-                window.location.href = '/';
-            }
-
-            alert('모집이 마감되었습니다.');
-            window.location.href = '/mystudy';
         }).fail(function (error) {
             alert(JSON.stringify(error));
         });
@@ -272,21 +219,6 @@ var main = {
             alert(JSON.stringify(error));
         });
     },
-    // unregister: function (_this) {
-    //     $.ajax({
-    //         type: "PUT",
-    //         url: _this.attr('id'),
-    //     }).done(function (response) {
-    //         if (response < 0) {
-    //             alert("취소실패");
-    //         }
-    //
-    //         alert('취소완료');
-    //         window.location.href = '/studies/own';
-    //     }).fail(function (error) {
-    //         alert(JSON.stringify(error));
-    //     });
-    // },
     forgotIdRequest: function () {
         const studentNumber = $('#studentNumber').val();
         $.ajax({

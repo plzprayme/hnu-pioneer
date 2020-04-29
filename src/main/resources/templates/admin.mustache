@@ -27,11 +27,12 @@
             <td>{{studentNumber}}</td>
             <td>{{registerStudy}}</td>
             <td id="member-{{idx}}">{{role}}</td>
-            <td><a id="change-role-student" href="/admin/member/change-role-student/{{idx}}" class="btn btn-success">학생
-                권한 부여</a></td>
-            <td><a href="/admin/member/change-role-leader/{{idx}}" class="btn btn-success">리더 권한 부여</a></td>
-            <td><a href="/admin/member/change-role-admin/{{idx}}" class="btn btn-success">어드민 권한 부여</a></td>
-            <td><a href="/admin/member/fire/{{idx}}" class="btn btn-success">제명</a></td>
+            <td><div id="/admin/api/v1/members/{{idx}}/role/STUDENT" name="admin-member-put" class="btn btn-success">학생
+                권한 부여</div></td>
+
+            <td><div id="/admin/api/v1/members/{{idx}}/role/LEADER" name="admin-member-put" class="btn btn-success">리더 권한 부여</div></td>
+            <td><div id="/admin/api/v1/members/{{idx}}/role/ADMIN" name="admin-member-put" class="btn btn-success">어드민 권한 부여</div></td>
+            <td><div id="/admin/api/v1/members/{{idx}}/role/LEADER" name="admin-delete" class="btn btn-success">제명</div></td>
         </tr>
     {{/members}}
     </tbody>
@@ -65,10 +66,10 @@
             <td>{{participantNames}}</td>
             <td>{{duration}}</td>
             <td id="study-{{idx}}">{{status}}</td>
-            <td><a href="/admin/study/change-status-incruit/{{idx}}" class="btn btn-success">모집 중</a></td>
-            <td><a href="/admin/study/change-status-open/{{idx}}" class="btn btn-success">진행 중</a></td>
-            <td><a href="/admin/study/change-status-close/{{idx}}" class="btn btn-success">종료</a></td>
-            <td><a href="/admin/study/fire/{{idx}}" class="btn btn-success">삭제</a></td>
+            <td><div id="/admin/api/v1/studies/{{idx}}/status/INCRUIT" name="admin-study-put" class="btn btn-success">모집 중</div></td>
+            <td><div id="/admin/api/v1/studies/{{idx}}/status/OPEN" name="admin-study-put" class="btn btn-success">진행 중</div></td>
+            <td><div id="/admin/api/v1/studies/{{idx}}/status/CLOSED" name="admin-study-put" class="btn btn-success">종료</div></td>
+            <td><div id="/admin/api/v1/studies/{{idx}}" name="admin-delete" class="btn btn-success">삭제</div></td>
         </tr>
     {{/studies}}
     </tbody>

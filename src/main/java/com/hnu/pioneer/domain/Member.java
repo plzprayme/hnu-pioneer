@@ -64,23 +64,6 @@ public class Member extends BaseTimeEntity{
         return role == Role.LEADER;
     }
 
-    public void setRoleToStudent() {
-        role = Role.STUDENT;
-    }
-
-    public void setRoleToLeader() {
-        role = Role.LEADER;
-    }
-
-    public void setRoleToAdmin() {
-        role = Role.ADMIN;
-    }
-
-    public void addCreateStudies(Study study) {
-        this.createStudies.add(study);
-        study.setMember(this);
-    }
-
     public void addRegisteredStudy(StudyMemberMapping mapper) {
         this.registeredStudies.add(mapper);
     }
@@ -92,5 +75,10 @@ public class Member extends BaseTimeEntity{
 
     public void changePassword(String encodedPassword) {
         password = encodedPassword;
+    }
+
+    public Long updateRole(Role role) {
+        this.role = role;
+        return idx;
     }
 }

@@ -36,7 +36,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .csrf()
                     .ignoringAntMatchers("/h2-console/**",
                             "/api/v1/studies", "/api/v1/studies/**", "/api/v1/members", "/api/v1/members/**/password",
-                            "/api/v1/members/register/studies/**", "/api/v1/members/unregister/studies/**")
+                            "/api/v1/members/register/studies/**", "/api/v1/members/unregister/studies/**",
+                            "/admin/api/v1/members/**", "/admin/api/v1/studies/**")
                     .and()
                 .authorizeRequests()
                     .antMatchers("/admin**").hasRole("ADMIN")

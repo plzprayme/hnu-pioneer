@@ -28,32 +28,6 @@ public class StudyService {
     }
 
     @Transactional
-    public String setStatusToIncruit(Long idx) {
-        Study study = studyRepository.findById(idx).orElseThrow(() -> new IllegalArgumentException("잘못된 ID 입니다"));
-        study.incruit();
-        return study.getStatus().getStatus();
-    }
-
-    @Transactional
-    public String setStatusToOpen(Long idx) {
-        Study study = studyRepository.findById(idx).orElseThrow(() -> new IllegalArgumentException("잘못된 ID 입니다"));
-        study.open();
-        return study.getStatus().getStatus();
-    }
-
-    @Transactional
-    public String setStatusToClose(Long idx) {
-        Study study = studyRepository.findById(idx).orElseThrow(() -> new IllegalArgumentException("잘못된 ID 입니다"));
-        study.close();
-        return study.getStatus().getStatus();
-    }
-
-    @Transactional
-    public void fireStudy(Long idx) {
-        studyRepository.deleteById(idx);
-    }
-
-    @Transactional
     public Long save(StudySaveRequestDto requestDto) {
         return studyRepository.save(requestDto.toEntity()).getIdx();
     }
@@ -103,13 +77,6 @@ public class StudyService {
     @Transactional
     public void delete(Long studyIdx) {
         studyRepository.deleteById(studyIdx);
-    }
-
-    @Transactional
-    public Long closeStudy(Long studyIdx) {
-        Study study = studyRepository.findById(studyIdx).orElseThrow(() -> new IllegalArgumentException("잘못된 ID입니다"));
-        study.close();
-        return  study.getIdx();
     }
 
     @Transactional
