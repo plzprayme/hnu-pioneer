@@ -1,10 +1,17 @@
 # 한남대학교 컴퓨터공학과 동아리 PIONEER 홈페이지
-개발기간: 2020.01.18 ~ 2020.03.20 (약 2 개월)
+개발기간: 2020.01.18 ~ 2020.03.20 (약 2 개월)  
 개발인원: 1명
+
+## 데모
+ADMIN 대시보드를 제외한 모든 기능들을 데모할 수 있습니다!  
+
+URL: [https://hnu.prayme.site](https://hnu.prayme.site)  
+계정: test@gmail.com  
+비밀번호: test1234  
 
 ## 개발 동기
 
-불규칙적으로 가입하는 신규 회원들에게 매번 동아리에 대한 설명을 직접 하는 것이 비효율적이라고 생각했다.
+불규칙적으로 가입하는 신규 회원들에게 매번 동아리에 대한 설명을 직접 하는 것이 비효율적이라고 생각했다.  
 겨울 방학을 맞아 동아리 운영을 자동화하고자 웹 서비스 개발을 결심했다.
 
 
@@ -27,8 +34,17 @@
 ![image](https://user-images.githubusercontent.com/34934883/124091577-f544ba80-da90-11eb-8fb9-562ea5356279.png)
 
 ## 관련 포스팅
-[완성 회고](https://velog.io/@prayme/%EC%B2%AB%EB%B2%88%EC%A7%B8-%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8-%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8-%EC%99%84%EC%84%B1%EA%B3%BC-%EB%90%98%EB%8F%8C%EC%95%84%EB%B3%B4%EA%B8%B0)  
-[RESTful API로 리팩토링 하기](https://velog.io/@prayme/%EC%B2%AB%EB%B2%88%EC%A7%B8-%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8-%EB%82%B4-%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8%EB%A5%BC-RESTful-API%EB%A1%9C-%EB%A7%8C%EB%93%A4%EC%9E%90)  
-[프로젝트에서 사용한 Spring 기능들에 대한 공식 문서 읽기 - 1](https://velog.io/@prayme/%EC%B2%AB%EB%B2%88%EC%A7%B8-%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8-%EA%B0%81%EC%A2%85-%EC%96%B4%EB%85%B8%ED%85%8C%EC%9D%B4%EC%85%98%EB%93%A4-SpringBootApplication-auto-configuration)  
-[프로젝트에서 사용한 Spring 기능들에 대한 공식 문서 읽기 - 2](https://velog.io/@prayme/%EC%B2%AB%EB%B2%88%EC%A7%B8-%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8-%EA%B0%81%EC%A2%85-%EA%B5%AC%ED%98%84%EC%B2%B4%EB%93%A4-WebSecurityConfigurerAdapter)  
-[프로젝트에서 사용한 Spring 기능들에 대한 공식 문서 읽기 - 3](https://velog.io/@prayme/%EC%B2%AB%EB%B2%88%EC%A7%B8-%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8-%EA%B0%81%EC%A2%85%EA%B5%AC%ED%98%84%EC%B2%B4-UserDetailsService-Authentication)  
+> [완성 회고](https://velog.io/@prayme/%EC%B2%AB%EB%B2%88%EC%A7%B8-%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8-%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8-%EC%99%84%EC%84%B1%EA%B3%BC-%EB%90%98%EB%8F%8C%EC%95%84%EB%B3%B4%EA%B8%B0) - 회고와 함께 리팩토링 하고 싶은 것들, 더 깊게 공부해보고 싶은 것들을 리스트 업
+
+
+> [RESTful API로 리팩토링 하기](https://velog.io/@prayme/%EC%B2%AB%EB%B2%88%EC%A7%B8-%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8-%EB%82%B4-%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8%EB%A5%BC-RESTful-API%EB%A1%9C-%EB%A7%8C%EB%93%A4%EC%9E%90) - REST 관련 포스팅들을 많이 읽으며 [REST를 공부한 후](https://velog.io/@prayme/%EC%B2%AB%EB%B2%88%EC%A7%B8-%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8-RESTful-API-%EC%84%A4%EA%B3%84) 내 프로젝트를 리팩토링하기까지의 여정
+
+
+**🔽프로젝트를 완성하기 위해서 어떻게 동작하는지는 모르겠지만 일단 사용 했던 기능들을 프로젝트가 끝난 후 공부한 흔적🔽**
+  > [프로젝트에서 사용한 Spring 기능들에 대한 공식 문서 읽기 - 1](https://velog.io/@prayme/%EC%B2%AB%EB%B2%88%EC%A7%B8-%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8-%EA%B0%81%EC%A2%85-%EC%96%B4%EB%85%B8%ED%85%8C%EC%9D%B4%EC%85%98%EB%93%A4-SpringBootApplication-auto-configuration)
+
+
+  > [프로젝트에서 사용한 Spring 기능들에 대한 공식 문서 읽기 - 2](https://velog.io/@prayme/%EC%B2%AB%EB%B2%88%EC%A7%B8-%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8-%EA%B0%81%EC%A2%85-%EA%B5%AC%ED%98%84%EC%B2%B4%EB%93%A4-WebSecurityConfigurerAdapter)  
+
+
+  > [프로젝트에서 사용한 Spring 기능들에 대한 공식 문서 읽기 - 3](https://velog.io/@prayme/%EC%B2%AB%EB%B2%88%EC%A7%B8-%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8-%EA%B0%81%EC%A2%85%EA%B5%AC%ED%98%84%EC%B2%B4-UserDetailsService-Authentication)  
