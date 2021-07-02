@@ -40,7 +40,7 @@ URL: [https://hnu.prayme.site](https://hnu.prayme.site)
 > [RESTful API로 리팩토링 하기](https://velog.io/@prayme/%EC%B2%AB%EB%B2%88%EC%A7%B8-%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8-%EB%82%B4-%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8%EB%A5%BC-RESTful-API%EB%A1%9C-%EB%A7%8C%EB%93%A4%EC%9E%90) - REST 관련 포스팅들을 많이 읽으며 [REST를 공부한 후](https://velog.io/@prayme/%EC%B2%AB%EB%B2%88%EC%A7%B8-%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8-RESTful-API-%EC%84%A4%EA%B3%84) 내 프로젝트를 리팩토링하기까지의 여정
 
 
-**🔽프로젝트를 완성하기 위해서 어떻게 동작하는지는 모르겠지만 일단 사용 했던 기능들을 프로젝트가 끝난 후 공부한 흔적🔽**
+**🔽완성을 위해 일단 사용 했던 기능들을 프로젝트가 끝난 후 공부한 흔적🔽**
   > [프로젝트에서 사용한 Spring 기능들에 대한 공식 문서 읽기 - 1](https://velog.io/@prayme/%EC%B2%AB%EB%B2%88%EC%A7%B8-%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8-%EA%B0%81%EC%A2%85-%EC%96%B4%EB%85%B8%ED%85%8C%EC%9D%B4%EC%85%98%EB%93%A4-SpringBootApplication-auto-configuration)
 
 
